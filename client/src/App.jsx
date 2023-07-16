@@ -1,12 +1,6 @@
 import "./App.css";
 
-import { Box, IconButton, Typography } from "@mui/material";
-import {
-  AddHomeWorkSharp,
-  ConstructionSharp,
-  KeyboardArrowRightSharp,
-  QueryStatsSharp,
-} from "@mui/icons-material";
+import { AppBar, Button, ButtonGroup, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 const rootStyles = {
@@ -16,14 +10,30 @@ const rootStyles = {
     left: 0,
     right: 0,
   },
+  navbar: {
+    justifyContent: "space-around",
+    backgroundColor: "#2b2d42",
+  },
+  navbarButtons: {
+    color: "whitesmoke",
+  },
 };
 
 function App() {
   return (
     <>
-      <Box component={"nav"} id="navbar" sx={rootStyles.container}>
-        HI
-      </Box>
+      <AppBar component={"nav"} id="navbar" sx={rootStyles.container}>
+        <Toolbar sx={rootStyles.navbar}>
+          <Typography variant="h6" component={"div"}>
+            AnimeExplorer
+          </Typography>
+
+          <ButtonGroup variant="outlined" aria-label="login/sing up button group">
+            <Button sx={rootStyles.navbarButtons}>Login</Button>
+            <Button sx={rootStyles.navbarButtons}>Sign Up</Button>
+          </ButtonGroup>
+        </Toolbar>
+      </AppBar>
       <div id="detail">
         <Outlet />
       </div>
