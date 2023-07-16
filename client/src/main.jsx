@@ -7,12 +7,19 @@ import App from "./App.jsx";
 import "./index.css";
 
 import ErrorPage from "./Components/ErrorPage.jsx";
+import Landing from "./Components/Landing.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Landing />,
+      },
+    ],
   },
   {
     path: "/login",
