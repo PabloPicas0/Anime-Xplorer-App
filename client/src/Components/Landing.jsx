@@ -43,7 +43,7 @@ const landingStyles = {
   joinButtonWrapper: {
     display: "flex",
     justifyContent: "center",
-    marginTop: "5rem",
+    marginTop: "4.0rem",
   },
   joinButton: {
     borderRadius: "30px",
