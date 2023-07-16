@@ -63,7 +63,7 @@ function App() {
     <Box component={"main"} id="landing" sx={rootStyles.container}>
       <Box sx={rootStyles.contentBox}>
         <Box component={"header"} sx={rootStyles.title}>
-          <h1>Track your favorite anime with AnimeXplorer</h1>
+          <h1>Track your favorite anime with AnimeExplorer</h1>
         </Box>
 
         <Box sx={rootStyles.cardWrapper}>
