@@ -8,6 +8,8 @@ import "./index.css";
 
 import ErrorPage from "./Components/ErrorPage.jsx";
 import Landing from "./Components/Landing.jsx";
+import Login from "./Components/Login.jsx";
+import SignUp from "./Components/SignUp.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,11 +21,15 @@ const router = createBrowserRouter([
         path: "/",
         element: <Landing />,
       },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <h1>Login Route</h1>,
   },
 ]);
 

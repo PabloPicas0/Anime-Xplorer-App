@@ -5,6 +5,7 @@ import {
   KeyboardArrowRightSharp,
   QueryStatsSharp,
 } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const landingStyles = {
   container: {
@@ -48,8 +49,10 @@ const landingStyles = {
     borderRadius: "30px",
     paddingLeft: "20px",
     paddingRight: "10px",
+    paddingY: "6px",
     backgroundColor: "#1769aa",
     color: "whitesmoke",
+    fontSize: "1.3rem",
     "&:hover": {
       backgroundColor: "#1769aa",
     },
@@ -109,12 +112,12 @@ const Landing = () => {
           </Box>
         </Box>
 
-        <Box sx={landingStyles.joinButtonWrapper}>
+        <Link to={`signup`} style={landingStyles.joinButtonWrapper}>
           <IconButton sx={landingStyles.joinButton}>
             Join Now
             <KeyboardArrowRightSharp fontSize="large" />
           </IconButton>
-        </Box>
+        </Link>
       </Box>
     </Box>
   );

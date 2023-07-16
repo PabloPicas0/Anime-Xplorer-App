@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { AppBar, Button, ButtonGroup, Toolbar, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const rootStyles = {
   container: {
@@ -29,8 +29,16 @@ function App() {
           </Typography>
 
           <ButtonGroup variant="outlined" aria-label="login/sing up button group">
-            <Button sx={rootStyles.navbarButtons}>Login</Button>
-            <Button sx={rootStyles.navbarButtons}>Sign Up</Button>
+            <Button>
+              <Link to={`login`} style={rootStyles.navbarButtons}>
+                Login
+              </Link>
+            </Button>
+            <Button>
+              <Link to={`signup`} style={rootStyles.navbarButtons}>
+                Sign Up
+              </Link>
+            </Button>
           </ButtonGroup>
         </Toolbar>
       </AppBar>
