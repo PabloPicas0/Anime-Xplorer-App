@@ -19,17 +19,22 @@ const landingStyles = {
     maxWidth: "1300px",
     color: "whitesmoke",
     backgroundColor: "#0a1625",
-    padding: "6rem 5rem 3rem 5rem",
+    padding: { xs: "2rem 1rem", lg: "6rem 5rem 3rem 5rem" },
+    marginX: "20px",
     borderRadius: "20px",
     boxShadow: 24,
   },
-  title: {
+  titleHeader: {
     marginBottom: "2.5rem",
     textAlign: "center",
   },
+  title: {
+    fontSize: { xs: "1.4rem", sm: "2.8rem" },
+  },
   cardWrapper: {
-    display: "flex",
-    justifyContent: "space-between",
+    display: "grid",
+    gridAutoFlow: { xs: "row", lg: "column" },
+    justifyContent: "center",
     gap: "3rem",
   },
   card: {
@@ -63,8 +68,8 @@ const Landing = () => {
   return (
     <Box component={"main"} id="landing" sx={landingStyles.container}>
       <Box sx={landingStyles.contentBox}>
-        <Box component={"header"} sx={landingStyles.title}>
-          <h1>Track your favorite anime with AnimeExplorer</h1>
+        <Box component={"header"} sx={landingStyles.titleHeader}>
+          <Typography component={"h1"} sx={landingStyles.title}>Track your favorite anime with AnimeExplorer</Typography>
         </Box>
 
         <Box sx={landingStyles.cardWrapper}>

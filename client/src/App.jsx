@@ -4,12 +4,6 @@ import { AppBar, Button, ButtonGroup, Toolbar, Typography } from "@mui/material"
 import { Link, Outlet } from "react-router-dom";
 
 const rootStyles = {
-  container: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-  },
   navbar: {
     justifyContent: "space-around",
     backgroundColor: "#2b2d42",
