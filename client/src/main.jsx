@@ -12,6 +12,9 @@ import Login from "./Components/Login.jsx";
 import SignUp from "./Components/SignUp.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 
+// Reminder
+// You can use separate state np isLoaded for component to display domething else np. skeleton from mui
+
 const router = createBrowserRouter([
   {
     path: "/",
