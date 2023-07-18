@@ -11,6 +11,7 @@ const singUpStyles = {
     backgroundColor: "#fafafa",
   },
   formStyles: {
+    maxWidth: "486px",
     padding: "0px 20px",
   },
   formTitle: {

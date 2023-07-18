@@ -49,6 +49,7 @@ const Login = () => {
           <Button type="submit" variant="contained">
             Login
           </Button>
+
           <div style={loginStyles.linkWrapperStyles}>
             <Link to={`/recover`} style={loginStyles.link}>
               Forgot password ?
