@@ -1,12 +1,19 @@
+import { Menu } from "@mui/icons-material";
 import "./App.css";
 
-import { AppBar, Button, ButtonGroup, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, ButtonGroup, IconButton, Toolbar, Typography } from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
 
 const rootStyles = {
   navbar: {
     justifyContent: "space-around",
     backgroundColor: "#2b2d42",
+  },
+  desktopLinks: {
+    display: { xs: "none", sm: "inline-flex" },
+  },
+  mobileLinks: {
+    display: { xs: "inline-flex", sm: "none" },
   },
   navbarButtons: {
     color: "whitesmoke",
@@ -22,7 +29,10 @@ function App() {
             AnimeExplorer
           </Typography>
 
-          <ButtonGroup variant="outlined" aria-label="login/sing up button group">
+          <ButtonGroup
+            variant="outlined"
+            aria-label="login/sing up button group"
+            sx={rootStyles.desktopLinks}>
             <Button>
               <Link to={`login`} style={rootStyles.navbarButtons}>
                 Login
@@ -34,8 +44,13 @@ function App() {
               </Link>
             </Button>
           </ButtonGroup>
+
+          <IconButton sx={{ ...rootStyles.navbarButtons, ...rootStyles.mobileLinks }}>
+            <Menu />
+          </IconButton>
         </Toolbar>
       </AppBar>
+
       <div id="detail">
         <Outlet />
       </div>
