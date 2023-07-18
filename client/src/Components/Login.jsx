@@ -34,7 +34,15 @@ const Login = () => {
     <Box sx={loginStyles.container}>
       <Form style={loginStyles.formStyles}>
         <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>
-        <TextField id="username" label="Username" name="username" fullWidth required margin="normal" />
+        <TextField
+          id="username"
+          label="Username"
+          name="username"
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="on"
+        />
         <TextField
           id="password"
           label="Password"
@@ -43,6 +51,7 @@ const Login = () => {
           required
           margin="normal"
           type="password"
+          autoComplete="on"
         />
 
         <Box sx={loginStyles.formButton}>

@@ -29,8 +29,24 @@ const SignUp = () => {
     <Box sx={singUpStyles.container}>
       <Form style={singUpStyles.formStyles}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
-        <TextField id="e-mail" label="E-mail" name="email" fullWidth required margin="normal" />
-        <TextField id="username" label="Username" name="username" fullWidth required margin="normal" />
+        <TextField
+          id="e-mail"
+          label="E-mail"
+          name="email"
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="on"
+        />
+        <TextField
+          id="username"
+          label="Username"
+          name="username"
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="on"
+        />
         <TextField
           id="password"
           label="Password"
@@ -39,6 +55,7 @@ const SignUp = () => {
           required
           margin="normal"
           type="password"
+          autoComplete="on"
         />
         <TextField
           id="passwordComfirm"
@@ -48,6 +65,7 @@ const SignUp = () => {
           required
           margin="normal"
           type="password"
+          autoComplete="on"
         />
 
         <Box sx={singUpStyles.formButton}>
