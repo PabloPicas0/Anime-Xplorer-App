@@ -1,53 +1,33 @@
-import { Menu } from "@mui/icons-material";
+import { useState } from "react";
+
 import "./App.css";
 
-import { AppBar, Button, ButtonGroup, IconButton, Toolbar, Typography } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import { Outlet } from "react-router-dom";
+
+import Unregistered from "./Components/UI/Unregistered";
+import Registred from "./Components/UI/Registered";
 
 const rootStyles = {
   navbar: {
     justifyContent: "space-around",
+    alignItems: "stretch",
     backgroundColor: "#2b2d42",
-  },
-  desktopLinks: {
-    display: { xs: "none", sm: "inline-flex" },
-  },
-  mobileLinks: {
-    display: { xs: "inline-flex", sm: "none" },
-  },
-  navbarButtons: {
-    color: "whitesmoke",
   },
 };
 
 function App() {
+  const [isRegistered, setIsRegistered] = useState(false);
+
   return (
     <>
-      <AppBar component={"nav"} id="navbar" sx={rootStyles.container}>
+      <AppBar component={"nav"} id="navbar">
         <Toolbar sx={rootStyles.navbar}>
-          <Typography variant="h6" component={"div"}>
+          <Typography variant="h6" component={"div"} alignSelf={"center"}>
             AnimeExplorer
           </Typography>
 
-          <ButtonGroup
-            variant="outlined"
-            aria-label="login/sing up button group"
-            sx={rootStyles.desktopLinks}>
-            <Button>
-              <Link to={`login`} style={rootStyles.navbarButtons}>
-                Login
-              </Link>
-            </Button>
-            <Button>
-              <Link to={`signup`} style={rootStyles.navbarButtons}>
-                Sign Up
-              </Link>
-            </Button>
-          </ButtonGroup>
-
-          <IconButton sx={{ ...rootStyles.navbarButtons, ...rootStyles.mobileLinks }}>
-            <Menu />
-          </IconButton>
+          {isRegistered ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>
 
