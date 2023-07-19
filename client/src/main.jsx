@@ -6,11 +6,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-import ErrorPage from "./Components/ErrorPage.jsx";
-import Landing from "./Components/Landing.jsx";
-import Login from "./Components/Login.jsx";
-import SignUp from "./Components/SignUp.jsx";
-import Recover from "./Components/Recover.jsx";
+import ErrorPage from "./Components/Routes/ErrorPage.jsx";
+import Landing from "./Components/Routes/Landing.jsx";
+import Login from "./Components/Routes/Login.jsx";
+import SignUp from "./Components/Routes/SignUp.jsx";
+import Recover from "./Components/Routes/Recover.jsx";
 
 import { createTheme, ThemeProvider } from "@mui/material";
 
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/recover",
-        element: <Recover />
-      }
+        element: <Recover />,
+      },
     ],
   },
 ]);
