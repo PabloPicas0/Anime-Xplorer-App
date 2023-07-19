@@ -10,6 +10,8 @@ import ErrorPage from "./Components/ErrorPage.jsx";
 import Landing from "./Components/Landing.jsx";
 import Login from "./Components/Login.jsx";
 import SignUp from "./Components/SignUp.jsx";
+import Recover from "./Components/Recover.jsx";
+
 import { createTheme, ThemeProvider } from "@mui/material";
 
 // Reminder
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+      {
+        path: "/recover",
+        element: <Recover />
+      }
     ],
   },
 ]);

@@ -34,6 +34,7 @@ const Login = () => {
     <Box sx={loginStyles.container}>
       <Form style={loginStyles.formStyles}>
         <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>
+
         <TextField
           id="username"
           label="Username"

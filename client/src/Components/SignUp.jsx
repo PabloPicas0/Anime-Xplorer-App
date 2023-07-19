@@ -29,6 +29,7 @@ const SignUp = () => {
     <Box sx={singUpStyles.container}>
       <Form style={singUpStyles.formStyles}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
+        
         <TextField
           id="e-mail"
           label="E-mail"
