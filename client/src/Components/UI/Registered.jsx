@@ -5,7 +5,6 @@ const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
 const registredStyles = {
   linksStyles: {
     color: "white",
-    display: "block",
     borderBottom: "1px solid transparent",
     borderRadius: 0,
   },

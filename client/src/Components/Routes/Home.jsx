@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography, Zoom } from "@mui/material";
 import { Add, HomeOutlined, LogoutSharp, Person, Settings } from "@mui/icons-material";
 
 const homeStyles = {
@@ -7,19 +7,28 @@ const homeStyles = {
     maxWidth: "1024px",
     padding: "3rem 10px",
   },
-  heroIconStyles: {
-    transform: "translateY(50%)",
-  },
   menuStyles: {
     display: "flex",
+    gap: "10px",
+  },
+  heroIconWrapperStyles: {
+    border: "2px solid #d9dbdf",
+  },
+  heroIconStyles: {
+    width: "100px",
+    height: "100px",
   },
   optionsStyles: {
     display: "flex",
     flexDirection: "column",
-    gap: "20px",
+    gap: "25px",
   },
   homeIconStyles: {
     justifyContent: "start",
+  },
+  sectionTitleStyles: {
+    textAlign: "center",
+    marginTop: "20px",
   },
 };
 
@@ -28,35 +37,45 @@ const Home = () => {
     <Box id="container" sx={homeStyles.container}>
       <Box sx={homeStyles.menuStyles}>
         <Box>
-          <IconButton sx={homeStyles.heroIconStyles} size="large">
-            <Person />
-          </IconButton>
+          <Tooltip TransitionComponent={Zoom} title="Open Settings" arrow>
+            <IconButton size="large" sx={homeStyles.heroIconWrapperStyles}>
+              <Person sx={homeStyles.heroIconStyles} />
+            </IconButton>
+          </Tooltip>
         </Box>
 
         <Box sx={homeStyles.optionsStyles}>
           <Box>
-            <IconButton size="large" sx={homeStyles.homeIconStyles}>
-              <HomeOutlined />
-            </IconButton>
+            <Tooltip TransitionComponent={Zoom} title="Home" arrow>
+              <IconButton size="large" sx={homeStyles.homeIconStyles}>
+                <HomeOutlined />
+              </IconButton>
+            </Tooltip>
           </Box>
 
           <Box id="options">
-            <IconButton size="large">
-              <Add />
-            </IconButton>
+            <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
+              <IconButton size="large">
+                <Add />
+              </IconButton>
+            </Tooltip>
 
-            <IconButton size="large">
-              <Settings />
-            </IconButton>
+            <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
+              <IconButton size="large">
+                <Settings />
+              </IconButton>
+            </Tooltip>
 
-            <IconButton size="large">
-              <LogoutSharp />
-            </IconButton>
+            <Tooltip TransitionComponent={Zoom} title="Logout" arrow>
+              <IconButton size="large">
+                <LogoutSharp />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Box>
       </Box>
 
-      <Typography sx={homeStyles.sectionTitle}>All anime "current section"</Typography>
+      <h1 style={homeStyles.sectionTitleStyles}>All anime</h1>
 
       <Box sx={homeStyles.listStyle}></Box>
     </Box>
