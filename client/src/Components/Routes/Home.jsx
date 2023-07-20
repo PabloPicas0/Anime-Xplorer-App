@@ -10,6 +10,7 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { useState } from "react";
+import Card from "../UI/Card";
 
 const homeStyles = {
   container: {
@@ -38,7 +39,7 @@ const homeStyles = {
   },
   filters: {
     textAlign: "end",
-    marginTop: "20px",
+    margin: "20px 0px",
   },
 };
 
@@ -58,7 +59,7 @@ const filterIcons = [
 ];
 
 const Home = () => {
-  const [checked, setChecked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <Box id="container" sx={homeStyles.container}>
@@ -68,7 +69,7 @@ const Home = () => {
             <IconButton
               size="large"
               sx={homeStyles.heroIconWrapper}
-              onClick={() => setChecked((prev) => !prev)}>
+              onClick={() => setIsVisible((prev) => !prev)}>
               <Person sx={homeStyles.heroIcon} />
             </IconButton>
           </Tooltip>
@@ -76,7 +77,7 @@ const Home = () => {
 
         <Box sx={homeStyles.options}>
           <Box>
-            <Grow in={checked}>
+            <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
                 <IconButton size="large" sx={homeStyles.homeIcon}>
                   <HomeOutlined />
@@ -86,7 +87,7 @@ const Home = () => {
           </Box>
 
           <Box id="options">
-            <Grow in={checked}>
+            <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
                 <IconButton size="large">
                   <Add />
@@ -94,7 +95,7 @@ const Home = () => {
               </Tooltip>
             </Grow>
 
-            <Grow in={checked} {...(checked ? { timeout: 500 } : {})}>
+            <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
               <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
                 <IconButton size="large">
                   <Settings />
@@ -102,7 +103,7 @@ const Home = () => {
               </Tooltip>
             </Grow>
 
-            <Grow in={checked} {...(checked ? { timeout: 550 } : {})}>
+            <Grow in={isVisible} {...(isVisible ? { timeout: 550 } : {})}>
               <Tooltip TransitionComponent={Zoom} title="Logout" arrow>
                 <IconButton size="large">
                   <LogoutSharp />
@@ -118,14 +119,18 @@ const Home = () => {
           const { description, icon } = filterIcon;
 
           return (
-            <Tooltip TransitionComponent={Zoom} title={description} arrow>
+            <Tooltip TransitionComponent={Zoom} title={description} key={description} arrow>
               <IconButton>{icon}</IconButton>
             </Tooltip>
           );
         })}
       </Box>
 
-      <Box sx={homeStyles.listStyle}></Box>
+      <Box id="list" sx={homeStyles.listStyle}>
+        {[...Array(5)].map((_, idx) => (
+          <Card key={idx}/>
+        ))}
+      </Box>
     </Box>
   );
 };
