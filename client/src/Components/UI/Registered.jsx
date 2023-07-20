@@ -1,5 +1,4 @@
-import { Person } from "@mui/icons-material";
-import { Button, IconButton, MenuItem, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
 
@@ -9,10 +8,6 @@ const registredStyles = {
     display: "block",
     borderBottom: "1px solid transparent",
     borderRadius: 0,
-  },
-  heroIcon: {
-    color: "white",
-    alignSelf: "center",
   },
 };
 
@@ -26,10 +21,6 @@ const Registred = () => {
           </Button>
         );
       })}
-
-      <IconButton sx={registredStyles.heroIcon} size="large">
-        <Person />
-      </IconButton>
     </>
   );
 };
