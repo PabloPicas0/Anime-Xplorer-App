@@ -1,5 +1,15 @@
-import { Box, IconButton, Tooltip, Typography, Zoom } from "@mui/material";
-import { Add, HomeOutlined, LogoutSharp, Person, Settings } from "@mui/icons-material";
+import { Box, Grow, IconButton, Tooltip, Zoom } from "@mui/material";
+import {
+  Add,
+  BarChartSharp,
+  FilterAlt,
+  FilterList,
+  HomeOutlined,
+  LogoutSharp,
+  Person,
+  Settings,
+} from "@mui/icons-material";
+import { useState } from "react";
 
 const homeStyles = {
   container: {
@@ -7,75 +17,113 @@ const homeStyles = {
     maxWidth: "1024px",
     padding: "3rem 10px",
   },
-  menuStyles: {
+  menu: {
     display: "flex",
     gap: "10px",
   },
-  heroIconWrapperStyles: {
+  heroIconWrapper: {
     border: "2px solid #d9dbdf",
   },
-  heroIconStyles: {
+  heroIcon: {
     width: "100px",
     height: "100px",
   },
-  optionsStyles: {
+  options: {
     display: "flex",
     flexDirection: "column",
     gap: "25px",
   },
-  homeIconStyles: {
+  homeIcon: {
     justifyContent: "start",
   },
-  sectionTitleStyles: {
-    textAlign: "center",
+  filters: {
+    textAlign: "end",
     marginTop: "20px",
   },
 };
 
+const filterIcons = [
+  {
+    description: "Statistic",
+    icon: <BarChartSharp />,
+  },
+  {
+    description: "Filter",
+    icon: <FilterAlt />,
+  },
+  {
+    description: "Sort",
+    icon: <FilterList />,
+  },
+];
+
 const Home = () => {
+  const [checked, setChecked] = useState(false);
+
   return (
     <Box id="container" sx={homeStyles.container}>
-      <Box sx={homeStyles.menuStyles}>
+      <Box sx={homeStyles.menu}>
         <Box>
           <Tooltip TransitionComponent={Zoom} title="Open Settings" arrow>
-            <IconButton size="large" sx={homeStyles.heroIconWrapperStyles}>
-              <Person sx={homeStyles.heroIconStyles} />
+            <IconButton
+              size="large"
+              sx={homeStyles.heroIconWrapper}
+              onClick={() => setChecked((prev) => !prev)}>
+              <Person sx={homeStyles.heroIcon} />
             </IconButton>
           </Tooltip>
         </Box>
 
-        <Box sx={homeStyles.optionsStyles}>
+        <Box sx={homeStyles.options}>
           <Box>
-            <Tooltip TransitionComponent={Zoom} title="Home" arrow>
-              <IconButton size="large" sx={homeStyles.homeIconStyles}>
-                <HomeOutlined />
-              </IconButton>
-            </Tooltip>
+            <Grow in={checked}>
+              <Tooltip TransitionComponent={Zoom} title="Home" arrow>
+                <IconButton size="large" sx={homeStyles.homeIcon}>
+                  <HomeOutlined />
+                </IconButton>
+              </Tooltip>
+            </Grow>
           </Box>
 
           <Box id="options">
-            <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
-              <IconButton size="large">
-                <Add />
-              </IconButton>
-            </Tooltip>
+            <Grow in={checked}>
+              <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
+                <IconButton size="large">
+                  <Add />
+                </IconButton>
+              </Tooltip>
+            </Grow>
 
-            <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
-              <IconButton size="large">
-                <Settings />
-              </IconButton>
-            </Tooltip>
+            <Grow in={checked} {...(checked ? { timeout: 500 } : {})}>
+              <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
+                <IconButton size="large">
+                  <Settings />
+                </IconButton>
+              </Tooltip>
+            </Grow>
 
-            <Tooltip TransitionComponent={Zoom} title="Logout" arrow>
-              <IconButton size="large">
-                <LogoutSharp />
-              </IconButton>
-            </Tooltip>
+            <Grow in={checked} {...(checked ? { timeout: 550 } : {})}>
+              <Tooltip TransitionComponent={Zoom} title="Logout" arrow>
+                <IconButton size="large">
+                  <LogoutSharp />
+                </IconButton>
+              </Tooltip>
+            </Grow>
           </Box>
         </Box>
       </Box>
 
-      <h1 style={homeStyles.sectionTitleStyles}>All anime</h1>
+      <Box style={homeStyles.filters}>
+        {filterIcons.map((filterIcon) => {
+          const { description, icon } = filterIcon;
+
+          return (
+            <Tooltip TransitionComponent={Zoom} title={description} arrow>
+              <IconButton>{icon}</IconButton>
+            </Tooltip>
+          );
+        })}
+      </Box>
 
       <Box sx={homeStyles.listStyle}></Box>
     </Box>
