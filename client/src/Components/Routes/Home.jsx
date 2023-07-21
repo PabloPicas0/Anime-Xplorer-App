@@ -65,8 +65,6 @@ const filterIcons = [
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const dispatch = useDispatch()
-
   return (
     <Box id="container" sx={homeStyles.container}>
       <Box sx={homeStyles.menu}>
