@@ -8,7 +8,6 @@ const singUpStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fafafa",
   },
   formStyles: {
     maxWidth: "486px",

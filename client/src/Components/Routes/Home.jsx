@@ -96,15 +96,15 @@ const Home = () => {
               </Tooltip>
             </Grow>
 
-            <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
-              <Link to={"/settings"}>
+            <Link to={"/settings"}>
+              <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
                 <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
                   <IconButton size="large">
                     <Settings />
                   </IconButton>
                 </Tooltip>
-              </Link>
-            </Grow>
+              </Grow>
+            </Link>
 
             <Grow in={isVisible} {...(isVisible ? { timeout: 550 } : {})}>
               <Tooltip TransitionComponent={Zoom} title="Logout" arrow>

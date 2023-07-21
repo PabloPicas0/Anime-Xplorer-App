@@ -6,7 +6,7 @@ const settingsStyles = {
     margin: "64px auto 0px auto", // margin due to 64px height of navbar to prevent stacking
     maxWidth: "1024px",
     padding: "3rem 10px",
-    height: "calc(50vh)",
+    minHeight: "50vh",
   },
   settingsColumns: {
     width: "100%",
@@ -23,6 +23,9 @@ const settingsStyles = {
     marginY: "20px",
   },
 };
+
+// TODO
+// Page does not display full proper color 
 
 const Settings = () => {
   return (

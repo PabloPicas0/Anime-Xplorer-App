@@ -7,7 +7,6 @@ const recoverStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fafafa",
   },
   formStyles: {
     padding: "0px 20px",
