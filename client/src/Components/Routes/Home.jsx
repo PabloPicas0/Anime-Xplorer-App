@@ -9,11 +9,12 @@ import {
   Person,
   Settings,
 } from "@mui/icons-material";
+
 import { useState } from "react";
-import Card from "../UI/Card";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { changeNav } from "../State/isSettingsSlice";
+
+import Card from "../UI/Card";
+
 
 const homeStyles = {
   container: {
@@ -103,7 +104,7 @@ const Home = () => {
             <Link to={"/settings"}>
               <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
                 <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
-                  <IconButton size="large" onClick={() => dispatch(changeNav())}>
+                  <IconButton size="large">
                     <Settings />
                   </IconButton>
                 </Tooltip>

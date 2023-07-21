@@ -22,14 +22,6 @@ import store from "./Components/Providers/Store.js";
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
 
-// TODO
-// Figure out how redux works, what is reducer etc.
-// Changes
-// Home component added dispatch
-// RegistredNav added useSelector, dispatch, navbard conditional render
-// added Store
-// added is settingsslice
-
 const router = createBrowserRouter([
   {
     path: "/",
