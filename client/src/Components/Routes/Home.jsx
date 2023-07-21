@@ -12,6 +12,8 @@ import {
 import { useState } from "react";
 import Card from "../UI/Card";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeNav } from "../State/isSettingsSlice";
 
 const homeStyles = {
   container: {
@@ -62,6 +64,8 @@ const filterIcons = [
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
 
+  const dispatch = useDispatch()
+
   return (
     <Box id="container" sx={homeStyles.container}>
       <Box sx={homeStyles.menu}>
@@ -99,7 +103,7 @@ const Home = () => {
             <Link to={"/settings"}>
               <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
                 <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
-                  <IconButton size="large">
+                  <IconButton size="large" onClick={() => dispatch(changeNav())}>
                     <Settings />
                   </IconButton>
                 </Tooltip>

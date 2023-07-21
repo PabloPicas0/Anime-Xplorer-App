@@ -16,8 +16,19 @@ import Home from "./Components/Routes/Home.jsx";
 import { Theme as ThemeProvider } from "./Components/Providers/Theme.jsx";
 import Settings from "./Components/Routes/Settings.jsx";
 
+import { Provider as StateProvider } from "react-redux";
+import store from "./Components/Providers/Store.js";
+
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
+
+// TODO
+// Figure out how redux works, what is reducer etc.
+// Changes
+// Home component added dispatch
+// RegistredNav added useSelector, dispatch, navbard conditional render
+// added Store
+// added is settingsslice
 
 const router = createBrowserRouter([
   {
@@ -55,8 +66,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <StateProvider store={store}>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </StateProvider>
   </React.StrictMode>
 );
