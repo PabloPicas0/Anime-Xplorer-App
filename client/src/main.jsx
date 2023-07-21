@@ -13,11 +13,11 @@ import SignUp from "./Components/Routes/SignUp.jsx";
 import Recover from "./Components/Routes/Recover.jsx";
 import Home from "./Components/Routes/Home.jsx";
 
-import { Theme as ThemeProvider } from "./Components/Providers/Theme.jsx";
+import { Theme as ThemeProvider } from "./Components/Theme/Theme.jsx";
 import Settings from "./Components/Routes/Settings.jsx";
 
 import { Provider as StateProvider } from "react-redux";
-import store from "./Components/Providers/Store.js";
+import store from "./Components/Redux/Store/Store.js";
 
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
