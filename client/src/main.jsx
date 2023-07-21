@@ -14,6 +14,7 @@ import Recover from "./Components/Routes/Recover.jsx";
 import Home from "./Components/Routes/Home.jsx";
 
 import { Theme as ThemeProvider } from "./Components/Providers/Theme.jsx";
+import Settings from "./Components/Routes/Settings.jsx";
 
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },

@@ -5,8 +5,8 @@ import "./App.css";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
-import Unregistered from "./Components/UI/Unregistered";
-import Registred from "./Components/UI/Registered";
+import Unregistered from "./Components/UI/UnregisteredNav";
+import Registred from "./Components/UI/RegisteredNav";
 
 const rootStyles = {
   navbar: {

@@ -11,6 +11,7 @@ import {
 } from "@mui/icons-material";
 import { useState } from "react";
 import Card from "../UI/Card";
+import { Link } from "react-router-dom";
 
 const homeStyles = {
   container: {
@@ -96,11 +97,13 @@ const Home = () => {
             </Grow>
 
             <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
-              <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
-                <IconButton size="large">
-                  <Settings />
-                </IconButton>
-              </Tooltip>
+              <Link to={"/settings"}>
+                <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
+                  <IconButton size="large">
+                    <Settings />
+                  </IconButton>
+                </Tooltip>
+              </Link>
             </Grow>
 
             <Grow in={isVisible} {...(isVisible ? { timeout: 550 } : {})}>
@@ -128,7 +131,7 @@ const Home = () => {
 
       <Box id="list" sx={homeStyles.listStyle}>
         {[...Array(5)].map((_, idx) => (
-          <Card key={idx}/>
+          <Card key={idx} />
         ))}
       </Box>
     </Box>
