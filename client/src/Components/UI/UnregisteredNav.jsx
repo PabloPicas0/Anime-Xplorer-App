@@ -1,22 +1,28 @@
 import { Link } from "react-router-dom";
 
-import { Button, ButtonGroup, IconButton } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Button, ButtonGroup, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { LoginSharp, Menu as MenuIcon, PersonAddAlt1 } from "@mui/icons-material";
+import { useState } from "react";
 
 const unregistredStyles = {
   desktopLinks: {
     display: { xs: "none", sm: "inline-flex" },
     alignSelf: "center",
   },
-  mobileLinks: {
+  mobileLinksIcon: {
     display: { xs: "inline-flex", sm: "none" },
   },
   navbarButtons: {
     color: "whitesmoke",
   },
+  mobileLinks: {
+    flexDirection: "column",
+  },
 };
 
 const Unregistered = () => {
+  const [userMenu, setUserMenu] = useState(null);
+
   return (
     <>
       <ButtonGroup
@@ -36,9 +42,23 @@ const Unregistered = () => {
         </Button>
       </ButtonGroup>
 
-      <IconButton sx={{ ...unregistredStyles.navbarButtons, ...unregistredStyles.mobileLinks }}>
-        <Menu />
+      <IconButton
+        sx={{ ...unregistredStyles.navbarButtons, ...unregistredStyles.mobileLinksIcon }}
+        onClick={(e) => setUserMenu(e.currentTarget)}>
+        <MenuIcon />
       </IconButton>
+
+      <Menu anchorEl={userMenu} keepMounted open={Boolean(userMenu)} onClose={() => setUserMenu(null)}>
+        <MenuItem sx={unregistredStyles.mobileLinks}>
+          <PersonAddAlt1 />
+          <Typography fontSize={14}>Sign up</Typography>
+        </MenuItem>
+
+        <MenuItem sx={unregistredStyles.mobileLinks}>
+          <LoginSharp />
+          <Typography fontSize={14}>Login</Typography>
+        </MenuItem>
+      </Menu>
     </>
   );
 };

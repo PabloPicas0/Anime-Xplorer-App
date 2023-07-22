@@ -17,7 +17,7 @@ const rootStyles = {
 };
 
 function App() {
-  const [isRegistered, setIsRegistered] = useState(true);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   return (
     <>
