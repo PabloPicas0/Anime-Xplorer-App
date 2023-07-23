@@ -43,19 +43,19 @@ const Menu = () => {
       </Box>
 
       <Box sx={menuStyles.options}>
-        <Box>
-          <Grow in={isVisible}>
-            <Link to={"/home"}>
+        <Box style={isVisible ? {} : { pointerEvents: "none" }}>
+          <Link to={"/home"}>
+            <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
                 <IconButton size="large" sx={menuStyles.homeIcon}>
                   <HomeOutlined />
                 </IconButton>
               </Tooltip>
-            </Link>
-          </Grow>
+            </Grow>
+          </Link>
         </Box>
 
-        <Box id="options">
+        <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
           <Grow in={isVisible}>
             <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
               <IconButton size="large">
