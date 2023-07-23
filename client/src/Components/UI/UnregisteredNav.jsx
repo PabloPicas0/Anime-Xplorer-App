@@ -9,14 +9,20 @@ const unregistredStyles = {
     display: { xs: "none", sm: "inline-flex" },
     alignSelf: "center",
   },
-  mobileLinksIcon: {
+  hamburgerMenu: {
     display: { xs: "inline-flex", sm: "none" },
   },
   navbarButtons: {
     color: "whitesmoke",
   },
-  mobileLinks: {
+  menuItem: {
+    justifyContent: "center",
+  },
+  anchor: {
+    display: "flex",
+    alignItems: "center",
     flexDirection: "column",
+    color: "#000",
   },
 };
 
@@ -43,20 +49,24 @@ const Unregistered = () => {
       </ButtonGroup>
 
       <IconButton
-        sx={{ ...unregistredStyles.navbarButtons, ...unregistredStyles.mobileLinksIcon }}
+        sx={{ ...unregistredStyles.navbarButtons, ...unregistredStyles.hamburgerMenu }}
         onClick={(e) => setUserMenu(e.currentTarget)}>
         <MenuIcon />
       </IconButton>
 
       <Menu anchorEl={userMenu} keepMounted open={Boolean(userMenu)} onClose={() => setUserMenu(null)}>
-        <MenuItem sx={unregistredStyles.mobileLinks}>
-          <PersonAddAlt1 />
-          <Typography fontSize={14}>Sign up</Typography>
+        <MenuItem onClick={() => setUserMenu(null)}>
+          <Link to={"signup"} style={unregistredStyles.anchor}>
+            <PersonAddAlt1 />
+            <Typography fontSize={14}>Sign up</Typography>
+          </Link>
         </MenuItem>
 
-        <MenuItem sx={unregistredStyles.mobileLinks}>
-          <LoginSharp />
-          <Typography fontSize={14}>Login</Typography>
+        <MenuItem sx={unregistredStyles.menuItem} onClick={() => setUserMenu(null)}>
+          <Link to={"login"} style={unregistredStyles.anchor}>
+            <LoginSharp />
+            <Typography fontSize={14}>Login</Typography>
+          </Link>
         </MenuItem>
       </Menu>
     </>
