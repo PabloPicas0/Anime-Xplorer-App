@@ -50,6 +50,9 @@ const Home = () => {
           label="Select anime list"
           labelId="select-label"
           value={selectedValue}
+          MenuProps={{
+            marginThreshold: 10,
+          }}
           onChange={(e) => setSelectedValue(e.target.value)}>
           <MenuItem value={"All anime"}>All anime</MenuItem>
           <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
