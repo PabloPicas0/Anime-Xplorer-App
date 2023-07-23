@@ -44,15 +44,15 @@ const Menu = () => {
 
       <Box sx={menuStyles.options}>
         <Box>
-          <Link to={"/home"}>
-            <Grow in={isVisible}>
+          <Grow in={isVisible}>
+            <Link to={"/home"}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
                 <IconButton size="large" sx={menuStyles.homeIcon}>
                   <HomeOutlined />
                 </IconButton>
               </Tooltip>
-            </Grow>
-          </Link>
+            </Link>
+          </Grow>
         </Box>
 
         <Box id="options">

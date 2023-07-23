@@ -3,20 +3,11 @@ import { Button } from "@mui/material";
 const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
 
 const registredStyles = {
-  homeStyles: {
-    links: {
-      color: "white",
-      borderBottom: "1px solid transparent",
-      borderRadius: 0,
-    },
-  },
-  settingsStyles: {
-    links: {
-      alignSelf: "center",
-    },
-    icon: {
-      color: "whitesmoke",
-    },
+  links: {
+    display: { xs: "none", md: "inline-flex" },
+    color: "white",
+    borderBottom: "1px solid transparent",
+    borderRadius: 0,
   },
 };
 
@@ -25,7 +16,7 @@ const Registred = () => {
     <>
       {pages.map((page) => {
         return (
-          <Button key={page} sx={registredStyles.homeStyles.links}>
+          <Button key={page} sx={registredStyles.links}>
             {page}
           </Button>
         );

@@ -1,8 +1,9 @@
-import { Box, IconButton, Tooltip, Zoom } from "@mui/material";
+import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip, Zoom } from "@mui/material";
 import { BarChartSharp, FilterAlt, FilterList } from "@mui/icons-material";
 
 import Card from "../UI/Card";
 import Menu from "../UI/Menu";
+import { useState } from "react";
 
 const homeStyles = {
   container: {
@@ -13,6 +14,10 @@ const homeStyles = {
   filters: {
     textAlign: "end",
     margin: "20px 0px",
+  },
+  selectForm: {
+    display: { xs: "inline-flex", md: "none" },
+    marginTop: "30px",
   },
 };
 
@@ -32,11 +37,28 @@ const filterIcons = [
 ];
 
 const Home = () => {
+  const [selectedValue, setSelectedValue] = useState("");
+
   return (
     <Box id="container" sx={homeStyles.container}>
       <Menu />
 
-      <Box style={homeStyles.filters}>
+      <FormControl fullWidth sx={homeStyles.selectForm}>
+        <InputLabel id="select-label">Select anime list</InputLabel>
+
+        <Select
+          label="Select anime list"
+          labelId="select-label"
+          value={selectedValue}
+          onChange={(e) => setSelectedValue(e.target.value)}>
+          <MenuItem value={"All anime"}>All anime</MenuItem>
+          <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
+          <MenuItem value={"Completed"}>Completed</MenuItem>
+          <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
+        </Select>
+      </FormControl>
+
+      <Box sx={homeStyles.filters}>
         {filterIcons.map((filterIcon) => {
           const { description, icon } = filterIcon;
 
