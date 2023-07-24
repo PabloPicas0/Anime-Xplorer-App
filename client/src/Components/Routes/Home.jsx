@@ -37,7 +37,7 @@ const filterIcons = [
 ];
 
 const Home = () => {
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("All anime");
 
   return (
     <Box id="container" sx={homeStyles.container}>

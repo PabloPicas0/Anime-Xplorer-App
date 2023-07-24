@@ -15,6 +15,8 @@ import {
   Typography,
   Rating,
   Button,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -42,16 +44,13 @@ const menuStyles = {
   },
   dialogBody: {
     width: "100%",
-    padding: "20px",
   },
   score: {
     display: "flex",
+    flexDirection: { xs: "column", sm: "row" },
     gap: "10px",
     marginTop: "20px",
   },
-  submitBtn: {
-    marginTop: "20px"
-  }
 };
 
 const Menu = () => {
@@ -120,35 +119,47 @@ const Menu = () => {
         PaperProps={{ style: menuStyles.dialogBody }}>
         <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
 
-        <TextField label="Anime title" required margin="dense" />
+        <DialogContent>
+          <TextField label="Anime title" required margin="dense" fullWidth />
 
-        <FormControl fullWidth margin="dense">
-          <InputLabel id="select-label">Status</InputLabel>
+          <FormControl fullWidth margin="dense">
+            <InputLabel id="select-label">Status</InputLabel>
 
-          <Select
-            label="Status"
-            labelId="select-label"
-            value={selectedValue}
-            MenuProps={{
-              marginThreshold: 10,
-            }}
-            onChange={(e) => setSelectedValue(e.target.value)}>
-            <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
-            <MenuItem value={"Completed"}>Completed</MenuItem>
-            <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
-          </Select>
-        </FormControl>
+            <Select
+              label="Status"
+              labelId="select-label"
+              value={selectedValue}
+              MenuProps={{
+                marginThreshold: 10,
+              }}
+              onChange={(e) => setSelectedValue(e.target.value)}>
+              <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
+              <MenuItem value={"Completed"}>Completed</MenuItem>
+              <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
+            </Select>
+          </FormControl>
 
-        <TextField type="number" label="Episodes watched" margin="dense" />
+          <TextField
+            type="number"
+            label="Episodes watched"
+            margin="dense"
+            fullWidth
+            inputProps={{ min: 0 }}
+          />
 
-        <TextField type="number" label="All episodes" margin="dense" />
+          <TextField type="number" label="All episodes" margin="dense" fullWidth inputProps={{ min: 0 }} />
 
-        <Box sx={menuStyles.score}>
-          <Typography>Your score:</Typography>
-          <Rating name="anime-rating" value={null} />
-        </Box>
+          <Box sx={menuStyles.score}>
+            <Typography>Your score:</Typography>
+            <Rating name="anime-rating" value={null} />
+          </Box>
+        </DialogContent>
 
-        <Button variant="contained" sx={menuStyles.submitBtn}>Submit</Button>
+        <DialogActions>
+          <Button variant="contained" fullWidth>
+            Submit
+          </Button>
+        </DialogActions>
       </Dialog>
     </Box>
   );
