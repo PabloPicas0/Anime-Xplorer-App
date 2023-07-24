@@ -1,5 +1,21 @@
 import { Person, HomeOutlined, LogoutSharp, Settings, Add } from "@mui/icons-material";
-import { IconButton, Tooltip, Zoom, Grow, Box } from "@mui/material";
+import {
+  IconButton,
+  Tooltip,
+  Zoom,
+  Grow,
+  Box,
+  Dialog,
+  DialogTitle,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Typography,
+  Rating,
+  Button,
+} from "@mui/material";
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -24,10 +40,24 @@ const menuStyles = {
     flexDirection: "column",
     gap: "25px",
   },
+  dialogBody: {
+    width: "100%",
+    padding: "20px",
+  },
+  score: {
+    display: "flex",
+    gap: "10px",
+    marginTop: "20px",
+  },
+  submitBtn: {
+    marginTop: "20px"
+  }
 };
 
 const Menu = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("Plan to watch");
 
   return (
     <Box sx={menuStyles.menu}>
@@ -58,7 +88,7 @@ const Menu = () => {
         <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
           <Grow in={isVisible}>
             <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
-              <IconButton size="large">
+              <IconButton size="large" onClick={() => setOpenDialog(true)}>
                 <Add />
               </IconButton>
             </Tooltip>
@@ -83,6 +113,43 @@ const Menu = () => {
           </Grow>
         </Box>
       </Box>
+
+      <Dialog
+        onClose={() => setOpenDialog(false)}
+        open={openDialog}
+        PaperProps={{ style: menuStyles.dialogBody }}>
+        <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
+
+        <TextField label="Anime title" required margin="dense" />
+
+        <FormControl fullWidth margin="dense">
+          <InputLabel id="select-label">Status</InputLabel>
+
+          <Select
+            label="Status"
+            labelId="select-label"
+            value={selectedValue}
+            MenuProps={{
+              marginThreshold: 10,
+            }}
+            onChange={(e) => setSelectedValue(e.target.value)}>
+            <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
+            <MenuItem value={"Completed"}>Completed</MenuItem>
+            <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
+          </Select>
+        </FormControl>
+
+        <TextField type="number" label="Episodes watched" margin="dense" />
+
+        <TextField type="number" label="All episodes" margin="dense" />
+
+        <Box sx={menuStyles.score}>
+          <Typography>Your score:</Typography>
+          <Rating name="anime-rating" value={null} />
+        </Box>
+
+        <Button variant="contained" sx={menuStyles.submitBtn}>Submit</Button>
+      </Dialog>
     </Box>
   );
 };
