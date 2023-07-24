@@ -1,4 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
+import { useState } from "react";
 
 import { Form } from "react-router-dom";
 
@@ -24,50 +25,70 @@ const singUpStyles = {
 };
 
 const SignUp = () => {
+  const [fields, setFields] = useState([
+    {
+      id: "e-mail",
+      label: "E-mail",
+      name: "email",
+      type: "email",
+      value: "",
+    },
+    {
+      id: "username",
+      label: "Username",
+      name: "username",
+      type: "text",
+      value: "",
+    },
+    {
+      id: "password",
+      label: "Password",
+      name: "password",
+      type: "password",
+      value: "",
+    },
+    {
+      id: "passwordComfirm",
+      label: "Confirm Password",
+      name: "confirmPassword",
+      type: "password",
+      value: "",
+    },
+  ]);
+
+  const handleChange = (event, index) => {
+    setFields((prevFields) => {
+      const updatedFields = [...prevFields];
+      updatedFields[index].value = event.target.value;
+
+      return updatedFields;
+    });
+  };
+
   return (
     <Box sx={singUpStyles.container}>
-      <Form style={singUpStyles.formStyles}>
+      <Form style={singUpStyles.formStyles} method="post" action="">
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
-        <TextField
-          id="e-mail"
-          label="E-mail"
-          name="email"
-          fullWidth
-          required
-          margin="normal"
-          autoComplete="on"
-          type="email"
-        />
-        <TextField
-          id="username"
-          label="Username"
-          name="username"
-          fullWidth
-          required
-          margin="normal"
-          autoComplete="on"
-        />
-        <TextField
-          id="password"
-          label="Password"
-          name="password"
-          fullWidth
-          required
-          margin="normal"
-          type="password"
-          autoComplete="on"
-        />
-        <TextField
-          id="passwordComfirm"
-          label="Confirm Password"
-          name="confimrPassword"
-          fullWidth
-          required
-          margin="normal"
-          type="password"
-          autoComplete="on"
-        />
+        {fields.map((field, idx) => {
+          const { id, label, name, type, value } = field;
+
+          return (
+            <TextField
+              key={id}
+              id={id}
+              label={label}
+              name={name}
+              type={type}
+              fullWidth
+              required
+              margin="normal"
+              autoComplete="on"
+              value={value}
+              onChange={(e) => handleChange(e, idx)}
+            />
+          );
+        })}
 
         <Box sx={singUpStyles.formButton}>
           <Button type="submit" variant="contained">

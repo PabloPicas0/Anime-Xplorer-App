@@ -147,7 +147,7 @@ const Menu = () => {
             inputProps={{ min: 0 }}
           />
 
-          <TextField type="number" label="All episodes" margin="dense" fullWidth inputProps={{ min: 0 }} />
+          <TextField type="number" label="All episodes" margin="dense" fullWidth inputProps={{ min: 0 }} required/>
 
           <Box sx={menuStyles.score}>
             <Typography>Your score:</Typography>
