@@ -18,9 +18,8 @@ const settingsStyles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "100%",
-    maxWidth: "14%",
     borderRight: "1px solid #d9dbdf",
+    paddingRight: { xs: "20px", sm: "40px" },
   },
   margin: {
     marginBottom: "15px",
