@@ -28,7 +28,7 @@ const SignUp = () => {
     <Box sx={singUpStyles.container}>
       <Form style={singUpStyles.formStyles}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
-        
+
         <TextField
           id="e-mail"
           label="E-mail"
@@ -37,6 +37,7 @@ const SignUp = () => {
           required
           margin="normal"
           autoComplete="on"
+          type="email"
         />
         <TextField
           id="username"
