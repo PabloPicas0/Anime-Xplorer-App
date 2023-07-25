@@ -25,7 +25,7 @@ const singUpStyles = {
 };
 
 const SignUp = () => {
-  const [fields, setFields] = useState([
+  const [signUpfields, setSignUpFields] = useState([
     {
       id: "e-mail",
       label: "E-mail",
@@ -57,7 +57,7 @@ const SignUp = () => {
   ]);
 
   const handleChange = (event, index) => {
-    setFields((prevFields) => {
+    setSignUpFields((prevFields) => {
       const updatedFields = [...prevFields];
       updatedFields[index].value = event.target.value;
 
@@ -67,10 +67,10 @@ const SignUp = () => {
 
   return (
     <Box sx={singUpStyles.container}>
-      <Form style={singUpStyles.formStyles} method="post" action="">
+      <Form style={singUpStyles.formStyles}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
-        {fields.map((field, idx) => {
+        {signUpfields.map((field, idx) => {
           const { id, label, name, type, value } = field;
 
           return (
