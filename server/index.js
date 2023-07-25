@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+const userRoute = require("./routes/users")
+
 dotenv.config();
 const app = express();
 
@@ -15,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.send("<h1 style='text-align: center'>Server is running !</h1>");
 });
+
+app.use("/api/users", userRoute)
 
 const port = process.env.PORT || 1337;
 const listener = app.listen(port, () => {
