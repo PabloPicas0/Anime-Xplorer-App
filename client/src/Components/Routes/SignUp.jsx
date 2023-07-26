@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 const singUpStyles = {
   container: {
@@ -21,6 +21,15 @@ const singUpStyles = {
   formButton: {
     textAlign: "center",
     marginTop: "20px",
+  },
+  linkWrapperStyles: {
+    marginTop: "30px",
+    textAlign: "center",
+    fontWeight: 100,
+  },
+  link: {
+    color: "blue",
+    fontWeight: 100,
   },
 };
 
@@ -95,6 +104,13 @@ const SignUp = () => {
             Sign Up
           </Button>
         </Box>
+
+        <div style={singUpStyles.linkWrapperStyles}>
+          Already have an account ? {" "}
+          <Link to={`/login`} style={singUpStyles.link}>
+            Log in
+          </Link>
+        </div>
       </Form>
     </Box>
   );
