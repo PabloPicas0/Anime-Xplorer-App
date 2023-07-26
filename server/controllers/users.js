@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
     await user.save();
   } catch (error) {
     console.log(error);
-    res.status(500).send("server error");
+    res.status(500).send("Server error");
   }
 };
 

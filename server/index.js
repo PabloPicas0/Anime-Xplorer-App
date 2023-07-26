@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-const userRoute = require("./routes/users")
+const userRoute = require("./routes/users");
 
 dotenv.config();
 const app = express();
@@ -14,11 +14,11 @@ mongoose.connect(process.env.MONGO_URI);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   res.send("<h1 style='text-align: center'>Server is running !</h1>");
 });
 
-app.use("/api/users", userRoute)
+app.use("/api/users", userRoute);
 
 const port = process.env.PORT || 1337;
 const listener = app.listen(port, () => {
