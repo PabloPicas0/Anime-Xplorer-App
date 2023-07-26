@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.send("<h1 style='text-align: center'>Server is running !</h1>");
 });
 
