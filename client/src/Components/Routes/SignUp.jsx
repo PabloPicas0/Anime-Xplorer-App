@@ -2,6 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 import { Form, Link } from "react-router-dom";
+import url from "../Utils/api";
 
 const singUpStyles = {
   container: {
@@ -74,9 +75,21 @@ const SignUp = () => {
     });
   };
 
+  const handleSubmit = async (e) => {
+    const req = await fetch(`${url}/api/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}`,
+    });
+
+    console.log(req);
+  };
+
   return (
     <Box sx={singUpStyles.container}>
-      <Form style={singUpStyles.formStyles}>
+      <Form style={singUpStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
         {signUpfields.map((field, idx) => {
@@ -106,7 +119,7 @@ const SignUp = () => {
         </Box>
 
         <div style={singUpStyles.linkWrapperStyles}>
-          Already have an account ? {" "}
+          Already have an account ?{" "}
           <Link to={`/login`} style={singUpStyles.link}>
             Log in
           </Link>
