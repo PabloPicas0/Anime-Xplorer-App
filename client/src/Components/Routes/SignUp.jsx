@@ -1,7 +1,7 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 import { useState } from "react";
 
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 import url from "../Utils/api";
 
 const singUpStyles = {
@@ -31,6 +31,10 @@ const singUpStyles = {
   link: {
     color: "blue",
     fontWeight: 100,
+  },
+  alert: {
+    position: "fixed",
+    top: 70,
   },
 };
 
@@ -65,6 +69,9 @@ const SignUp = () => {
       value: "",
     },
   ]);
+  const [formStatus, setFormStatus] = useState({});
+
+  const navigate = useNavigate();
 
   const handleChange = (event, index) => {
     setSignUpFields((prevFields) => {
@@ -75,20 +82,37 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    const req = await fetch(`${url}/api/users`, {
+  const handleSubmit = async () => {
+    const reqest = await fetch(`${url}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}`,
+      body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}&password2=${signUpfields[3].value}`,
     });
 
-    console.log(req);
+    const response = await reqest.json();
+
+    setFormStatus(response);
+
+    if (!response.error) {
+      setTimeout(() => {
+        navigate("/login");
+      }, 500);
+    }
   };
 
   return (
     <Box sx={singUpStyles.container}>
+      {Object.keys(formStatus).length === 0 ? null : (
+        <Slide direction="down" in={formStatus.error}>
+          <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
+            {" "}
+            {formStatus.status}
+          </Alert>
+        </Slide>
+      )}
+
       <Form style={singUpStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
