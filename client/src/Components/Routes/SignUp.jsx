@@ -89,8 +89,6 @@ const SignUp = () => {
 
     const response = await reqest.json();
 
-    console.log(response);
-
     setFormStatus(response);
 
     if (!response.error) {
