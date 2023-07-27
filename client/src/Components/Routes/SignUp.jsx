@@ -43,28 +43,24 @@ const SignUp = () => {
     {
       id: "e-mail",
       label: "E-mail",
-      name: "email",
       type: "email",
       value: "",
     },
     {
       id: "username",
       label: "Username",
-      name: "username",
       type: "text",
       value: "",
     },
     {
       id: "password",
       label: "Password",
-      name: "password",
       type: "password",
       value: "",
     },
     {
       id: "passwordComfirm",
       label: "Confirm Password",
-      name: "confirmPassword",
       type: "password",
       value: "",
     },
@@ -93,6 +89,8 @@ const SignUp = () => {
 
     const response = await reqest.json();
 
+    console.log(response);
+
     setFormStatus(response);
 
     if (!response.error) {
@@ -117,15 +115,15 @@ const SignUp = () => {
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
         {signUpfields.map((field, idx) => {
-          const { id, label, name, type, value } = field;
+          const { id, label, type, value } = field;
 
           return (
             <TextField
               key={id}
               id={id}
               label={label}
-              name={name}
               type={type}
+              helperText={idx === 2 ? "Password need at least 6 characters" : ""}
               fullWidth
               required
               margin="normal"

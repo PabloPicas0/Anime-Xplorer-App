@@ -1,8 +1,36 @@
 const express = require("express");
+
+const userModel = require("../models/User");
 const registerUser = require("../controllers/users");
+
+const { check } = require("express-validator");
 
 const router = express.Router();
 
-router.post("/", registerUser);
+router.post(
+  "/",
+  check("username", "Username is required")
+    .notEmpty()
+    .custom(async (value) => {
+      const userExists = await userModel.findOne({ username: value });
+
+      if (userExists) {
+        throw new Error("User already exists. Please check your username");
+      } else {
+        return value;
+      }
+    }),
+  check("password", "Please enter a password of length more than 6")
+    .isLength({ min: 6 })
+    .custom((value, { req }) => {
+      if (value !== req.body.password2) {
+        throw new Error("Incorrect password");
+      } else {
+        return value;
+      }
+    }),
+  check("email", "Invalid email adress").isEmail(),
+  registerUser
+);
 
 module.exports = router;
