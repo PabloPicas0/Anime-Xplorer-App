@@ -20,11 +20,11 @@ router.post(
         return value;
       }
     }),
-  check("password", "Please enter a password of length more than 6")
+  check("password", "Password is too short")
     .isLength({ min: 6 })
     .custom((value, { req }) => {
       if (value !== req.body.password2) {
-        throw new Error("Incorrect password");
+        throw new Error("Passwords don't match");
       } else {
         return value;
       }

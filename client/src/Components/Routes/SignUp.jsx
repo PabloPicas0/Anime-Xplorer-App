@@ -106,7 +106,7 @@ const SignUp = () => {
         <Slide direction="down" in={formStatus.error}>
           <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
             {" "}
-            {formStatus.status}
+            {formStatus.status[0].msg}
           </Alert>
         </Slide>
       )}

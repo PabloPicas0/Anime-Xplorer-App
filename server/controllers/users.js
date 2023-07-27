@@ -1,15 +1,15 @@
-const {validationResult} = require("express-validator")
+const { validationResult } = require("express-validator");
 
 const userModel = require("../models/User");
 
 const registerUser = async (req, res) => {
-  const errors = validationResult(req)
-  
-  if(errors) {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
     return res.status(400).json({
       error: true,
-      status: "They are errors"
-    })
+      status: errors.array(),
+    });
   }
   const { email, username, password } = req.body;
 
@@ -24,14 +24,14 @@ const registerUser = async (req, res) => {
 
     return res.status(200).json({
       error: false,
-      status: "Account Created",
+      status: [{ msg: "Account Created" }],
     });
   } catch (error) {
     console.log(error);
 
     return res.status(500).json({
       error: true,
-      status: "Server error. Please try again later",
+      status: [{ msg: "Server error. Please try again later" }],
     });
   }
 };
