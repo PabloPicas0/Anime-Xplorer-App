@@ -1,5 +1,7 @@
 const { validationResult } = require("express-validator");
 
+const bcrypt = require("bcryptjs");
+
 const userModel = require("../models/User");
 
 const authLogin = async (req, res) => {
@@ -16,12 +18,20 @@ const authLogin = async (req, res) => {
 
   try {
     const user = await userModel.findOne({ username: username });
-    const isPasswordMatching = password === user?.password;
 
-    if (!user || !isPasswordMatching) {
+    if (!user) {
       return res.status(400).json({
         error: true,
-        status: [{ msg: "Invalid username or password" }],
+        status: [{ msg: "Invalid username" }],
+      });
+    }
+
+    const isPasswordMatching = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatching) {
+      return res.status(400).json({
+        error: true,
+        status: [{ msg: "Invalid password" }],
       });
     }
 
