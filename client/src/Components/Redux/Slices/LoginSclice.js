@@ -17,14 +17,19 @@ export const loginSlice = createSlice({
         value: "",
       },
     ],
+    status: {},
   },
   reducers: {
     handleValue: (state, action) => {
       const { index, event } = action.payload;
+
       state.loginFields[index].value = event.target.value;
+    },
+    handleStatus: (state, action) => {
+      state.status = action.payload;
     },
   },
 });
 
-export const { handleValue } = loginSlice.actions;
+export const { handleValue, handleStatus } = loginSlice.actions;
 export default loginSlice.reducer;

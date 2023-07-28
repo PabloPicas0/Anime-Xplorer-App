@@ -1,9 +1,8 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
 import { useSelector, useDispatch } from "react-redux";
-import { handleValue } from "../Redux/Slices/LoginSclice";
+import { handleStatus, handleValue } from "../Redux/Slices/LoginSclice";
 
-import { useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
 
 import url from "../Utils/api";
@@ -41,29 +40,40 @@ const loginStyles = {
 
 const Login = () => {
   const loginFields = useSelector((state) => state.login.loginFields);
+  const status = useSelector((state) => state.login.status);
+  
   const dispatch = useDispatch();
-
-  const [status, setStatus] = useState({});
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const reqest = await fetch(`${url}/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `username=${loginFields[0].value}&password=${loginFields[1].value}`,
-    });
+    try {
+      const reqest = await fetch(`${url}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `username=${loginFields[0].value}&password=${loginFields[1].value}`,
+      });
 
-    const response = await reqest.json();
+      const response = await reqest.json();
 
-    setStatus(response);
+      dispatch(handleStatus(response));
 
-    if (!response.error) {
-      setTimeout(() => {
-        navigate("/home");
-      }, 500);
+      if (!response.error) {
+        setTimeout(() => {
+          navigate("/home");
+        }, 500);
+      }
+    } catch (error) {
+      console.log(error);
+
+      dispatch(
+        handleStatus({
+          error: true,
+          status: [{ msg: "Unexpected error. Please try again later." }],
+        })
+      );
     }
   };
 
@@ -82,7 +92,7 @@ const Login = () => {
         <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>
 
         {loginFields.map((field, idx) => {
-          const { id, label, name, type, value } = field;
+          const { id, label, type, value } = field;
 
           return (
             <TextField
