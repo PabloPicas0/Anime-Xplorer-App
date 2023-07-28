@@ -1,7 +1,11 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
+import { useSelector, useDispatch } from "react-redux";
+import { handleValue } from "../Redux/Slices/LoginSclice";
+
 import { useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
+
 import url from "../Utils/api";
 
 const loginStyles = {
@@ -36,32 +40,12 @@ const loginStyles = {
 };
 
 const Login = () => {
-  const [loginFields, setLoginFields] = useState([
-    {
-      id: "username",
-      label: "Username",
-      type: "text",
-      value: "",
-    },
-    {
-      id: "password",
-      label: "Password",
-      type: "password",
-      value: "",
-    },
-  ]);
+  const loginFields = useSelector((state) => state.login.loginFields);
+  const dispatch = useDispatch();
+
   const [status, setStatus] = useState({});
 
   const navigate = useNavigate();
-
-  const handleChange = (event, index) => {
-    setLoginFields((prevFields) => {
-      const newFields = [...prevFields];
-      newFields[index].value = event.target.value;
-
-      return newFields;
-    });
-  };
 
   const handleSubmit = async () => {
     const reqest = await fetch(`${url}/api/login`, {
@@ -111,7 +95,7 @@ const Login = () => {
               autoComplete="on"
               type={type}
               value={value}
-              onChange={(e) => handleChange(e, idx)}
+              onChange={(e) => dispatch(handleValue({ index: idx, event: e }))}
             />
           );
         })}
