@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
 import { useState } from "react";
 import { Form, Link, useNavigate } from "react-router-dom";
@@ -28,6 +28,10 @@ const loginStyles = {
   link: {
     color: "blue",
     fontWeight: 100,
+  },
+  alert: {
+    position: "fixed",
+    top: 70,
   },
 };
 
@@ -70,11 +74,9 @@ const Login = () => {
 
     const response = await reqest.json();
 
-    console.log(response);
-
     setStatus(response);
 
-    if (!status.error) {
+    if (!response.error) {
       setTimeout(() => {
         navigate("/home");
       }, 500);
@@ -83,6 +85,15 @@ const Login = () => {
 
   return (
     <Box sx={loginStyles.container}>
+      {Object.keys(status).length === 0 ? null : (
+        <Slide direction="down" in={status.error}>
+          <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
+            {" "}
+            {status.status[0].msg}
+          </Alert>
+        </Slide>
+      )}
+
       <Form style={loginStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>
 

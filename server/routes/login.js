@@ -1,10 +1,15 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const userModel = require("../models/User")
-const loginUser = require("../controllers/login")
+const loginUser = require("../controllers/login");
 
+const { check } = require("express-validator");
 
-router.post("/", loginUser)
+router.post(
+  "/",
+  check("username", "Username is required").notEmpty(),
+  check("password", "Please check your password").exists(),
+  loginUser
+);
 
-module.exports = router
+module.exports = router;

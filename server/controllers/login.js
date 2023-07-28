@@ -16,7 +16,7 @@ const authLogin = async (req, res) => {
 
   try {
     const user = await userModel.findOne({ username: username });
-    const isPasswordMatching = password === user.password;
+    const isPasswordMatching = password === user?.password;
 
     if (!user || !isPasswordMatching) {
       return res.status(400).json({
