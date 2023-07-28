@@ -37,7 +37,7 @@ const authLogin = async (req, res) => {
 
     return res.status(200).json({
       error: false,
-      status: [{ msg: "OK" }],
+      status: [{ msg: "User authenticated" }],
     });
   } catch (error) {
     console.log(error);

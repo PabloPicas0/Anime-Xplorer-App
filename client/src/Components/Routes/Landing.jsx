@@ -69,7 +69,9 @@ const Landing = () => {
     <Box component={"main"} id="landing" sx={landingStyles.container}>
       <Box sx={landingStyles.contentBox}>
         <Box component={"header"} sx={landingStyles.titleHeader}>
-          <Typography component={"h1"} sx={landingStyles.title}>Track your favorite anime with AnimeExplorer</Typography>
+          <Typography component={"h1"} sx={landingStyles.title}>
+            Track your favorite anime with AnimeExplorer
+          </Typography>
         </Box>
 
         <Box sx={landingStyles.cardWrapper}>
@@ -97,7 +99,7 @@ const Landing = () => {
               <Typography component={"h2"} marginBottom={1} fontWeight={"bold"}>
                 Any time anywhere
               </Typography>
-              <Typography component={"p"}>Track your progress whenever your are.</Typography>
+              <Typography component={"p"}>Track your progress from every place on earth.</Typography>
             </Box>
           </Box>
 
