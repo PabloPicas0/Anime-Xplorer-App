@@ -16,7 +16,42 @@ const userSchema = new mongoose.Schema({
   },
   accountCreated: {
     type: Number,
-  }
+  },
+  accountSettings: [
+    {
+      keepLogined: {
+        type: Boolean,
+      },
+      color: {
+        type: String,
+      },
+      font: {
+        type: String,
+      },
+      defaultListFilter: {
+        type: String,
+      },
+    },
+  ],
+  animeList: [
+    {
+      animeType: {
+        type: String,
+      },
+      animeName: {
+        type: String,
+      },
+      animeStatus: {
+        type: String,
+      },
+      currentEpisode: {
+        type: Number,
+      },
+      allEpisodes: {
+        type: Number,
+      },
+    },
+  ],
 });
 
 const userModel = mongoose.model("userModel", userSchema);
