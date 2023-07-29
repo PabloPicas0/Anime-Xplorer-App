@@ -1,26 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const loginSlice = createSlice({
-  name: "login",
+export const profileSlice = createSlice({
+  name: "profile",
   initialState: {
-    loginFields: [
-      {
-        id: "username",
-        label: "Username",
-        type: "text",
-        value: "",
-      },
-      {
-        id: "password",
-        label: "Password",
-        type: "password",
-        value: "",
-      },
-    ],
-    status: {},
+    profileFields: {},
+    isAuthenticated: false,
   },
   reducers: {
-    handleValue: (state, action) => {
+    handleProfile: (state, action) => {
       const { index, event } = action.payload;
 
       state.loginFields[index].value = event.target.value;
@@ -31,5 +18,5 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { handleValue, handleStatus } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { handleProfile, handleStatus } = profileSlice.actions;
+export default profileSlice.reducer;

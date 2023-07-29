@@ -1,11 +1,9 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
-import { useSelector, useDispatch } from "react-redux";
-import { handleStatus, handleValue } from "../Redux/Slices/LoginSclice";
-
 import { Form, Link, useNavigate } from "react-router-dom";
 
 import url from "../Utils/api";
+import { useState } from "react";
 
 const loginStyles = {
   container: {
@@ -39,12 +37,33 @@ const loginStyles = {
 };
 
 const Login = () => {
-  const loginFields = useSelector((state) => state.login.loginFields);
-  const status = useSelector((state) => state.login.status);
-  
-  const dispatch = useDispatch();
+  const [loginFields, setLoginFields] = useState([
+    {
+      id: "username",
+      label: "Username",
+      type: "text",
+      value: "",
+    },
+    {
+      id: "password",
+      label: "Password",
+      type: "password",
+      value: "",
+    },
+  ]);
+
+  const [status, setStatus] = useState({});
 
   const navigate = useNavigate();
+
+  const handleChange = (event, index) => {
+    setLoginFields((prevFields) => {
+      const newFields = [...prevFields];
+      newFields[index].value = event.target.value;
+
+      return newFields;
+    });
+  };
 
   const handleSubmit = async () => {
     try {
@@ -58,7 +77,7 @@ const Login = () => {
 
       const response = await reqest.json();
 
-      dispatch(handleStatus(response));
+      setStatus(response);
 
       if (!response.error) {
         setTimeout(() => {
@@ -68,12 +87,10 @@ const Login = () => {
     } catch (error) {
       console.log(error);
 
-      dispatch(
-        handleStatus({
-          error: true,
-          status: [{ msg: "Unexpected error. Please try again later." }],
-        })
-      );
+      setStatus({
+        error: true,
+        status: [{ msg: "Unexpected error. Please try again later." }],
+      });
     }
   };
 
@@ -105,7 +122,7 @@ const Login = () => {
               autoComplete="on"
               type={type}
               value={value}
-              onChange={(e) => dispatch(handleValue({ index: idx, event: e }))}
+              onChange={(e) => handleChange(e, idx)}
             />
           );
         })}
