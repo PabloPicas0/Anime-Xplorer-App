@@ -56,7 +56,24 @@ const menuStyles = {
 const Menu = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("Plan to watch");
+  const [dialogValues, setDialogValues] = useState({
+    title: "",
+    status: "Plan to watch",
+    watchedEp: 0,
+    allEp: 0,
+    score: 0,
+  });
+
+  const handleClose = () => {
+    setOpenDialog(false);
+    setDialogValues({
+      title: "",
+      status: "Plan to watch",
+      watchedEp: 0,
+      allEp: 0,
+      score: 0,
+    });
+  };
 
   return (
     <Box sx={menuStyles.menu}>
@@ -113,14 +130,25 @@ const Menu = () => {
         </Box>
       </Box>
 
-      <Dialog
-        onClose={() => setOpenDialog(false)}
-        open={openDialog}
-        PaperProps={{ style: menuStyles.dialogBody }}>
+      <Dialog onClose={() => handleClose()} open={openDialog} PaperProps={{ style: menuStyles.dialogBody }}>
         <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
 
         <DialogContent>
-          <TextField label="Anime title" required margin="dense" fullWidth />
+          <TextField
+            label="Anime title"
+            required
+            margin="dense"
+            fullWidth
+            value={dialogValues.title}
+            onChange={(e) =>
+              setDialogValues((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.title = e.target.value;
+
+                return newValues;
+              })
+            }
+          />
 
           <FormControl fullWidth margin="dense">
             <InputLabel id="select-label">Status</InputLabel>
@@ -128,11 +156,18 @@ const Menu = () => {
             <Select
               label="Status"
               labelId="select-label"
-              value={selectedValue}
+              value={dialogValues.status}
               MenuProps={{
                 marginThreshold: 10,
               }}
-              onChange={(e) => setSelectedValue(e.target.value)}>
+              onChange={(e) =>
+                setDialogValues((oldValues) => {
+                  const newValues = { ...oldValues };
+                  newValues.status = e.target.value;
+
+                  return newValues;
+                })
+              }>
               <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
               <MenuItem value={"Completed"}>Completed</MenuItem>
               <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
@@ -145,13 +180,47 @@ const Menu = () => {
             margin="dense"
             fullWidth
             inputProps={{ min: 0 }}
+            onChange={(e) =>
+              setDialogValues((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.watchedEp = e.target.value;
+
+                return newValues;
+              })
+            }
           />
 
-          <TextField type="number" label="All episodes" margin="dense" fullWidth inputProps={{ min: 0 }} required/>
+          <TextField
+            type="number"
+            label="All episodes"
+            margin="dense"
+            fullWidth
+            inputProps={{ min: 0 }}
+            required
+            onChange={(e) =>
+              setDialogValues((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.allEp = e.target.value;
+
+                return newValues;
+              })
+            }
+          />
 
           <Box sx={menuStyles.score}>
             <Typography>Your score:</Typography>
-            <Rating name="anime-rating" value={null} />
+            <Rating
+              name="anime-rating"
+              value={dialogValues.score}
+              onChange={(e, newValue) => {
+                setDialogValues((oldValues) => {
+                  const newValues = { ...oldValues };
+                  newValues.score = newValue;
+
+                  return newValues;
+                });
+              }}
+            />
           </Box>
         </DialogContent>
 

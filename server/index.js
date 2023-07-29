@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const userRoute = require("./routes/users");
 const loginRoute = require("./routes/login");
+const listRoute = require("./routes/list")
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoute);
 app.use("/api/login", loginRoute);
+app.use("/api/list", listRoute)
 
 const port = process.env.PORT || 1337;
 const listener = app.listen(port, () => {
