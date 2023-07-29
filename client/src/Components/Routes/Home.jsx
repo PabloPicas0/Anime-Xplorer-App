@@ -4,12 +4,14 @@ import { BarChartSharp, FilterAlt, FilterList } from "@mui/icons-material";
 import Card from "../UI/Card";
 import Menu from "../UI/Menu";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const homeStyles = {
   container: {
     margin: "64px auto 0px auto", // margin due to 64px height of navbar to prevent stacking
     maxWidth: "1024px",
     padding: "3rem 10px",
+    minHeight: "calc(100vh - 64px)",
   },
   filters: {
     textAlign: "end",
@@ -38,6 +40,8 @@ const filterIcons = [
 
 const Home = () => {
   const [selectedValue, setSelectedValue] = useState("All anime");
+
+  const list = useSelector((state) => state.profile.profileFields.list);
 
   return (
     <Box id="container" sx={homeStyles.container}>
@@ -74,7 +78,7 @@ const Home = () => {
       </Box>
 
       <Box id="list" sx={homeStyles.listStyle}>
-        {[...Array(5)].map((_, idx) => (
+        {list.map((_, idx) => (
           <Card key={idx} />
         ))}
       </Box>

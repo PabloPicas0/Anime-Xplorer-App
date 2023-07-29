@@ -3,7 +3,11 @@ import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 import { Form, Link, useNavigate } from "react-router-dom";
 
 import url from "../Utils/api";
+
 import { useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { handleAuthentication, handleProfile } from "../Redux/Slices/profileSclice";
 
 const loginStyles = {
   container: {
@@ -54,6 +58,7 @@ const Login = () => {
 
   const [status, setStatus] = useState({});
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (event, index) => {
@@ -85,7 +90,10 @@ const Login = () => {
       });
 
       if (!response.error) {
+        dispatch(handleProfile(response.profile));
+
         setTimeout(() => {
+          dispatch(handleAuthentication(true));
           navigate("/home");
         }, 500);
       }

@@ -50,6 +50,9 @@ const userSchema = new mongoose.Schema({
       allEpisodes: {
         type: Number,
       },
+      score: {
+        type: Number,
+      },
     },
   ],
 });

@@ -8,12 +8,13 @@ export const profileSlice = createSlice({
   },
   reducers: {
     handleProfile: (state, action) => {
-      const { index, event } = action.payload;
-
-      state.profileFields = event.target.value;
+      state.profileFields = action.payload;
+    },
+    handleAuthentication: (state, action) => {
+      state.isAuthenticated = action.payload;
     },
   },
 });
 
-export const { handleProfile } = profileSlice.actions;
+export const { handleProfile, handleAuthentication } = profileSlice.actions;
 export default profileSlice.reducer;

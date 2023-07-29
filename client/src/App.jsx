@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 
 import Unregistered from "./Components/UI/UnregisteredNav";
 import Registred from "./Components/UI/RegisteredNav";
+import { useSelector } from "react-redux";
 
 const rootStyles = {
   navbar: {
@@ -17,7 +18,7 @@ const rootStyles = {
 };
 
 function App() {
-  const [isRegistered, setIsRegistered] = useState(false);
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   return (
     <>
@@ -27,7 +28,7 @@ function App() {
             AnimeExplorer
           </Typography>
 
-          {isRegistered ? <Registred /> : <Unregistered />}
+          {isAuthenticated ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>
 
