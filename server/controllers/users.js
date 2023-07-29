@@ -24,6 +24,7 @@ const registerUser = async (req, res) => {
       email: email,
       username: username,
       password: hashedPassword,
+      accountCreated: new Date().getTime(),
     });
 
     await user.save();

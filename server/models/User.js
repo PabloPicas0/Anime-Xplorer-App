@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  accountCreated: {
+    type: Number,
+  }
 });
 
 const userModel = mongoose.model("userModel", userSchema);

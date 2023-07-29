@@ -77,7 +77,12 @@ const Login = () => {
 
       const response = await reqest.json();
 
-      setStatus(response);
+      console.log(response);
+
+      setStatus({
+        error: response.error,
+        status: response.status,
+      });
 
       if (!response.error) {
         setTimeout(() => {
