@@ -61,7 +61,6 @@ const AddToList = () => {
   // TODO
   // Form is subbmited with empty fields
   const handleSubmit = async () => {
-    console.log(username);
     try {
       const request = await fetch(`${url}/api/list`, {
         method: "POST",
@@ -78,7 +77,7 @@ const AddToList = () => {
       console.log(response);
 
       dispatch(handleClientList(response.list));
-      dispatch(handleDialog(false));
+      handleClose();
     } catch (error) {
       console.error(error);
     }

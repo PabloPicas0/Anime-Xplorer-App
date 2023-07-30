@@ -1,6 +1,16 @@
 const userModel = require("../models/User");
 
+const { validationResult } = require("express-validator");
+
 const addToUserList = async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      error: true
+    });
+  }
+
   const { username, type, title, status, currentEp, allEp, score } = req.body;
 
   try {
