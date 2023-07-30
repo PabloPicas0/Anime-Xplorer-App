@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 import url from "../Utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { handleClientList } from "../Redux/Slices/profileSclice";
+import { handleDialog, handleVisibility } from "../Redux/Slices/menuSlice";
 
 const menuStyles = {
   menu: {
@@ -57,8 +58,6 @@ const menuStyles = {
 };
 
 const Menu = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
   const [dialogValues, setDialogValues] = useState({
     title: "",
     status: "Plan to watch",
@@ -66,12 +65,15 @@ const Menu = () => {
     allEp: 0,
     score: 0,
   });
+
   const username = useSelector((state) => state.profile.profileFields.username);
+  const isVisible = useSelector((state) => state.menu.isVisible);
+  const openDialog = useSelector((state) => state.menu.openDialog);
 
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    setOpenDialog(false);
+    dispatch(handleDialog(false));
     setDialogValues({
       title: "",
       status: "Plan to watch",
@@ -81,6 +83,8 @@ const Menu = () => {
     });
   };
 
+  // TODO
+  // Form is subbmited with empty fields
   const handleSubmit = async () => {
     console.log(username);
     try {
@@ -99,7 +103,7 @@ const Menu = () => {
       console.log(response);
 
       dispatch(handleClientList(response.list));
-      setOpenDialog(false);
+      dispatch(handleDialog(false));
     } catch (error) {
       console.error(error);
     }
@@ -112,7 +116,7 @@ const Menu = () => {
           <IconButton
             size="large"
             sx={menuStyles.heroIconWrapper}
-            onClick={() => setIsVisible((prev) => !prev)}>
+            onClick={() => dispatch(handleVisibility(!isVisible))}>
             <Person sx={menuStyles.heroIcon} />
           </IconButton>
         </Tooltip>
@@ -134,7 +138,7 @@ const Menu = () => {
         <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
           <Grow in={isVisible}>
             <Tooltip TransitionComponent={Zoom} title="Add to list" arrow>
-              <IconButton size="large" onClick={() => setOpenDialog(true)}>
+              <IconButton size="large" onClick={() => dispatch(handleDialog(true))}>
                 <Add />
               </IconButton>
             </Tooltip>
@@ -160,7 +164,11 @@ const Menu = () => {
         </Box>
       </Box>
 
-      <Dialog onClose={() => handleClose()} open={openDialog} PaperProps={{ style: menuStyles.dialogBody }} disableScrollLock>
+      <Dialog
+        onClose={() => handleClose()}
+        open={openDialog}
+        PaperProps={{ style: menuStyles.dialogBody }}
+        disableScrollLock>
         <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
 
         <DialogContent>
