@@ -115,14 +115,12 @@ const Login = () => {
 
   return (
     <Box sx={loginStyles.container}>
-      {Object.keys(status).length === 0 ? null : (
-        <Slide direction="down" in={status.error}>
-          <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
-            {" "}
-            {status.status[0].msg}
-          </Alert>
-        </Slide>
-      )}
+      <Slide direction="down" in={status.error}>
+        <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
+          {" "}
+          {status.status[0].msg}
+        </Alert>
+      </Slide>
 
       <Form style={loginStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>

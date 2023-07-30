@@ -7,7 +7,8 @@ const addToUserList = async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.status(400).json({
-      error: true
+      error: true,
+      status: errors.array(),
     });
   }
 
@@ -27,11 +28,18 @@ const addToUserList = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "OK" }],
       list: user.animeList,
     });
   } catch (error) {
     console.log(error);
+
+    return res.status(200).json({
+      error: true,
+      status: [{ msg: "Internal server error. Please try again later." }],
+    });
   }
 };
 

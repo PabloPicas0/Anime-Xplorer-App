@@ -15,12 +15,15 @@ import {
   DialogContent,
   DialogActions,
   Box,
+  Slide,
+  Alert,
 } from "@mui/material";
 
 import { handleDialog } from "../Redux/Slices/menuSlice";
 import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import url from "../Utils/api";
+import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const addToListStyles = {
   dialogBody: {
@@ -42,13 +45,21 @@ const AddToList = () => {
     allEp: 0,
     score: 0,
   });
+
   const username = useSelector((state) => state.profile.profileFields.username);
   const openDialog = useSelector((state) => state.menu.openDialog);
+  const status = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(handleDialog(false));
+    dispatch(
+      handleStatus({
+        error: false,
+        status: [{ msg: "" }],
+      })
+    );
     setDialogValues({
       title: "",
       status: "Plan to watch",
@@ -76,8 +87,17 @@ const AddToList = () => {
 
       console.log(response);
 
-      dispatch(handleClientList(response.list));
-      handleClose();
+      dispatch(
+        handleStatus({
+          error: response.error,
+          status: response.status,
+        })
+      );
+
+      if (!response.error) {
+        dispatch(handleClientList(response.list));
+        handleClose();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -89,6 +109,10 @@ const AddToList = () => {
       open={openDialog}
       PaperProps={{ style: addToListStyles.dialogBody }}
       disableScrollLock>
+      <Slide direction="down" in={status.error}>
+        <Alert severity={status.error ? "error" : "success"}> {status.status[0].msg}</Alert>
+      </Slide>
+
       <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
 
       <DialogContent>
