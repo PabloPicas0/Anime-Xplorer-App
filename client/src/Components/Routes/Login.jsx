@@ -6,8 +6,10 @@ import url from "../Utils/api";
 
 import { useState } from "react";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { handleAuthentication, handleProfile } from "../Redux/Slices/profileSclice";
+import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const loginStyles = {
   container: {
@@ -56,7 +58,7 @@ const Login = () => {
     },
   ]);
 
-  const [status, setStatus] = useState({});
+  const status = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,10 +86,12 @@ const Login = () => {
 
       console.log(response);
 
-      setStatus({
-        error: response.error,
-        status: response.status,
-      });
+      dispatch(
+        handleStatus({
+          error: response.error,
+          status: response.status,
+        })
+      );
 
       if (!response.error) {
         dispatch(handleProfile(response.profile));
@@ -100,10 +104,12 @@ const Login = () => {
     } catch (error) {
       console.log(error);
 
-      setStatus({
-        error: true,
-        status: [{ msg: "Unexpected error. Please try again later." }],
-      });
+      dispatch(
+        handleStatus({
+          error: true,
+          status: [{ msg: "Unexpected error. Please try again later." }],
+        })
+      );
     }
   };
 

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import profileSlice from "../Slices/profileSclice";
-import menuSlice from "../Slices/menuSlice";
+import profileReducer from "../Slices/profileSclice";
+import menuReducer from "../Slices/menuSlice";
+import statusReducer from "../Slices/statusSlice";
 
 export default configureStore({
   reducer: {
-    profile: profileSlice,
-    menu: menuSlice,
+    profile: profileReducer,
+    menu: menuReducer,
+    status: statusReducer,
   },
 });

@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import { Form, Link, useNavigate } from "react-router-dom";
 import url from "../Utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const singUpStyles = {
   container: {
@@ -65,7 +67,9 @@ const SignUp = () => {
       value: "",
     },
   ]);
-  const [formStatus, setFormStatus] = useState({});
+  const formStatus = useSelector((state) => state.status);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -79,35 +83,44 @@ const SignUp = () => {
   };
 
   const handleSubmit = async () => {
-    const reqest = await fetch(`${url}/api/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}&password2=${signUpfields[3].value}`,
-    });
+    try {
+      const reqest = await fetch(`${url}/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}&password2=${signUpfields[3].value}`,
+      });
 
-    const response = await reqest.json();
+      const response = await reqest.json();
 
-    setFormStatus(response);
+      dispatch(handleStatus(response));
 
-    if (!response.error) {
-      setTimeout(() => {
-        navigate("/login");
-      }, 500);
+      if (!response.error) {
+        setTimeout(() => {
+          navigate("/login");
+        }, 500);
+      }
+    } catch (error) {
+      console.error(error);
+
+      dispatch(
+        handleStatus({
+          error: true,
+          status: [{ msg: "Unexpected error. Please try again later." }],
+        })
+      );
     }
   };
 
   return (
     <Box sx={singUpStyles.container}>
-      {Object.keys(formStatus).length === 0 ? null : (
-        <Slide direction="down" in={formStatus.error}>
-          <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
-            {" "}
-            {formStatus.status[0].msg}
-          </Alert>
-        </Slide>
-      )}
+      <Slide direction="down" in={formStatus.error}>
+        <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
+          {" "}
+          {formStatus.status[0].msg}
+        </Alert>
+      </Slide>
 
       <Form style={singUpStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
