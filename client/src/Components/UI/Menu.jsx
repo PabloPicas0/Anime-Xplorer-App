@@ -21,6 +21,8 @@ import {
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import url from "../Utils/api";
+import { useSelector } from "react-redux";
 
 const menuStyles = {
   menu: {
@@ -63,6 +65,7 @@ const Menu = () => {
     allEp: 0,
     score: 0,
   });
+  const username = useSelector((state) => state.profile.profileFields.username);
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -73,6 +76,27 @@ const Menu = () => {
       allEp: 0,
       score: 0,
     });
+  };
+
+  const handleSubmit = async () => {
+    console.log(username);
+    try {
+      const request = await fetch(`${url}/api/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `username=${username}&type=${"ova"}&title=${dialogValues.title}&status=${
+          dialogValues.status
+        }&currentEp=${dialogValues.watchedEp}&allEp=${dialogValues.allEp}&score=${dialogValues.score}`,
+      });
+
+      const response = await request.json();
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -225,7 +249,7 @@ const Menu = () => {
         </DialogContent>
 
         <DialogActions>
-          <Button variant="contained" fullWidth>
+          <Button variant="contained" fullWidth type="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </DialogActions>

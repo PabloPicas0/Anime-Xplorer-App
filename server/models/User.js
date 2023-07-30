@@ -35,24 +35,12 @@ const userSchema = new mongoose.Schema({
   ],
   animeList: [
     {
-      animeType: {
-        type: String,
-      },
-      animeName: {
-        type: String,
-      },
-      animeStatus: {
-        type: String,
-      },
-      currentEpisode: {
-        type: Number,
-      },
-      allEpisodes: {
-        type: Number,
-      },
-      score: {
-        type: Number,
-      },
+      animeType: String,
+      animeName: String,
+      animeStatus: String,
+      currentEpisode: Number,
+      allEpisodes: Number,
+      score: Number,
     },
   ],
 });

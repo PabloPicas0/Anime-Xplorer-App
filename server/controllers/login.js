@@ -39,7 +39,7 @@ const authLogin = async (req, res) => {
       error: false,
       status: [{ msg: "User authenticated" }],
       profile: {
-        userneme: user.username,
+        username: user.username,
         date: user.accountCreated,
         options: user.accountSettings,
         list: user.animeList,
