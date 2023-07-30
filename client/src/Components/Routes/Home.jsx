@@ -78,9 +78,21 @@ const Home = () => {
       </Box>
 
       <Box id="list" sx={homeStyles.listStyle}>
-        {list.map((_, idx) => (
-          <Card key={idx} />
-        ))}
+        {list.map((listProp, idx) => {
+          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+
+          return (
+            <Card
+              key={idx}
+              index={idx}
+              animeName={animeName}
+              animeStatus={animeStatus}
+              currentEpisode={currentEpisode}
+              allEpisodes={allEpisodes}
+              score={score}
+            />
+          );
+        })}
       </Box>
     </Box>
   );

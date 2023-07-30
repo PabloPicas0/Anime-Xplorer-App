@@ -24,17 +24,19 @@ const cardStyles = {
   },
 };
 
-const Card = () => {
+const Card = (props) => {
+  const { index, animeName, animeStatus, currentEpisode, allEpisodes, score } = props;
+
   return (
     <Box sx={cardStyles.container}>
       <Box sx={cardStyles.about}>
         <Box id="number" sx={cardStyles.indexWrapper}>
-          <span style={cardStyles.index}>1</span>
+          <span style={cardStyles.index}>{index + 1}</span>
         </Box>
 
         <Box>
           <Typography>Ova</Typography>
-          <Typography>Anime name</Typography>
+          <Typography>{animeName}</Typography>
           <Typography>Edit</Typography>
         </Box>
       </Box>
@@ -44,7 +46,9 @@ const Card = () => {
           <Remove />
         </IconButton>
 
-        <Typography>3/24</Typography>
+        <Typography>
+          {currentEpisode}/{allEpisodes}
+        </Typography>
 
         <IconButton>
           <Add />

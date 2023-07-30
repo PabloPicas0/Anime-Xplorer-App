@@ -10,11 +10,14 @@ export const profileSlice = createSlice({
     handleProfile: (state, action) => {
       state.profileFields = action.payload;
     },
+    handleClientList: (state, action) => {
+      state.profileFields.list = action.payload;
+    },
     handleAuthentication: (state, action) => {
       state.isAuthenticated = action.payload;
     },
   },
 });
 
-export const { handleProfile, handleAuthentication } = profileSlice.actions;
+export const { handleProfile, handleAuthentication, handleClientList } = profileSlice.actions;
 export default profileSlice.reducer;

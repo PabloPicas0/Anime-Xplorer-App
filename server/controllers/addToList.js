@@ -18,12 +18,7 @@ const addToUserList = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      profile: {
-        userneme: user.username,
-        date: user.accountCreated,
-        options: user.accountSettings,
-        list: user.animeList,
-      },
+      list: user.animeList,
     });
   } catch (error) {
     console.log(error);

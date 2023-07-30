@@ -22,7 +22,8 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import url from "../Utils/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleClientList } from "../Redux/Slices/profileSclice";
 
 const menuStyles = {
   menu: {
@@ -67,6 +68,8 @@ const Menu = () => {
   });
   const username = useSelector((state) => state.profile.profileFields.username);
 
+  const dispatch = useDispatch();
+
   const handleClose = () => {
     setOpenDialog(false);
     setDialogValues({
@@ -94,6 +97,9 @@ const Menu = () => {
       const response = await request.json();
 
       console.log(response);
+
+      dispatch(handleClientList(response.list));
+      setOpenDialog(false);
     } catch (error) {
       console.error(error);
     }
@@ -154,7 +160,7 @@ const Menu = () => {
         </Box>
       </Box>
 
-      <Dialog onClose={() => handleClose()} open={openDialog} PaperProps={{ style: menuStyles.dialogBody }}>
+      <Dialog onClose={() => handleClose()} open={openDialog} PaperProps={{ style: menuStyles.dialogBody }} disableScrollLock>
         <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
 
         <DialogContent>
