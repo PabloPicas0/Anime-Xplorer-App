@@ -35,6 +35,9 @@ const addToListStyles = {
     gap: "10px",
     marginTop: "20px",
   },
+  alert: {
+    borderRadius: 0,
+  },
 };
 
 const AddToList = () => {
@@ -69,8 +72,6 @@ const AddToList = () => {
     });
   };
 
-  // TODO
-  // Form is subbmited with empty fields
   const handleSubmit = async () => {
     try {
       const request = await fetch(`${url}/api/list`, {
@@ -110,7 +111,10 @@ const AddToList = () => {
       PaperProps={{ style: addToListStyles.dialogBody }}
       disableScrollLock>
       <Slide direction="down" in={status.error}>
-        <Alert severity={status.error ? "error" : "success"}> {status.status[0].msg}</Alert>
+        <Alert severity={status.error ? "error" : "success"} sx={addToListStyles.alert}>
+          {" "}
+          {status.status[0].msg}
+        </Alert>
       </Slide>
 
       <DialogTitle textAlign={"center"}>Add to list</DialogTitle>
