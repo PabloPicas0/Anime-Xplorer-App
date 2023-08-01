@@ -110,7 +110,7 @@ const AddToList = () => {
       open={openDialog}
       PaperProps={{ style: addToListStyles.dialogBody }}
       disableScrollLock>
-      <Slide direction="down" in={status.error}>
+      <Slide direction="down" in={status.error} unmountOnExit timeout={0}>
         <Alert severity={status.error ? "error" : "success"} sx={addToListStyles.alert}>
           {" "}
           {status.status[0].msg}
