@@ -24,10 +24,6 @@ function App() {
     <>
       <AppBar component={"nav"} id="navbar">
         <Toolbar sx={rootStyles.navbar}>
-          <Typography variant="h6" component={"div"} alignSelf={"center"}>
-            AnimeExplorer
-          </Typography>
-
           {isAuthenticated ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>

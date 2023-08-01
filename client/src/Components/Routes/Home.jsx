@@ -1,4 +1,14 @@
-import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip, Zoom } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  Tooltip,
+  Typography,
+  Zoom,
+} from "@mui/material";
 import { BarChartSharp, FilterAlt, FilterList } from "@mui/icons-material";
 
 import Card from "../UI/Card";
@@ -44,6 +54,25 @@ const Home = () => {
 
   const list = useSelector((state) => state.profile.profileFields.list);
 
+  const sortedList = list.reduce(
+    (acc, currentList) => {
+      const currentStatus = currentList.animeStatus
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
+          return index == 0 ? word.toLowerCase() : word.toUpperCase();
+        })
+        .replace(/\s+/g, "");
+
+      acc[`${currentStatus}`].push(currentList);
+      
+      return acc;
+    },
+    {
+      "currentlyWatching": [],
+      "planToWatch": [],
+      "completed": [],
+    }
+  );
+
   return (
     <Box id="container" sx={homeStyles.container}>
       <Menu />
@@ -79,7 +108,48 @@ const Home = () => {
       </Box>
 
       <Box id="list" sx={homeStyles.listStyle}>
-        {list.map((listProp, idx) => {
+        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+          Currently watching
+        </Typography>
+        {sortedList.currentlyWatching.map((listProp, idx) => {
+          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+
+          return (
+            <Card
+              key={idx}
+              index={idx}
+              animeName={animeName}
+              animeStatus={animeStatus}
+              currentEpisode={currentEpisode}
+              allEpisodes={allEpisodes}
+              score={score}
+            />
+          );
+        })}
+
+        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+          Completed
+        </Typography>
+        {sortedList.completed.map((listProp, idx) => {
+          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+
+          return (
+            <Card
+              key={idx}
+              index={idx}
+              animeName={animeName}
+              animeStatus={animeStatus}
+              currentEpisode={currentEpisode}
+              allEpisodes={allEpisodes}
+              score={score}
+            />
+          );
+        })}
+
+        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+          Plan to watch
+        </Typography>
+        {sortedList.planToWatch.map((listProp, idx) => {
           const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
           return (

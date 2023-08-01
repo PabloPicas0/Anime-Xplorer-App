@@ -31,6 +31,10 @@ const Unregistered = () => {
 
   return (
     <>
+      <Typography variant="h6" component={"div"} alignSelf={"center"}>
+        AnimeExplorer
+      </Typography>
+      
       <ButtonGroup
         variant="outlined"
         aria-label="login/sing up button group"
