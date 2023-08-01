@@ -16,7 +16,8 @@ const rootStyles = {
     backgroundColor: "#2b2d42",
   },
 };
-
+// TODO
+// When user is registed there is no logo site
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 

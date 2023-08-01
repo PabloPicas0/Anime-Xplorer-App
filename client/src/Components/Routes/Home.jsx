@@ -14,8 +14,8 @@ import { BarChartSharp, FilterAlt, FilterList } from "@mui/icons-material";
 import Card from "../UI/Card";
 import Menu from "../UI/Menu";
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 
 const homeStyles = {
   container: {
@@ -53,11 +53,11 @@ const filterIcons = [
 ];
 
 const Home = () => {
-  const [selectedValue, setSelectedValue] = useState("All anime");
-
   const list = useSelector((state) => state.profile.profileFields.list);
   const statusFilter = useSelector((state) => state.profile.showByStatus);
-  
+
+  const dispatch = useDispatch();
+
   const sortedList = list.reduce(
     (acc, currentList) => {
       const currentStatus = currentList.animeStatus
@@ -71,9 +71,9 @@ const Home = () => {
       return acc;
     },
     {
-      "currentlyWatching": [],
-      "planToWatch": [],
-      "completed": [],
+      currentlyWatching: [],
+      planToWatch: [],
+      completed: [],
     }
   );
 
@@ -87,11 +87,11 @@ const Home = () => {
         <Select
           label="Select anime list"
           labelId="select-label"
-          value={selectedValue}
+          value={statusFilter}
           MenuProps={{
             marginThreshold: 10,
           }}
-          onChange={(e) => setSelectedValue(e.target.value)}>
+          onChange={(e) => dispatch(handleUserSortingStatus(e.target.value))}>
           <MenuItem value={"All anime"}>All anime</MenuItem>
           <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
           <MenuItem value={"Completed"}>Completed</MenuItem>
