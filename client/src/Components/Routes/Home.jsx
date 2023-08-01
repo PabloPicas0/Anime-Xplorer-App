@@ -32,6 +32,9 @@ const homeStyles = {
     display: { xs: "inline-flex", md: "none" },
     marginTop: "30px",
   },
+  listStyle: {
+    marginBottom: "7rem",
+  },
 };
 
 const filterIcons = [
@@ -63,13 +66,13 @@ const Home = () => {
         .replace(/\s+/g, "");
 
       acc[`${currentStatus}`].push(currentList);
-      
+
       return acc;
     },
     {
-      "currentlyWatching": [],
-      "planToWatch": [],
-      "completed": [],
+      currentlyWatching: [],
+      planToWatch: [],
+      completed: [],
     }
   );
 
@@ -107,63 +110,72 @@ const Home = () => {
         })}
       </Box>
 
-      <Box id="list" sx={homeStyles.listStyle}>
-        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-          Currently watching
-        </Typography>
-        {sortedList.currentlyWatching.map((listProp, idx) => {
-          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+      <Box id="list">
+        <Box id="watching" sx={homeStyles.listStyle}>
+          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+            Currently watching
+          </Typography>
+          
+          {sortedList.currentlyWatching.map((listProp, idx) => {
+            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
-          return (
-            <Card
-              key={idx}
-              index={idx}
-              animeName={animeName}
-              animeStatus={animeStatus}
-              currentEpisode={currentEpisode}
-              allEpisodes={allEpisodes}
-              score={score}
-            />
-          );
-        })}
+            return (
+              <Card
+                key={idx}
+                index={idx}
+                animeName={animeName}
+                animeStatus={animeStatus}
+                currentEpisode={currentEpisode}
+                allEpisodes={allEpisodes}
+                score={score}
+              />
+            );
+          })}
+        </Box>
 
-        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-          Completed
-        </Typography>
-        {sortedList.completed.map((listProp, idx) => {
-          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+        <Box id="completed" sx={homeStyles.listStyle}>
+          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+            Completed
+          </Typography>
 
-          return (
-            <Card
-              key={idx}
-              index={idx}
-              animeName={animeName}
-              animeStatus={animeStatus}
-              currentEpisode={currentEpisode}
-              allEpisodes={allEpisodes}
-              score={score}
-            />
-          );
-        })}
+          {sortedList.completed.map((listProp, idx) => {
+            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
-        <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-          Plan to watch
-        </Typography>
-        {sortedList.planToWatch.map((listProp, idx) => {
-          const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+            return (
+              <Card
+                key={idx}
+                index={idx}
+                animeName={animeName}
+                animeStatus={animeStatus}
+                currentEpisode={currentEpisode}
+                allEpisodes={allEpisodes}
+                score={score}
+              />
+            );
+          })}
+        </Box>
 
-          return (
-            <Card
-              key={idx}
-              index={idx}
-              animeName={animeName}
-              animeStatus={animeStatus}
-              currentEpisode={currentEpisode}
-              allEpisodes={allEpisodes}
-              score={score}
-            />
-          );
-        })}
+        <Box id="plan to watch">
+          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+            Plan to watch
+          </Typography>
+
+          {sortedList.planToWatch.map((listProp, idx) => {
+            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+
+            return (
+              <Card
+                key={idx}
+                index={idx}
+                animeName={animeName}
+                animeStatus={animeStatus}
+                currentEpisode={currentEpisode}
+                allEpisodes={allEpisodes}
+                score={score}
+              />
+            );
+          })}
+        </Box>
       </Box>
     </Box>
   );
