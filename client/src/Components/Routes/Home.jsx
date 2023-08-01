@@ -71,9 +71,9 @@ const Home = () => {
       return acc;
     },
     {
-      currentlyWatching: [],
-      planToWatch: [],
-      completed: [],
+      "currentlyWatching": [],
+      "planToWatch": [],
+      "completed": [],
     }
   );
 
