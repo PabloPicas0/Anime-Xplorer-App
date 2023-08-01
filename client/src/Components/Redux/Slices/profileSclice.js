@@ -4,6 +4,7 @@ export const profileSlice = createSlice({
   name: "profile",
   initialState: {
     profileFields: {},
+    showByStatus: "All anime",
     isAuthenticated: false,
   },
   reducers: {
@@ -13,11 +14,15 @@ export const profileSlice = createSlice({
     handleClientList: (state, action) => {
       state.profileFields.list = action.payload;
     },
+    handleUserSortingStatus: (state, action) => {
+      state.showByStatus = action.payload;
+    },
     handleAuthentication: (state, action) => {
       state.isAuthenticated = action.payload;
     },
   },
 });
 
-export const { handleProfile, handleAuthentication, handleClientList } = profileSlice.actions;
+export const { handleProfile, handleAuthentication, handleClientList, handleUserSortingStatus } =
+  profileSlice.actions;
 export default profileSlice.reducer;

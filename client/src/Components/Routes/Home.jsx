@@ -56,7 +56,8 @@ const Home = () => {
   const [selectedValue, setSelectedValue] = useState("All anime");
 
   const list = useSelector((state) => state.profile.profileFields.list);
-
+  const statusFilter = useSelector((state) => state.profile.showByStatus);
+  
   const sortedList = list.reduce(
     (acc, currentList) => {
       const currentStatus = currentList.animeStatus
@@ -70,9 +71,9 @@ const Home = () => {
       return acc;
     },
     {
-      currentlyWatching: [],
-      planToWatch: [],
-      completed: [],
+      "currentlyWatching": [],
+      "planToWatch": [],
+      "completed": [],
     }
   );
 
@@ -111,11 +112,17 @@ const Home = () => {
       </Box>
 
       <Box id="list">
-        <Box id="watching" sx={homeStyles.listStyle}>
+        <Box
+          id="watching"
+          sx={
+            statusFilter === "Currently watching" || statusFilter === "All anime"
+              ? homeStyles.listStyle
+              : { display: "none" }
+          }>
           <Typography variant="h6" marginBottom={2} textAlign={"center"}>
             Currently watching
           </Typography>
-          
+
           {sortedList.currentlyWatching.map((listProp, idx) => {
             const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
@@ -133,7 +140,13 @@ const Home = () => {
           })}
         </Box>
 
-        <Box id="completed" sx={homeStyles.listStyle}>
+        <Box
+          id="completed"
+          sx={
+            statusFilter === "Completed" || statusFilter === "All anime"
+              ? homeStyles.listStyle
+              : { display: "none" }
+          }>
           <Typography variant="h6" marginBottom={2} textAlign={"center"}>
             Completed
           </Typography>
@@ -155,7 +168,9 @@ const Home = () => {
           })}
         </Box>
 
-        <Box id="plan to watch">
+        <Box
+          id="plan to watch"
+          sx={statusFilter === "Plan to watch" || statusFilter === "All anime" ? {} : { display: "none" }}>
           <Typography variant="h6" marginBottom={2} textAlign={"center"}>
             Plan to watch
           </Typography>
