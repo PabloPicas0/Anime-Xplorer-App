@@ -1,5 +1,10 @@
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   FormControl,
   IconButton,
   InputLabel,
@@ -15,7 +20,10 @@ import Card from "../UI/Card";
 import Menu from "../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
+import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const homeStyles = {
   container: {
@@ -34,6 +42,14 @@ const homeStyles = {
   },
   listStyle: {
     marginBottom: "7rem",
+  },
+  backdrop: {
+    backdrop: {
+      style: {
+        backdropFilter: "blur(100px)",
+        transitionDuration: 0,
+      },
+    },
   },
 };
 
@@ -55,8 +71,10 @@ const filterIcons = [
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
   const statusFilter = useSelector((state) => state.profile.showByStatus);
+  const status = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sortedList = list.reduce(
     (acc, currentList) => {
@@ -71,14 +89,46 @@ const Home = () => {
       return acc;
     },
     {
-      "currentlyWatching": [],
-      "planToWatch": [],
-      "completed": [],
+      currentlyWatching: [],
+      planToWatch: [],
+      completed: [],
     }
   );
 
   return (
     <Box id="container" sx={homeStyles.container}>
+      <Dialog open={status.error} slotProps={homeStyles.backdrop} transitionDuration={0}>
+        <DialogContent>
+          <DialogContentText>{status.status[0].msg}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              navigate("/login");
+              dispatch(
+                handleStatus({
+                  error: false,
+                  status: [{ msg: "" }],
+                })
+              );
+            }}>
+            Login
+          </Button>
+          <Button
+            onClick={() => {
+              navigate("/signup");
+              dispatch(
+                handleStatus({
+                  error: false,
+                  status: [{ msg: "" }],
+                })
+              );
+            }}>
+            Sign up
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Menu />
 
       <FormControl fullWidth sx={homeStyles.selectForm}>

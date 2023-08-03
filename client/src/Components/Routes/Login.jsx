@@ -1,6 +1,6 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Form, Link, Navigate, useNavigate } from "react-router-dom";
 
 import url from "../Utils/api";
 
@@ -59,6 +59,7 @@ const Login = () => {
   ]);
 
   const status = useSelector((state) => state.status);
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -94,7 +95,12 @@ const Login = () => {
       );
 
       if (!response.error) {
-        dispatch(handleProfile(response.profile));
+        dispatch(
+          handleProfile({
+            profile: response.profile,
+            token: response.token,
+          })
+        );
 
         setTimeout(() => {
           dispatch(handleAuthentication(true));
@@ -112,6 +118,8 @@ const Login = () => {
       );
     }
   };
+
+  if (isAuthenticated) return <Navigate to={"/home"} />;
 
   return (
     <Box sx={loginStyles.container}>

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { handleDialog, handleVisibility } from "../Redux/Slices/menuSlice";
 
-import AddToList from "./addToList";
+import AddToList from "./AddToList";
 
 const menuStyles = {
   menu: {

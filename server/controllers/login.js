@@ -4,6 +4,42 @@ const bcrypt = require("bcryptjs");
 
 const userModel = require("../models/User");
 
+const jwt = require("jsonwebtoken");
+
+const loadUser = async (req, res) => {
+  const { userId } = req.user;
+
+  try {
+    const user = await userModel.findById(userId);
+
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "" }],
+      isAuthenticated: true,
+      profile: {
+        username: user.username,
+        date: user.accountCreated,
+        options: user.accountSettings,
+        list: user.animeList,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      error: true,
+      status: [{ msg: "Server error. Please try again." }],
+      isAuthenticated: false,
+      profile: {
+        username: "",
+        date: 0,
+        options: [],
+        list: [],
+      },
+    });
+  }
+};
+
 const authLogin = async (req, res) => {
   const errors = validationResult(req);
 
@@ -35,15 +71,29 @@ const authLogin = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      error: false,
-      status: [{ msg: "User authenticated" }],
-      profile: {
-        username: user.username,
-        date: user.accountCreated,
-        options: user.accountSettings,
-        list: user.animeList,
-      },
+    const payload = {
+      userId: user.id,
+    };
+
+    jwt.sign(payload, process.env.KEY, { expiresIn: "1h" }, (err, token) => {
+      if (err) {
+        return res.status(400).json({
+          error: true,
+          status: [{ msg: "Token error. Please try again" }],
+        });
+      }
+
+      return res.status(200).json({
+        error: false,
+        status: [{ msg: "User authenticated" }],
+        token: token,
+        profile: {
+          username: user.username,
+          date: user.accountCreated,
+          options: user.accountSettings,
+          list: user.animeList,
+        },
+      });
     });
   } catch (error) {
     console.log(error);
@@ -55,4 +105,4 @@ const authLogin = async (req, res) => {
   }
 };
 
-module.exports = authLogin;
+module.exports = { authLogin, loadUser };

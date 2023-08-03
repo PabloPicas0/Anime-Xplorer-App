@@ -1,9 +1,11 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 import { useState } from "react";
 
-import { Form, Link, useNavigate } from "react-router-dom";
-import url from "../Utils/api";
+import { Form, Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
+import url from "../Utils/api";
+
 import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const singUpStyles = {
@@ -68,6 +70,7 @@ const SignUp = () => {
     },
   ]);
   const formStatus = useSelector((state) => state.status);
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   const dispatch = useDispatch();
 
@@ -94,9 +97,18 @@ const SignUp = () => {
 
       const response = await reqest.json();
 
-      dispatch(handleStatus(response));
+      console.log(response);
+
+      dispatch(
+        handleStatus({
+          error: response.error,
+          status: response.status,
+        })
+      );
 
       if (!response.error) {
+        localStorage.setItem("token", response.token);
+
         setTimeout(() => {
           navigate("/login");
         }, 500);
@@ -112,6 +124,8 @@ const SignUp = () => {
       );
     }
   };
+
+  if (isAuthenticated) return <Navigate to={"/home"} />;
 
   return (
     <Box sx={singUpStyles.container}>
