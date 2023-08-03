@@ -26,7 +26,14 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
 
     return response;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+
+    dispatch(
+      handleStatus({
+        error: true,
+        status: [{ msg: "Something went wrong. Please refresh the page." }],
+      })
+    );
 
     return {
       isAuthenticated: false,
@@ -72,7 +79,7 @@ export const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadUser.pending, (state) => {
-      state.isAuthenticated = true;
+      state.isAuthenticated = false;
     });
     builder.addCase(loadUser.fulfilled, (state, action) => {
       state.profileFields = action.payload.profile;

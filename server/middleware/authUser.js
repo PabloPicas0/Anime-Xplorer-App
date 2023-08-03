@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const middleware = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
 
-  if (!token) {
+  if (token === "null") {
     return res.status(401).json({
       error: true,
       status: [{ msg: "You don't have profile token. Please login or sign up." }],
