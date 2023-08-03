@@ -37,12 +37,6 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
 
     return {
       isAuthenticated: false,
-      profile: {
-        username: "",
-        date: 0,
-        options: [],
-        list: [],
-      },
     };
   }
 });
