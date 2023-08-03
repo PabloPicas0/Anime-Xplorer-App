@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
-import { handleStatus } from "../Redux/Slices/statusSlice";
+import { handleRefresh } from "../Redux/Slices/statusSlice";
 
 const homeStyles = {
   container: {
@@ -97,7 +97,7 @@ const Home = () => {
 
   return (
     <Box id="container" sx={homeStyles.container}>
-      <Dialog open={status.error} slotProps={homeStyles.backdrop} transitionDuration={0}>
+      <Dialog open={status.refreshError} slotProps={homeStyles.backdrop} transitionDuration={0}>
         <DialogContent>
           <DialogContentText>{status.status[0].msg}</DialogContentText>
         </DialogContent>
@@ -106,7 +106,7 @@ const Home = () => {
             onClick={() => {
               navigate("/login");
               dispatch(
-                handleStatus({
+                handleRefresh({
                   error: false,
                   status: [{ msg: "" }],
                 })
@@ -118,7 +118,7 @@ const Home = () => {
             onClick={() => {
               navigate("/signup");
               dispatch(
-                handleStatus({
+                handleRefresh({
                   error: false,
                   status: [{ msg: "" }],
                 })

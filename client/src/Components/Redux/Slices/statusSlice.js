@@ -4,6 +4,7 @@ export const statusSlice = createSlice({
   name: "status",
   initialState: {
     error: false,
+    refreshError: false,
     status: [{ msg: "" }],
   },
   reducers: {
@@ -11,8 +12,12 @@ export const statusSlice = createSlice({
       state.error = action.payload.error;
       state.status = action.payload.status;
     },
+    handleRefresh: (state, action) => {
+      state.refreshError = action.payload.error
+      state.status = action.payload.status
+    }
   },
 });
 
-export const { handleStatus } = statusSlice.actions;
+export const { handleStatus, handleRefresh } = statusSlice.actions;
 export default statusSlice.reducer;
