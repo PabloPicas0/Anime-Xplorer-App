@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select, Switch, Typography } from "@mui/material";
 import Menu from "../UI/Menu";
 
 const settingsStyles = {
@@ -11,25 +11,6 @@ const settingsStyles = {
     padding: "3rem 10px",
     minHeight: "100vh",
   },
-  mainWrapper: {
-    display: "flex",
-  },
-  settingsWrapper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    borderRight: "1px solid #d9dbdf",
-    paddingRight: { xs: "20px", sm: "40px" },
-  },
-  margin: {
-    marginBottom: "15px",
-  },
-  optionsWrapper: {
-    marginLeft: "20px",
-  },
-  optionsMargin: {
-    marginBottom: "20px",
-  },
 };
 
 const Settings = () => {
@@ -37,25 +18,47 @@ const Settings = () => {
     <Box sx={settingsStyles.container}>
       <Menu />
 
-      <Box sx={settingsStyles.mainWrapper}>
-        <Box id="settings" sx={settingsStyles.settingsWrapper}>
-          {[...Array(5)].map((_, idx) => {
-            return (
-              <Typography key={idx} sx={settingsStyles.margin}>
-                Lorem ipsum
-              </Typography>
-            );
-          })}
+      <Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>Keep logined</Typography>
+          <Switch />
         </Box>
 
-        <Box id="settings-options" sx={settingsStyles.optionsWrapper}>
-          {[...Array(5)].map((_, idx) => {
-            return (
-              <Typography key={idx} sx={settingsStyles.margin}>
-                Lorem ipsum
-              </Typography>
-            );
-          })}
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>Profile main color</Typography>
+          <FormControl size="small" sx={{ minWidth: "180px" }}>
+            <InputLabel id="demo-simple-select-label">Color</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="color">
+              <MenuItem value={10}>White</MenuItem>
+              <MenuItem value={20}>Dark</MenuItem>
+              <MenuItem value={30}>Blue</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>Profile font</Typography>
+          <FormControl size="small" sx={{ minWidth: "180px" }}>
+            <InputLabel id="demo-simple-select-label">Font</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Font">
+              <MenuItem value={10}>Arial</MenuItem>
+              <MenuItem value={20}>Roboto</MenuItem>
+              <MenuItem value={30}>system UI</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography>Default List</Typography>
+          <FormControl size="small" sx={{ minWidth: "180px" }}>
+            <InputLabel id="demo-simple-select-label">All anime</InputLabel>
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Filter">
+              <MenuItem value={10}>All anime</MenuItem>
+              <MenuItem value={20}>Currently Watchin</MenuItem>
+              <MenuItem value={30}>Completed</MenuItem>
+              <MenuItem value={40}>Plan to watch</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
       </Box>
     </Box>
