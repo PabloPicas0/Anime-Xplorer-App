@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./App.css";
 
 import { AppBar, Toolbar } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Unregistered from "./Components/UI/UnregisteredNav";
 import Registred from "./Components/UI/RegisteredNav";

@@ -52,6 +52,7 @@ const AddToList = () => {
   const username = useSelector((state) => state.profile.profileFields.username);
   const openDialog = useSelector((state) => state.menu.openDialog);
   const status = useSelector((state) => state.status);
+  const token = useSelector((state) => state.profile.token);
 
   const dispatch = useDispatch();
 
@@ -78,6 +79,7 @@ const AddToList = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // change it to redux state
         },
         body: `username=${username}&type=${"ova"}&title=${dialogValues.title}&status=${
           dialogValues.status
