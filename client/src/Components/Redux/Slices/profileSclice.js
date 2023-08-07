@@ -51,7 +51,6 @@ export const profileSlice = createSlice({
       list: [],
     },
     showByStatus: "All anime",
-    token: localStorage.getItem("token"),
     isAuthenticated: false,
   },
   reducers: {
@@ -59,7 +58,6 @@ export const profileSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
 
       state.profileFields = action.payload.profile;
-      state.token = action.payload.token;
     },
     handleClientList: (state, action) => {
       state.profileFields.list = action.payload;
