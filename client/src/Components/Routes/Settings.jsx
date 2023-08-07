@@ -18,7 +18,6 @@ const settingsStyles = {
   },
   setting: { 
     display: "flex", 
-    maxWidth: "340px",
     justifyContent: "space-between",
     alignItems: "center" ,
     gap: "20px"
@@ -33,6 +32,11 @@ const Settings = () => {
       <Box sx={settingsStyles.wrapper}>
         <Box sx={settingsStyles.setting}>
           <Typography>Keep logined</Typography>
+          <Switch />
+        </Box>
+
+        <Box sx={settingsStyles.setting}>
+          <Typography>Dark Mode</Typography>
           <Switch />
         </Box>
 
@@ -66,7 +70,7 @@ const Settings = () => {
             <InputLabel id="demo-simple-select-label">All anime</InputLabel>
             <Select labelId="demo-simple-select-label" id="demo-simple-select" label="All anime">
               <MenuItem value={10}>All anime</MenuItem>
-              <MenuItem value={20}>Currently Watchin</MenuItem>
+              <MenuItem value={20}>Currently Watching</MenuItem>
               <MenuItem value={30}>Completed</MenuItem>
               <MenuItem value={40}>Plan to watch</MenuItem>
             </Select>
