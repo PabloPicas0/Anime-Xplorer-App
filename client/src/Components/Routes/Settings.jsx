@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, Switch, Typography } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, Switch, Typography } from "@mui/material";
 import Menu from "../UI/Menu";
 
 const settingsStyles = {
@@ -20,6 +20,11 @@ const settingsStyles = {
     display: "flex", 
     justifyContent: "space-between",
     alignItems: "center" ,
+    gap: "20px"
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "center",
     gap: "20px"
   }
 };
@@ -44,7 +49,7 @@ const Settings = () => {
           <Typography>Profile main color</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
             <InputLabel id="demo-simple-select-label">Color</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="color">
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="color" value={""}>
               <MenuItem value={10}>White</MenuItem>
               <MenuItem value={20}>Dark</MenuItem>
               <MenuItem value={30}>Blue</MenuItem>
@@ -56,7 +61,7 @@ const Settings = () => {
           <Typography>Profile font</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
             <InputLabel id="demo-simple-select-label">Font</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Font">
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Font" value={""}>
               <MenuItem value={10}>Arial</MenuItem>
               <MenuItem value={20}>Roboto</MenuItem>
               <MenuItem value={30}>system UI</MenuItem>
@@ -68,13 +73,22 @@ const Settings = () => {
           <Typography>Default List</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
             <InputLabel id="demo-simple-select-label">All anime</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="All anime">
+            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="All anime" value={""}>
               <MenuItem value={10}>All anime</MenuItem>
               <MenuItem value={20}>Currently Watching</MenuItem>
               <MenuItem value={30}>Completed</MenuItem>
               <MenuItem value={40}>Plan to watch</MenuItem>
             </Select>
           </FormControl>
+        </Box>
+
+        <Box sx={settingsStyles.buttons}>
+          <Button variant="contained" disabled>
+            Apply
+          </Button>
+          <Button variant="contained" disabled>
+            Discard
+          </Button>
         </Box>
       </Box>
     </Box>
