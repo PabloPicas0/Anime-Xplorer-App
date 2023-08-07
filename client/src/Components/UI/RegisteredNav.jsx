@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 
 const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
@@ -15,22 +14,19 @@ const registredStyles = {
 };
 
 const Registred = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const currentStatus = useSelector((state) => state.profile.showByStatus);
 
   const dispatch = useDispatch();
 
   return (
     <>
-      {pages.map((page, idx) => {
+      {pages.map((page) => {
         return (
           <Button
             key={page}
-            onClick={() => {
-              setCurrentPage(idx);
-              dispatch(handleUserSortingStatus(page));
-            }}
+            onClick={() => dispatch(handleUserSortingStatus(page))}
             sx={
-              currentPage === idx
+              currentStatus === page
                 ? { ...registredStyles.links, borderBottom: "1px solid white" }
                 : { ...registredStyles.links }
             }>

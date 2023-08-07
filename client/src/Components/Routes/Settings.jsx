@@ -14,19 +14,19 @@ const settingsStyles = {
   wrapper: {
     display: "flex",
     flexDirection: "column",
-    gap: "30px"
+    gap: "30px",
   },
-  setting: { 
-    display: "flex", 
+  setting: {
+    display: "flex",
     justifyContent: "space-between",
-    alignItems: "center" ,
-    gap: "20px"
+    alignItems: "center",
+    gap: "20px",
   },
   buttons: {
     display: "flex",
     justifyContent: "center",
-    gap: "20px"
-  }
+    gap: "20px",
+  },
 };
 
 const Settings = () => {
