@@ -31,8 +31,11 @@ const settingsStyles = {
   },
 };
 
+// Bug
+// redux store become empty after page refresh
+
 const Settings = () => {
-  const user = useSelector((state) => state.profile.profileFields.username);
+  const profile = useSelector((state) => state.profile.profileFields);
 
   const handleSubmit = async () => {
     try {
@@ -41,12 +44,13 @@ const Settings = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `username=${user}&keepLogined=${true}&darkMode=true&color=black&font=Arial&defaultListFilter=Completed`,
+        body: `username=${profile.username}&keepLogined=${true}&darkMode=false&color=White&font=Arial&defaultListFilter=Completed`,
       });
 
       const res = await req.json()
 
       console.log(res)
+      console.log(profile)
     } catch (error) {
       console.log(error);
     }
@@ -70,8 +74,8 @@ const Settings = () => {
         <Box sx={settingsStyles.setting}>
           <Typography>Profile main color</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
-            <InputLabel id="demo-simple-select-label">Color</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="color" value={""}>
+            <InputLabel id="select-color-label">Color</InputLabel>
+            <Select labelId="select-color-label" id="select" label="color" value={""}>
               <MenuItem value={10}>White</MenuItem>
               <MenuItem value={20}>Dark</MenuItem>
               <MenuItem value={30}>Blue</MenuItem>
@@ -82,8 +86,8 @@ const Settings = () => {
         <Box sx={settingsStyles.setting}>
           <Typography>Profile font</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
-            <InputLabel id="demo-simple-select-label">Font</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Font" value={""}>
+            <InputLabel id="select-font-label">Font</InputLabel>
+            <Select labelId="select-font-label" id="simple-select" label="Font" value={""}>
               <MenuItem value={10}>Arial</MenuItem>
               <MenuItem value={20}>Roboto</MenuItem>
               <MenuItem value={30}>system UI</MenuItem>
@@ -94,8 +98,8 @@ const Settings = () => {
         <Box sx={settingsStyles.setting}>
           <Typography>Default List</Typography>
           <FormControl size="small" sx={{ minWidth: "180px" }}>
-            <InputLabel id="demo-simple-select-label">All anime</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="All anime" value={""}>
+            <InputLabel id="select-list-label">All anime</InputLabel>
+            <Select labelId="select-list-label" id="simple-list-select" label="All anime" value={""}>
               <MenuItem value={10}>All anime</MenuItem>
               <MenuItem value={20}>Currently Watching</MenuItem>
               <MenuItem value={30}>Completed</MenuItem>
