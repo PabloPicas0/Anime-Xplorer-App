@@ -41,8 +41,12 @@ const Settings = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `username=${user}&keepLogined=${true}&darkMode=false&color=black&font=Arial&defaultListFilter=Completed`,
+        body: `username=${user}&keepLogined=${true}&darkMode=true&color=black&font=Arial&defaultListFilter=Completed`,
       });
+
+      const res = await req.json()
+
+      console.log(res)
     } catch (error) {
       console.log(error);
     }

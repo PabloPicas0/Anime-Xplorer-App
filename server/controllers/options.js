@@ -18,7 +18,7 @@ const options = async (req, res) => {
 
     await user.save();
 
-    return res.status(200);
+    return res.status(200).json(user);
   } catch (error) {
     console.log(error);
   }
