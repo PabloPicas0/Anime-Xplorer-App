@@ -17,25 +17,36 @@ const userSchema = new mongoose.Schema({
   accountCreated: {
     type: Number,
   },
-  accountSettings: [
-    {
-      keepLogined: {
-        type: Boolean,
+  accountSettings: {
+    type: [
+      {
+        keepLogined: {
+          type: Boolean,
+        },
+        darkMode: {
+          type: Boolean,
+        },
+        color: {
+          type: String,
+        },
+        font: {
+          type: String,
+        },
+        defaultListFilter: {
+          type: String,
+        },
       },
-      darkMode: {
-        type: Boolean
+    ],
+    default: [
+      {
+        keepLogined: false,
+        darkMode: false,
+        color: "Blue",
+        font: "Arial",
+        defaultListFilter: "All anime",
       },
-      color: {
-        type: String,
-      },
-      font: {
-        type: String,
-      },
-      defaultListFilter: {
-        type: String,
-      },
-    },
-  ],
+    ],
+  },
   animeList: [
     {
       animeType: String,
