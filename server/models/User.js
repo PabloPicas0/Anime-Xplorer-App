@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
       keepLogined: {
         type: Boolean,
       },
+      darkMode: {
+        type: Boolean
+      },
       color: {
         type: String,
       },

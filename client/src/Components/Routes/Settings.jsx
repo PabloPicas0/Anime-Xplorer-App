@@ -1,5 +1,7 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Switch, Typography } from "@mui/material";
 import Menu from "../UI/Menu";
+import { useSelector } from "react-redux";
+import url from "../Utils/api";
 
 const settingsStyles = {
   container: {
@@ -30,6 +32,22 @@ const settingsStyles = {
 };
 
 const Settings = () => {
+  const user = useSelector((state) => state.profile.profileFields.username);
+
+  const handleSubmit = async () => {
+    try {
+      const req = await fetch(`${url}/api/options`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `username=${user}&keepLogined=${true}&darkMode=false&color=black&font=Arial&defaultListFilter=Completed`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box sx={settingsStyles.container}>
       <Menu />
@@ -83,7 +101,7 @@ const Settings = () => {
         </Box>
 
         <Box sx={settingsStyles.buttons}>
-          <Button variant="contained" disabled>
+          <Button variant="contained" onClick={() => handleSubmit()}>
             Apply
           </Button>
           <Button variant="contained" disabled>
