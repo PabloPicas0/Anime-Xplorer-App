@@ -3,6 +3,7 @@ import Menu from "../UI/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import url from "../Utils/api";
 import { handleProfileSettings } from "../Redux/Slices/profileSclice";
+import { useMemo, useState } from "react";
 
 const settingsStyles = {
   container: {
@@ -39,9 +40,14 @@ const Settings = () => {
   const profile = useSelector((state) => state.profile.profileFields);
   const options = profile.options;
 
+  const oldOptions = useMemo(() => [...options], []);
+
+  const isDisabled = JSON.stringify(...oldOptions) === JSON.stringify(...options);
+
   const dispatch = useDispatch();
 
-  console.log(options);
+  // console.log(options);
+  // console.log(oldOptions);
 
   const handleSubmit = async () => {
     try {
@@ -148,10 +154,10 @@ const Settings = () => {
         </Box>
 
         <Box sx={settingsStyles.buttons}>
-          <Button variant="contained" onClick={() => handleSubmit()}>
+          <Button variant="contained" onClick={() => handleSubmit()} disabled={isDisabled}>
             Apply
           </Button>
-          <Button variant="contained" disabled>
+          <Button variant="contained" disabled={isDisabled}>
             Discard
           </Button>
         </Box>
