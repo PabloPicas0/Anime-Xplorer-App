@@ -58,6 +58,7 @@ export const profileSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
 
       state.profileFields = action.payload.profile;
+      state.showByStatus = action.payload.profile.options[0].defaultListFilter;
     },
     handleClientList: (state, action) => {
       state.profileFields.list = action.payload;
@@ -67,6 +68,9 @@ export const profileSlice = createSlice({
     },
     handleAuthentication: (state, action) => {
       state.isAuthenticated = action.payload;
+    },
+    handleProfileSettings: (state, action) => {
+      state.profileFields.options[0][action.payload.optionType] = action.payload.value;
     },
   },
   extraReducers: (builder) => {
@@ -83,6 +87,11 @@ export const profileSlice = createSlice({
   },
 });
 
-export const { handleProfile, handleAuthentication, handleClientList, handleUserSortingStatus } =
-  profileSlice.actions;
+export const {
+  handleProfile,
+  handleAuthentication,
+  handleClientList,
+  handleUserSortingStatus,
+  handleProfileSettings,
+} = profileSlice.actions;
 export default profileSlice.reducer;
