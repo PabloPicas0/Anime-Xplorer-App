@@ -24,6 +24,7 @@ import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import url from "../Utils/api";
 import { handleStatus } from "../Redux/Slices/statusSlice";
+import { useLocation } from "react-router-dom";
 
 const addToListStyles = {
   dialogBody: {
@@ -52,6 +53,10 @@ const AddToList = () => {
   const username = useSelector((state) => state.profile.profileFields.username);
   const openDialog = useSelector((state) => state.menu.openDialog);
   const status = useSelector((state) => state.status);
+
+  const { pathname } = useLocation();
+
+  const isSettings = pathname === "/settings";
 
   const dispatch = useDispatch();
 
@@ -105,16 +110,19 @@ const AddToList = () => {
     }
   };
 
+  // Blocking addToList while user is in settings is needed
+  // Settings and addToList use same redux state blocking this component prevent from dubble error display
   return (
     <Dialog
       onClose={() => handleClose()}
       open={openDialog}
       PaperProps={{ style: addToListStyles.dialogBody }}
       disableScrollLock>
-      <Slide direction="down" in={status.error} unmountOnExit timeout={0}>
-        <Alert severity={status.error ? "error" : "success"} sx={addToListStyles.alert}>
+      <Slide direction="down" in={status.error || isSettings} unmountOnExit timeout={0}>
+        <Alert severity={status.error || isSettings ? "error" : "success"} sx={addToListStyles.alert}>
           {" "}
           {status.status[0].msg}
+          {isSettings ? "Cannot add to list while in settings. Please visit home page." : null}
         </Alert>
       </Slide>
 
@@ -212,7 +220,7 @@ const AddToList = () => {
       </DialogContent>
 
       <DialogActions>
-        <Button variant="contained" fullWidth type="submit" onClick={handleSubmit}>
+        <Button variant="contained" fullWidth type="submit" onClick={handleSubmit} disabled={isSettings}>
           Submit
         </Button>
       </DialogActions>

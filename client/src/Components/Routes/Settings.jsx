@@ -48,7 +48,7 @@ const settingsStyles = {
 
 // Bug
 // redux store become empty after page refresh
-// When you try add something to anime list in settings route you have dubble error
+
 // Apply settings to profile
 
 const Settings = () => {
