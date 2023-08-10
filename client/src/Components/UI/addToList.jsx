@@ -53,7 +53,6 @@ const AddToList = () => {
   const openDialog = useSelector((state) => state.menu.openDialog);
   const status = useSelector((state) => state.status);
 
-
   const dispatch = useDispatch();
 
   const handleClose = () => {
