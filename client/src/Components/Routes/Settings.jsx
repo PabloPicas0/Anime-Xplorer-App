@@ -1,9 +1,22 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Switch, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  Grow,
+  InputLabel,
+  MenuItem,
+  Select,
+  Slide,
+  Switch,
+  Typography,
+} from "@mui/material";
 import Menu from "../UI/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import url from "../Utils/api";
 import { handleProfileSettings } from "../Redux/Slices/profileSclice";
 import { useMemo, useState } from "react";
+import { handleStatus } from "../Redux/Slices/statusSlice";
 
 const settingsStyles = {
   container: {
@@ -40,14 +53,13 @@ const Settings = () => {
   const profile = useSelector((state) => state.profile.profileFields);
   const options = profile.options;
 
+  const status = useSelector((state) => state.status);
+
   const oldOptions = useMemo(() => [...options], []);
 
   const isDisabled = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
   const dispatch = useDispatch();
-
-  // console.log(options);
-  // console.log(oldOptions);
 
   const handleSubmit = async () => {
     try {
@@ -56,15 +68,23 @@ const Settings = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `username=${
-          profile.username
-        }&keepLogined=${true}&darkMode=false&color=White&font=Arial&defaultListFilter=Completed`,
+        body: `username=${profile.username}&keepLogined=${options[0].keepLogined}&darkMode=${options[0].darkMode}&color=${options[0].color}&font=${options[0].font}&defaultListFilter=${options[0].defaultListFilter}`,
       });
 
       const res = await req.json();
 
+      dispatch(
+        handleStatus({
+          error: res.error,
+          status: res.status,
+        })
+      );
+
+      if (!res.error) {
+        console.log(profile);
+      }
+
       console.log(res);
-      console.log(profile);
     } catch (error) {
       console.log(error);
     }
@@ -161,6 +181,10 @@ const Settings = () => {
             Discard
           </Button>
         </Box>
+
+        <Grow in={status.error} unmountOnExit>
+          <Alert severity={status.error ? "error" : "success"}>{status.status[0].msg}</Alert>
+        </Grow>
       </Box>
     </Box>
   );

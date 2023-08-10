@@ -6,13 +6,13 @@ const cors = require("cors");
 
 const userRoute = require("./routes/users");
 const loginRoute = require("./routes/login");
-const listRoute = require("./routes/list")
-const optionsRoute = require("./routes/options")
+const listRoute = require("./routes/list");
+const optionsRoute = require("./routes/options");
 
 dotenv.config();
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGO_URI).catch((error) => console.log(error));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,8 +23,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoute);
 app.use("/api/login", loginRoute);
-app.use("/api/list", listRoute)
-app.use("/api/options", optionsRoute)
+app.use("/api/list", listRoute);
+app.use("/api/options", optionsRoute);
 
 const port = process.env.PORT || 1337;
 const listener = app.listen(port, () => {
