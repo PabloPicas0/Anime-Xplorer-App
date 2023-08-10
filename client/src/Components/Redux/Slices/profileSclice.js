@@ -70,7 +70,11 @@ export const profileSlice = createSlice({
       state.isAuthenticated = action.payload;
     },
     handleProfileSettings: (state, action) => {
-      state.profileFields.options[0][action.payload.optionType] = action.payload.value;
+      const { optionType } = action.payload;
+      
+      optionType
+        ? (state.profileFields.options[0][action.payload.optionType] = action.payload.value)
+        : (state.profileFields.options = action.payload.value);
     },
   },
   extraReducers: (builder) => {

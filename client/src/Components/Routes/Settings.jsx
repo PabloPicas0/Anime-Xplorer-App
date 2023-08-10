@@ -50,12 +50,13 @@ const settingsStyles = {
 // redux store become empty after page refresh
 
 const Settings = () => {
-  const profile = useSelector((state) => state.profile.profileFields);
-  const options = profile.options;
+  const [optionsApplied, setOptionsApplied] = useState(false);
 
+  const profile = useSelector((state) => state.profile.profileFields);
   const status = useSelector((state) => state.status);
 
-  const oldOptions = useMemo(() => [...options], []);
+  const options = profile.options;
+  const oldOptions = useMemo(() => [...options], [optionsApplied]);
 
   const isDisabled = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
@@ -81,10 +82,8 @@ const Settings = () => {
       );
 
       if (!res.error) {
-        console.log(profile);
+        setOptionsApplied((prev) => !prev);
       }
-
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -177,7 +176,10 @@ const Settings = () => {
           <Button variant="contained" onClick={() => handleSubmit()} disabled={isDisabled}>
             Apply
           </Button>
-          <Button variant="contained" disabled={isDisabled}>
+          <Button
+            variant="contained"
+            disabled={isDisabled}
+            onClick={() => dispatch(handleProfileSettings({ value: oldOptions }))}>
             Discard
           </Button>
         </Box>
