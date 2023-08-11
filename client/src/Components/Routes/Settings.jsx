@@ -54,10 +54,11 @@ const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
 
   const profile = useSelector((state) => state.profile.profileFields);
+  const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
   const status = useSelector((state) => state.status);
 
   const options = profile.options;
-  const oldOptions = useMemo(() => [...options], [optionsApplied]);
+  const oldOptions = useMemo(() => [...options], [optionsApplied, isAuthenticated]);
 
   const isDisabled = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
