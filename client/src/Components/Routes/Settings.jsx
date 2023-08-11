@@ -48,7 +48,6 @@ const settingsStyles = {
 
 // Bug
 // redux store become empty after page refresh
-
 // Apply settings to profile
 
 const Settings = () => {
