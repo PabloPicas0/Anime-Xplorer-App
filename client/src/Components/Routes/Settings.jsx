@@ -8,23 +8,25 @@ import {
   MenuItem,
   Select,
   Skeleton,
-  Slide,
   Switch,
   Typography,
 } from "@mui/material";
 import Menu from "../UI/Menu";
+
 import { useDispatch, useSelector } from "react-redux";
-import url from "../Utils/api";
 import { handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
-import { useEffect, useMemo, useState } from "react";
 import { handleStatus } from "../Redux/Slices/statusSlice";
+
+import url from "../Utils/api";
+
+import { useEffect, useMemo, useState } from "react";
 
 const settingsStyles = {
   container: {
     display: "flex",
     flexDirection: "column",
     gap: "6rem",
-    margin: "0px auto 0px auto", // margin due to 64px height of navbar to prevent stacking
+    margin: "0px auto 0px auto",
     maxWidth: "1024px",
     padding: "3rem 10px",
     minHeight: "100vh",
@@ -54,13 +56,13 @@ const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
 
   const profile = useSelector((state) => state.profile.profileFields);
-  const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const status = useSelector((state) => state.status);
 
   const options = profile.options;
   const oldOptions = useMemo(() => [...options], [optionsApplied, isAuthenticated]);
 
-  const isDisabled = JSON.stringify(...oldOptions) === JSON.stringify(...options);
+  const isOptionSame = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
   const dispatch = useDispatch();
 
@@ -199,7 +201,7 @@ const Settings = () => {
                     )
                   }>
                   <MenuItem value={"All anime"}>All anime</MenuItem>
-                  <MenuItem value={"Currently Watching"}>Currently Watching</MenuItem>
+                  <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
                   <MenuItem value={"Completed"}>Completed</MenuItem>
                   <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
                 </Select>
@@ -207,12 +209,12 @@ const Settings = () => {
             </Box>
 
             <Box sx={settingsStyles.buttons}>
-              <Button variant="contained" onClick={() => handleSubmit()} disabled={isDisabled}>
+              <Button variant="contained" onClick={() => handleSubmit()} disabled={isOptionSame}>
                 Apply
               </Button>
               <Button
                 variant="contained"
-                disabled={isDisabled}
+                disabled={isOptionSame}
                 onClick={() => dispatch(handleProfileSettings({ value: oldOptions }))}>
                 Discard
               </Button>

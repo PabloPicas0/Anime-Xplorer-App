@@ -83,6 +83,7 @@ export const profileSlice = createSlice({
     });
     builder.addCase(loadUser.fulfilled, (state, action) => {
       state.profileFields = action.payload.profile;
+      state.showByStatus = action.payload.profile.options[0].defaultListFilter;
       state.isAuthenticated = action.payload.isAuthenticated;
     });
     builder.addCase(loadUser.rejected, (state, action) => {
