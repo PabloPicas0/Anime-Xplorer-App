@@ -2,6 +2,10 @@ import {
   Alert,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
   FormControl,
   Grow,
   InputLabel,
@@ -15,11 +19,12 @@ import Menu from "../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
 import { handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
-import { handleStatus } from "../Redux/Slices/statusSlice";
+import { handleRefresh, handleStatus } from "../Redux/Slices/statusSlice";
 
 import url from "../Utils/api";
 
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const settingsStyles = {
   container: {
@@ -52,6 +57,9 @@ const settingsStyles = {
 // Bug
 // Apply settings to profile
 
+// TODO
+// Validate refresh state whlie submitting and loaduser - add validation message to skeleton components
+
 const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
 
@@ -65,6 +73,7 @@ const Settings = () => {
   const isOptionSame = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(loadUser());
@@ -108,6 +117,38 @@ const Settings = () => {
     <Box sx={settingsStyles.container}>
       {options.length < 1 ? (
         <>
+          <Dialog open={status.refreshError} transitionDuration={0}>
+            <DialogContent>
+              <DialogContentText>{status.status[0].msg}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  navigate("/login");
+                  dispatch(
+                    handleRefresh({
+                      error: false,
+                      status: [{ msg: "" }],
+                    })
+                  );
+                }}>
+                Login
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/signup");
+                  dispatch(
+                    handleRefresh({
+                      error: false,
+                      status: [{ msg: "" }],
+                    })
+                  );
+                }}>
+                Sign up
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <Skeleton variant="circular" width={"100px"} height={"100px"}></Skeleton>
 
           <Box sx={settingsStyles.wrapper}>

@@ -71,7 +71,7 @@ export const profileSlice = createSlice({
     },
     handleProfileSettings: (state, action) => {
       const { optionType } = action.payload;
-      
+
       optionType
         ? (state.profileFields.options[0][action.payload.optionType] = action.payload.value)
         : (state.profileFields.options = action.payload.value);
@@ -82,8 +82,10 @@ export const profileSlice = createSlice({
       state.isAuthenticated = false;
     });
     builder.addCase(loadUser.fulfilled, (state, action) => {
+      const { error } = action.payload;
+
       state.profileFields = action.payload.profile;
-      state.showByStatus = action.payload.profile.options[0].defaultListFilter;
+      state.showByStatus = error ? "All anime" : action.payload.profile.options[0].defaultListFilter; // check if payload have error - profile.options == [] if error exists
       state.isAuthenticated = action.payload.isAuthenticated;
     });
     builder.addCase(loadUser.rejected, (state, action) => {

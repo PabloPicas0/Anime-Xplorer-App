@@ -34,7 +34,7 @@ const rootStyles = {
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const profileOptions = useSelector((state) => state.profile.profileFields.options[0]);
-  const { color } = profileOptions || { color: "blue" }; // Fallback value while fetching data to prevent object destructing errors
+  const { color } = profileOptions || { color: "Blue" }; // Fallback value while fetching data to prevent object destructing errors
 
   console.log(color);
 
