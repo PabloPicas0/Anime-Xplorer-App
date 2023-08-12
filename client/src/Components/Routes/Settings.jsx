@@ -161,7 +161,7 @@ const Settings = () => {
                     dispatch(handleProfileSettings({ optionType: "color", value: e.target.value }))
                   }>
                   <MenuItem value={"White"}>White</MenuItem>
-                  <MenuItem value={"Dark"}>Dark</MenuItem>
+                  <MenuItem value={"Black"}>Black</MenuItem>
                   <MenuItem value={"Blue"}>Blue</MenuItem>
                 </Select>
               </FormControl>

@@ -16,13 +16,28 @@ const rootStyles = {
   navbar: {
     justifyContent: "space-around",
     alignItems: "stretch",
+  },
+  blue: {
     backgroundColor: "#2b2d42",
+  },
+  black: {
+    backgroundColor: "#000",
+  },
+  white: {
+    backgroundColor: "#fff",
   },
 };
 // TODO
-// When user is registed there is no logo site
+// Change colors and add shadow on white nav background
+// Prevent from submiting options while session expired
+
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+  const profileOptions = useSelector((state) => state.profile.profileFields.options[0]);
+  const { color } = profileOptions || { color: "blue" }; // Fallback value while fetching data to prevent object destructing errors
+
+  console.log(color);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +47,9 @@ function App() {
   return (
     <>
       <AppBar component={"nav"} id="navbar">
-        <Toolbar sx={rootStyles.navbar}>{isAuthenticated ? <Registred /> : <Unregistered />}</Toolbar>
+        <Toolbar sx={{ ...rootStyles.navbar, ...rootStyles[color.toLowerCase()] }}>
+          {isAuthenticated ? <Registred /> : <Unregistered />}
+        </Toolbar>
       </AppBar>
 
       <div id="detail">
