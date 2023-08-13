@@ -59,6 +59,7 @@ const settingsStyles = {
 
 // TODO
 // Validate refresh state whlie submitting and loaduser - add validation message to skeleton components
+// Optionally change validation error to this from modal if user try apply settings without token
 
 const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
@@ -73,7 +74,7 @@ const Settings = () => {
   const isOptionSame = JSON.stringify(...oldOptions) === JSON.stringify(...options);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loadUser());
@@ -85,6 +86,7 @@ const Settings = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: `username=${profile.username}&keepLogined=${options[0].keepLogined}&darkMode=${options[0].darkMode}&color=${options[0].color}&font=${options[0].font}&defaultListFilter=${options[0].defaultListFilter}`,
       });
