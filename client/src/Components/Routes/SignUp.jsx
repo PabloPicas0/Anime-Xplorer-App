@@ -102,7 +102,7 @@ const SignUp = () => {
       dispatch(
         handleError({
           error: response.error,
-          status: response.status,
+          errorMessage: response.status,
         })
       );
 
@@ -119,7 +119,7 @@ const SignUp = () => {
       dispatch(
         handleError({
           error: true,
-          status: [{ msg: "Unexpected error. Please try again later." }],
+          errorMessage: [{ msg: "Unexpected error. Please try again later." }],
         })
       );
     }
@@ -132,7 +132,7 @@ const SignUp = () => {
       <Slide direction="down" in={formStatus.error}>
         <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
           {" "}
-          {formStatus.status[0].msg}
+          {formStatus.errorMessage[0].msg}
         </Alert>
       </Slide>
 

@@ -65,7 +65,7 @@ const AddToList = () => {
     dispatch(
       handleError({
         error: false,
-        status: [{ msg: "" }],
+        errorMessage: [{ msg: "" }],
       })
     );
     setDialogValues({
@@ -97,7 +97,7 @@ const AddToList = () => {
       dispatch(
         handleError({
           error: response.error,
-          status: response.status,
+          errorMessage: response.status,
         })
       );
 
@@ -121,7 +121,7 @@ const AddToList = () => {
       <Slide direction="down" in={status.error || isSettings} unmountOnExit timeout={0}>
         <Alert severity={status.error || isSettings ? "error" : "success"} sx={addToListStyles.alert}>
           {" "}
-          {status.status[0].msg}
+          {status.errorMessage[0].msg}
           {isSettings ? "Cannot add to list while in settings. Please visit home page." : null}
         </Alert>
       </Slide>

@@ -20,7 +20,7 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
     dispatch(
       handleError({
         refreshError: response.error,
-        status: response.status,
+        errorMessage: response.status,
       })
     );
 
@@ -31,7 +31,7 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
     dispatch(
       handleError({
         refreshError: true,
-        status: [{ msg: "Something went wrong. Please refresh the page." }],
+        errorMessage: [{ msg: "Something went wrong. Please refresh the page." }],
       })
     );
 

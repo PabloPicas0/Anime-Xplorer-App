@@ -96,7 +96,7 @@ const Settings = () => {
       dispatch(
         handleError({
           error: res.error,
-          status: res.status,
+          errorMessage: res.status,
         })
       );
 
@@ -109,7 +109,7 @@ const Settings = () => {
       dispatch(
         handleError({
           error: true,
-          status: [{ msg: "Something went wrong. Please refresh the page." }],
+          errorMessage: [{ msg: "Something went wrong. Please refresh the page." }],
         })
       );
     }
@@ -121,30 +121,18 @@ const Settings = () => {
         <>
           <Dialog open={status.refreshError} transitionDuration={0}>
             <DialogContent>
-              <DialogContentText>{status.status[0].msg}</DialogContentText>
+              <DialogContentText>{status.errorMessage[0].msg}</DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button
                 onClick={() => {
                   navigate("/login");
-                  dispatch(
-                    handleRefresh({
-                      error: false,
-                      status: [{ msg: "" }],
-                    })
-                  );
                 }}>
                 Login
               </Button>
               <Button
                 onClick={() => {
                   navigate("/signup");
-                  dispatch(
-                    handleRefresh({
-                      error: false,
-                      status: [{ msg: "" }],
-                    })
-                  );
                 }}>
                 Sign up
               </Button>
@@ -264,7 +252,7 @@ const Settings = () => {
             </Box>
 
             <Grow in={status.error} unmountOnExit>
-              <Alert severity={status.error ? "error" : "success"}>{status.status[0].msg}</Alert>
+              <Alert severity={status.error ? "error" : "success"}>{status.errorMessage[0].msg}</Alert>
             </Grow>
           </Box>
         </>

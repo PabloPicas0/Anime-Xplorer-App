@@ -5,13 +5,13 @@ export const statusSlice = createSlice({
   initialState: {
     error: false,
     refreshError: false,
-    status: [{ msg: "" }],
+    errorMessage: [{ msg: "" }],
   },
   reducers: {
     handleError: (state, action) => {
       state.refreshError = action.payload.refreshError || false;
       state.error = action.payload.error || false;
-      state.status = action.payload.status;
+      state.errorMessage = action.payload.errorMessage;
     },
   },
 });

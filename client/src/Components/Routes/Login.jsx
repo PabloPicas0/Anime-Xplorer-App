@@ -90,7 +90,7 @@ const Login = () => {
       dispatch(
         handleError({
           error: response.error,
-          status: response.status,
+          errorMessage: response.status,
         })
       );
 
@@ -111,7 +111,7 @@ const Login = () => {
       dispatch(
         handleError({
           error: true,
-          status: [{ msg: "Unexpected error. Please try again later." }],
+          errorMessage: [{ msg: "Unexpected error. Please try again later." }],
         })
       );
     }
@@ -124,7 +124,7 @@ const Login = () => {
       <Slide direction="down" in={status.error}>
         <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
           {" "}
-          {status.status[0].msg}
+          {status.errorMessage[0].msg}
         </Alert>
       </Slide>
 

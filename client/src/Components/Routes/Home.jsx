@@ -89,9 +89,9 @@ const Home = () => {
       return acc;
     },
     {
-      currentlyWatching: [],
-      planToWatch: [],
-      completed: [],
+      "currentlyWatching": [],
+      "planToWatch": [],
+      "completed": [],
     }
   );
 
@@ -99,7 +99,7 @@ const Home = () => {
     <Box id="container" sx={homeStyles.container}>
       <Dialog open={status.refreshError} slotProps={homeStyles.backdrop} transitionDuration={0}>
         <DialogContent>
-          <DialogContentText>{status.status[0].msg}</DialogContentText>
+          <DialogContentText>{status.errorMessage[0].msg}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
