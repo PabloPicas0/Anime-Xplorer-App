@@ -2,7 +2,10 @@ import { Link } from "react-router-dom";
 
 import { Button, ButtonGroup, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { LoginSharp, Menu as MenuIcon, PersonAddAlt1 } from "@mui/icons-material";
+
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 const unregistredStyles = {
   desktopLinks: {
@@ -29,23 +32,41 @@ const unregistredStyles = {
 const Unregistered = () => {
   const [userMenu, setUserMenu] = useState(null);
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <Typography variant="h6" component={"div"} alignSelf={"center"}>
         AnimeExplorer
       </Typography>
-      
+
       <ButtonGroup
         variant="outlined"
         aria-label="login/sing up button group"
         sx={unregistredStyles.desktopLinks}>
-        <Button>
+        <Button
+          onClick={() =>
+            dispatch(
+              handleError({
+                error: false,
+                errorMessage: [{ msg: "" }],
+              })
+            )
+          }>
           <Link to={`login`} style={unregistredStyles.navbarButtons}>
             Login
           </Link>
         </Button>
 
-        <Button>
+        <Button
+          onClick={() =>
+            dispatch(
+              handleError({
+                error: false,
+                errorMessage: [{ msg: "" }],
+              })
+            )
+          }>
           <Link to={`signup`} style={unregistredStyles.navbarButtons}>
             Sign Up
           </Link>
