@@ -19,7 +19,7 @@ import Menu from "../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
 import { handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
-import { handleRefresh, handleStatus } from "../Redux/Slices/statusSlice";
+import { handleRefresh, handleError } from "../Redux/Slices/statusSlice";
 
 import url from "../Utils/api";
 
@@ -94,7 +94,7 @@ const Settings = () => {
       const res = await req.json();
 
       dispatch(
-        handleStatus({
+        handleError({
           error: res.error,
           status: res.status,
         })
@@ -107,7 +107,7 @@ const Settings = () => {
       console.log(error);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: true,
           status: [{ msg: "Something went wrong. Please refresh the page." }],
         })

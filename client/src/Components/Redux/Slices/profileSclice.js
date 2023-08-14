@@ -50,7 +50,7 @@ export const profileSlice = createSlice({
       options: [],
       list: [],
     },
-    showByStatus: "All anime",
+    showBy: "All anime",
     isAuthenticated: false,
   },
   reducers: {
@@ -58,13 +58,13 @@ export const profileSlice = createSlice({
       localStorage.setItem("token", action.payload.token);
 
       state.profileFields = action.payload.profile;
-      state.showByStatus = action.payload.profile.options[0].defaultListFilter;
+      state.showBy = action.payload.profile.options[0].defaultListFilter;
     },
     handleClientList: (state, action) => {
       state.profileFields.list = action.payload;
     },
     handleUserSortingStatus: (state, action) => {
-      state.showByStatus = action.payload;
+      state.showBy = action.payload;
     },
     handleAuthentication: (state, action) => {
       state.isAuthenticated = action.payload;
@@ -85,7 +85,7 @@ export const profileSlice = createSlice({
       const { error } = action.payload;
 
       state.profileFields = action.payload.profile;
-      state.showByStatus = error ? "All anime" : action.payload.profile.options[0].defaultListFilter; // check if payload have error - profile.options == [] if error exists
+      state.showBy = error ? "All anime" : action.payload.profile.options[0].defaultListFilter; // check if payload have error - profile.options == [] if error exists
       state.isAuthenticated = action.payload.isAuthenticated;
     });
     builder.addCase(loadUser.rejected, (state, action) => {

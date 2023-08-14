@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { handleAuthentication, handleProfile } from "../Redux/Slices/profileSclice";
-import { handleStatus } from "../Redux/Slices/statusSlice";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 const loginStyles = {
   container: {
@@ -88,7 +88,7 @@ const Login = () => {
       console.log(response);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: response.error,
           status: response.status,
         })
@@ -102,16 +102,14 @@ const Login = () => {
           })
         );
 
-        setTimeout(() => {
-          dispatch(handleAuthentication(true));
-          navigate("/home");
-        }, 500);
+        dispatch(handleAuthentication(true));
+        navigate("/home");
       }
     } catch (error) {
       console.log(error);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: true,
           status: [{ msg: "Unexpected error. Please try again later." }],
         })

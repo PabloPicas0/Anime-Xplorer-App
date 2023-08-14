@@ -14,7 +14,7 @@ const registredStyles = {
 };
 
 const Registred = () => {
-  const currentStatus = useSelector((state) => state.profile.showByStatus);
+  const currentStatus = useSelector((state) => state.profile.showBy);
 
   const dispatch = useDispatch();
 

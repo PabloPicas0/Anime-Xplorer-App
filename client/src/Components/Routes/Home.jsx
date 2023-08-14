@@ -70,7 +70,7 @@ const filterIcons = [
 
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
-  const statusFilter = useSelector((state) => state.profile.showByStatus);
+  const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
@@ -89,9 +89,9 @@ const Home = () => {
       return acc;
     },
     {
-      "currentlyWatching": [],
-      "planToWatch": [],
-      "completed": [],
+      currentlyWatching: [],
+      planToWatch: [],
+      completed: [],
     }
   );
 
@@ -105,24 +105,12 @@ const Home = () => {
           <Button
             onClick={() => {
               navigate("/login");
-              dispatch(
-                handleRefresh({
-                  error: false,
-                  status: [{ msg: "" }],
-                })
-              );
             }}>
             Login
           </Button>
           <Button
             onClick={() => {
               navigate("/signup");
-              dispatch(
-                handleRefresh({
-                  error: false,
-                  status: [{ msg: "" }],
-                })
-              );
             }}>
             Sign up
           </Button>
@@ -137,7 +125,7 @@ const Home = () => {
         <Select
           label="Select anime list"
           labelId="select-label"
-          value={statusFilter}
+          value={showBy}
           MenuProps={{
             marginThreshold: 10,
           }}
@@ -165,7 +153,7 @@ const Home = () => {
         <Box
           id="watching"
           sx={
-            statusFilter === "Currently watching" || statusFilter === "All anime"
+            showBy === "Currently watching" || showBy === "All anime"
               ? homeStyles.listStyle
               : { display: "none" }
           }>
@@ -192,11 +180,7 @@ const Home = () => {
 
         <Box
           id="completed"
-          sx={
-            statusFilter === "Completed" || statusFilter === "All anime"
-              ? homeStyles.listStyle
-              : { display: "none" }
-          }>
+          sx={showBy === "Completed" || showBy === "All anime" ? homeStyles.listStyle : { display: "none" }}>
           <Typography variant="h6" marginBottom={2} textAlign={"center"}>
             Completed
           </Typography>
@@ -220,7 +204,7 @@ const Home = () => {
 
         <Box
           id="plan to watch"
-          sx={statusFilter === "Plan to watch" || statusFilter === "All anime" ? {} : { display: "none" }}>
+          sx={showBy === "Plan to watch" || showBy === "All anime" ? {} : { display: "none" }}>
           <Typography variant="h6" marginBottom={2} textAlign={"center"}>
             Plan to watch
           </Typography>

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import url from "../Utils/api";
 
-import { handleStatus } from "../Redux/Slices/statusSlice";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 const singUpStyles = {
   container: {
@@ -100,7 +100,7 @@ const SignUp = () => {
       console.log(response);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: response.error,
           status: response.status,
         })
@@ -117,7 +117,7 @@ const SignUp = () => {
       console.error(error);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: true,
           status: [{ msg: "Unexpected error. Please try again later." }],
         })

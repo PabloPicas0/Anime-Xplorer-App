@@ -23,7 +23,7 @@ import { handleDialog } from "../Redux/Slices/menuSlice";
 import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import url from "../Utils/api";
-import { handleStatus } from "../Redux/Slices/statusSlice";
+import { handleError } from "../Redux/Slices/statusSlice";
 import { useLocation } from "react-router-dom";
 
 const addToListStyles = {
@@ -63,7 +63,7 @@ const AddToList = () => {
   const handleClose = () => {
     dispatch(handleDialog(false));
     dispatch(
-      handleStatus({
+      handleError({
         error: false,
         status: [{ msg: "" }],
       })
@@ -95,7 +95,7 @@ const AddToList = () => {
       console.log(response);
 
       dispatch(
-        handleStatus({
+        handleError({
           error: response.error,
           status: response.status,
         })
