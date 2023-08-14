@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import url from "../../Utils/api";
 
-import { handleRefresh } from "./statusSlice";
+import { handleError } from "./statusSlice";
 
 export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatch }) => {
   const currentToken = localStorage.getItem("token");
@@ -18,8 +18,8 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
     const response = await request.json();
 
     dispatch(
-      handleRefresh({
-        error: response.error,
+      handleError({
+        refreshError: response.error,
         status: response.status,
       })
     );
@@ -29,8 +29,8 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
     console.error(error);
 
     dispatch(
-      handleRefresh({
-        error: true,
+      handleError({
+        refreshError: true,
         status: [{ msg: "Something went wrong. Please refresh the page." }],
       })
     );
