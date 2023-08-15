@@ -76,6 +76,18 @@ export const profileSlice = createSlice({
         ? (state.profileFields.options[0][action.payload.optionType] = action.payload.value)
         : (state.profileFields.options = action.payload.value);
     },
+    handleReset: () => {
+      return {
+        profileFields: {
+          username: "",
+          date: 0,
+          options: [],
+          list: [],
+        },
+        showBy: "All anime",
+        isAuthenticated: false,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loadUser.pending, (state) => {
@@ -100,5 +112,6 @@ export const {
   handleClientList,
   handleUserSortingStatus,
   handleProfileSettings,
+  handleReset,
 } = profileSlice.actions;
 export default profileSlice.reducer;

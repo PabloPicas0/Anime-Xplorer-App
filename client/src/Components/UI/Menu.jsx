@@ -1,12 +1,13 @@
 import { Person, HomeOutlined, LogoutSharp, Settings, Add } from "@mui/icons-material";
 import { IconButton, Tooltip, Zoom, Grow, Box } from "@mui/material";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { handleDialog, handleVisibility } from "../Redux/Slices/menuSlice";
 
 import AddToList from "./AddToList";
+import { handleReset } from "../Redux/Slices/profileSclice";
 
 const menuStyles = {
   menu: {
@@ -30,10 +31,28 @@ const menuStyles = {
   },
 };
 
+const defaultState = {
+  profileFields: {
+    username: "",
+    date: 0,
+    options: [],
+    list: [],
+  },
+  showBy: "All anime",
+  isAuthenticated: false,
+};
+
 const Menu = () => {
   const isVisible = useSelector((state) => state.menu.isVisible);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(handleReset());
+    navigate("/login");
+  };
 
   return (
     <Box sx={menuStyles.menu}>
@@ -82,7 +101,7 @@ const Menu = () => {
 
           <Grow in={isVisible} {...(isVisible ? { timeout: 550 } : {})}>
             <Tooltip TransitionComponent={Zoom} title="Logout" arrow>
-              <IconButton size="large">
+              <IconButton size="large" onClick={logout}>
                 <LogoutSharp />
               </IconButton>
             </Tooltip>

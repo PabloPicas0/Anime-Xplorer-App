@@ -36,13 +36,12 @@ function App() {
   const profileOptions = useSelector((state) => state.profile.profileFields.options[0]);
   const { color } = profileOptions || { color: "Blue" }; // Fallback value while fetching data to prevent object destructing errors
 
-  console.log(color);
-
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(loadUser());
-  }, []);
+  }, [location]);
 
   return (
     <>
