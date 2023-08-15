@@ -54,11 +54,8 @@ const settingsStyles = {
   },
 };
 
-// Bug
-// Apply settings to profile
-
 // TODO
-// Validate refresh state whlie submitting and loaduser - add validation message to skeleton components
+// Apply settings to profile
 // Optionally change validation error to this from modal if user try apply settings without token
 
 const Settings = () => {

@@ -31,16 +31,6 @@ const menuStyles = {
   },
 };
 
-const defaultState = {
-  profileFields: {
-    username: "",
-    date: 0,
-    options: [],
-    list: [],
-  },
-  showBy: "All anime",
-  isAuthenticated: false,
-};
 
 const Menu = () => {
   const isVisible = useSelector((state) => state.menu.isVisible);

@@ -25,11 +25,13 @@ const rootStyles = {
   },
   white: {
     backgroundColor: "#fff",
+    "& button": {
+      color: "black",
+    },
   },
 };
 // TODO
-// Change colors and add shadow on white nav background
-// Prevent from submiting options while session expired
+// add shadow on white nav background
 
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);

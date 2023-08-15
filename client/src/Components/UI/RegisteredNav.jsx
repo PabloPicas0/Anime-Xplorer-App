@@ -15,6 +15,8 @@ const registredStyles = {
 
 const Registred = () => {
   const currentStatus = useSelector((state) => state.profile.showBy);
+  const options = useSelector((state) => state.profile.profileFields.options[0]);
+  const { color } = options;
 
   const dispatch = useDispatch();
 
@@ -27,7 +29,10 @@ const Registred = () => {
             onClick={() => dispatch(handleUserSortingStatus(page))}
             sx={
               currentStatus === page
-                ? { ...registredStyles.links, borderBottom: "1px solid white" }
+                ? {
+                    ...registredStyles.links,
+                    borderBottom: `1px solid ${color.toLowerCase() === "white" ? "black" : "white"}`,
+                  }
                 : { ...registredStyles.links }
             }>
             {page}
