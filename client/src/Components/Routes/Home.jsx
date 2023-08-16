@@ -70,7 +70,7 @@ const filterIcons = [
 
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
-  const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
 
@@ -129,9 +129,20 @@ const Home = () => {
           </Box>
 
           <Box>
-            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
-            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
-            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
+            <Box sx={homeStyles.listStyle}>
+              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
+              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
+            </Box>
+
+            <Box sx={homeStyles.listStyle}>
+              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
+              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
+            </Box>
+
+            <Box sx={homeStyles.listStyle}>
+              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
+              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
+            </Box>
           </Box>
         </>
       ) : (
