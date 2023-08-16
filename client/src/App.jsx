@@ -30,8 +30,6 @@ const rootStyles = {
     },
   },
 };
-// TODO
-// add shadow on white nav background
 
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);

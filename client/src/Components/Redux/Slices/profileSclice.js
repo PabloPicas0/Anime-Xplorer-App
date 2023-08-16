@@ -39,7 +39,15 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
     );
 
     return {
+      error: true,
+      status: [{ msg: "Something went wrong. Please refresh the page." }],
       isAuthenticated: false,
+      profile: {
+        username: "",
+        date: 0,
+        options: [],
+        list: [],
+      },
     };
   }
 });

@@ -56,7 +56,6 @@ const settingsStyles = {
 
 // TODO
 // Apply settings to profile
-// Optionally change validation error to this from modal if user try apply settings without token
 
 const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
