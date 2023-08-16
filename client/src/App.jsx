@@ -40,10 +40,11 @@ function App() {
 
   const dispatch = useDispatch();
   const location = useLocation();
+  const path = location.pathname
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [location]);
+  }, [path]);
 
   return (
     <>

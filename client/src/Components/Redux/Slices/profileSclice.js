@@ -4,6 +4,9 @@ import url from "../../Utils/api";
 
 import { handleError } from "./statusSlice";
 
+// TODO
+// Fix errors when server is down
+
 export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatch }) => {
   const currentToken = localStorage.getItem("token");
 
