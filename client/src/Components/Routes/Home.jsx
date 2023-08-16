@@ -10,6 +10,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Skeleton,
   Tooltip,
   Typography,
   Zoom,
@@ -23,7 +24,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
-import { handleRefresh } from "../Redux/Slices/statusSlice";
 
 const homeStyles = {
   container: {
@@ -70,6 +70,7 @@ const filterIcons = [
 
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
+  const isAuthenticated = useSelector(state => state.profile.isAuthenticated)
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
 
@@ -97,135 +98,157 @@ const Home = () => {
 
   return (
     <Box id="container" sx={homeStyles.container}>
-      <Dialog open={status.refreshError} slotProps={homeStyles.backdrop} transitionDuration={0}>
-        <DialogContent>
-          <DialogContentText>{status.errorMessage[0].msg}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              navigate("/login");
-            }}>
-            Login
-          </Button>
-          <Button
-            onClick={() => {
-              navigate("/signup");
-            }}>
-            Sign up
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {!isAuthenticated ? (
+        <>
+          <Dialog open={status.refreshError} slotProps={homeStyles.backdrop} transitionDuration={0}>
+            <DialogContent>
+              <DialogContentText>{status.errorMessage[0].msg}</DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  navigate("/login");
+                }}>
+                Login
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/signup");
+                }}>
+                Sign up
+              </Button>
+            </DialogActions>
+          </Dialog>
 
-      <Menu />
+          <Skeleton variant="circular" width={"100px"} height={"100px"}></Skeleton>
 
-      <FormControl fullWidth sx={homeStyles.selectForm}>
-        <InputLabel id="select-label">Select anime list</InputLabel>
+          <Box sx={{ ...homeStyles.filters, display: "flex", justifyContent: "end", gap: "10px" }}>
+            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
+            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
+            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
+          </Box>
 
-        <Select
-          label="Select anime list"
-          labelId="select-label"
-          value={showBy}
-          MenuProps={{
-            marginThreshold: 10,
-          }}
-          onChange={(e) => dispatch(handleUserSortingStatus(e.target.value))}>
-          <MenuItem value={"All anime"}>All anime</MenuItem>
-          <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
-          <MenuItem value={"Completed"}>Completed</MenuItem>
-          <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
-        </Select>
-      </FormControl>
+          <Box>
+            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
+            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
+            <Skeleton variant="text" height={"32px"} sx={homeStyles.listStyle}></Skeleton>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Menu />
 
-      <Box sx={homeStyles.filters}>
-        {filterIcons.map((filterIcon) => {
-          const { description, icon } = filterIcon;
+          <FormControl fullWidth sx={homeStyles.selectForm}>
+            <InputLabel id="select-label">Select anime list</InputLabel>
 
-          return (
-            <Tooltip TransitionComponent={Zoom} title={description} key={description} arrow>
-              <IconButton>{icon}</IconButton>
-            </Tooltip>
-          );
-        })}
-      </Box>
+            <Select
+              label="Select anime list"
+              labelId="select-label"
+              value={showBy}
+              MenuProps={{
+                marginThreshold: 10,
+              }}
+              onChange={(e) => dispatch(handleUserSortingStatus(e.target.value))}>
+              <MenuItem value={"All anime"}>All anime</MenuItem>
+              <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
+              <MenuItem value={"Completed"}>Completed</MenuItem>
+              <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
+            </Select>
+          </FormControl>
 
-      <Box id="list">
-        <Box
-          id="watching"
-          sx={
-            showBy === "Currently watching" || showBy === "All anime"
-              ? homeStyles.listStyle
-              : { display: "none" }
-          }>
-          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-            Currently watching
-          </Typography>
+          <Box sx={homeStyles.filters}>
+            {filterIcons.map((filterIcon) => {
+              const { description, icon } = filterIcon;
 
-          {sortedList.currentlyWatching.map((listProp, idx) => {
-            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+              return (
+                <Tooltip TransitionComponent={Zoom} title={description} key={description} arrow>
+                  <IconButton>{icon}</IconButton>
+                </Tooltip>
+              );
+            })}
+          </Box>
 
-            return (
-              <Card
-                key={idx}
-                index={idx}
-                animeName={animeName}
-                animeStatus={animeStatus}
-                currentEpisode={currentEpisode}
-                allEpisodes={allEpisodes}
-                score={score}
-              />
-            );
-          })}
-        </Box>
+          <Box id="list">
+            <Box
+              id="watching"
+              sx={
+                showBy === "Currently watching" || showBy === "All anime"
+                  ? homeStyles.listStyle
+                  : { display: "none" }
+              }>
+              <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+                Currently watching
+              </Typography>
 
-        <Box
-          id="completed"
-          sx={showBy === "Completed" || showBy === "All anime" ? homeStyles.listStyle : { display: "none" }}>
-          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-            Completed
-          </Typography>
+              {sortedList.currentlyWatching.map((listProp, idx) => {
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
-          {sortedList.completed.map((listProp, idx) => {
-            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+                return (
+                  <Card
+                    key={idx}
+                    index={idx}
+                    animeName={animeName}
+                    animeStatus={animeStatus}
+                    currentEpisode={currentEpisode}
+                    allEpisodes={allEpisodes}
+                    score={score}
+                  />
+                );
+              })}
+            </Box>
 
-            return (
-              <Card
-                key={idx}
-                index={idx}
-                animeName={animeName}
-                animeStatus={animeStatus}
-                currentEpisode={currentEpisode}
-                allEpisodes={allEpisodes}
-                score={score}
-              />
-            );
-          })}
-        </Box>
+            <Box
+              id="completed"
+              sx={
+                showBy === "Completed" || showBy === "All anime" ? homeStyles.listStyle : { display: "none" }
+              }>
+              <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+                Completed
+              </Typography>
 
-        <Box
-          id="plan to watch"
-          sx={showBy === "Plan to watch" || showBy === "All anime" ? {} : { display: "none" }}>
-          <Typography variant="h6" marginBottom={2} textAlign={"center"}>
-            Plan to watch
-          </Typography>
+              {sortedList.completed.map((listProp, idx) => {
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
 
-          {sortedList.planToWatch.map((listProp, idx) => {
-            const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+                return (
+                  <Card
+                    key={idx}
+                    index={idx}
+                    animeName={animeName}
+                    animeStatus={animeStatus}
+                    currentEpisode={currentEpisode}
+                    allEpisodes={allEpisodes}
+                    score={score}
+                  />
+                );
+              })}
+            </Box>
 
-            return (
-              <Card
-                key={idx}
-                index={idx}
-                animeName={animeName}
-                animeStatus={animeStatus}
-                currentEpisode={currentEpisode}
-                allEpisodes={allEpisodes}
-                score={score}
-              />
-            );
-          })}
-        </Box>
-      </Box>
+            <Box
+              id="plan to watch"
+              sx={showBy === "Plan to watch" || showBy === "All anime" ? {} : { display: "none" }}>
+              <Typography variant="h6" marginBottom={2} textAlign={"center"}>
+                Plan to watch
+              </Typography>
+
+              {sortedList.planToWatch.map((listProp, idx) => {
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+
+                return (
+                  <Card
+                    key={idx}
+                    index={idx}
+                    animeName={animeName}
+                    animeStatus={animeStatus}
+                    currentEpisode={currentEpisode}
+                    allEpisodes={allEpisodes}
+                    score={score}
+                  />
+                );
+              })}
+            </Box>
+          </Box>
+        </>
+      )}
     </Box>
   );
 };
