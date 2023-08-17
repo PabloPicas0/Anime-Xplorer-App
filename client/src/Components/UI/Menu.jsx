@@ -41,7 +41,7 @@ const Menu = () => {
   const logout = () => {
     localStorage.removeItem("token");
     dispatch(handleReset());
-    navigate("/login");
+    navigate("/");
   };
 
   return (
