@@ -6,7 +6,8 @@ import {
   QueryStatsSharp,
 } from "@mui/icons-material";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const landingStyles = {
   container: {
@@ -66,6 +67,10 @@ const landingStyles = {
 };
 
 const Landing = () => {
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+
+  if (isAuthenticated) return <Navigate to={"/home"} />;
+
   return (
     <Box component={"main"} id="landing" sx={landingStyles.container}>
       <Box sx={landingStyles.contentBox}>
