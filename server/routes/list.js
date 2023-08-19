@@ -3,8 +3,9 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
-const addToUserList = require("../controllers/addToList");
+const addToUserList = require("../controllers/list");
 const authUser = require("../middleware/authUser");
+const changeUserList = require("../controllers/changeUserList");
 
 const userModel = require("../models/User");
 
@@ -31,5 +32,7 @@ router.post(
   }),
   addToUserList
 );
+
+router.put("/", authUser, changeUserList);
 
 module.exports = router;

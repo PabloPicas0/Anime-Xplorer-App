@@ -1,6 +1,8 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, IconButton, Typography } from "@mui/material";
 
+import url from "../Utils/api";
+
 const cardStyles = {
   container: {
     display: "flex",
@@ -27,6 +29,25 @@ const cardStyles = {
 const Card = (props) => {
   const { index, animeName, animeStatus, currentEpisode, allEpisodes, score } = props;
 
+  const handleEpisodeChange = async (newEpisode) => {
+    try {
+      const request = await fetch(`${url}/api/list`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: `title=${animeName}&currentEpisode=${newEpisode}`,
+      });
+
+      const response = await request.json();
+
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box sx={cardStyles.container}>
       <Box sx={cardStyles.about}>
@@ -50,7 +71,7 @@ const Card = (props) => {
           {currentEpisode}/{allEpisodes}
         </Typography>
 
-        <IconButton>
+        <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)}>
           <Add />
         </IconButton>
       </Box>
