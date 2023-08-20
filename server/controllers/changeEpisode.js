@@ -21,10 +21,17 @@ const changeEpisode = async (req, res) => {
     await user.save();
 
     return res.status(200).json({
-      msg: "List updated",
+      error: false,
+      status: [{ msg: "OK" }],
+      list: user.animeList,
     });
   } catch (error) {
     console.log(error);
+
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "Internal server error. Please try again later." }],
+    });
   }
 };
 

@@ -1,7 +1,11 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, IconButton, Typography } from "@mui/material";
 
+import { useDispatch } from "react-redux";
+
 import url from "../Utils/api";
+import { handleError } from "../Redux/Slices/statusSlice";
+import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
 
 const cardStyles = {
   container: {
@@ -29,6 +33,10 @@ const cardStyles = {
 const Card = (props) => {
   const { index, animeName, animeStatus, currentEpisode, allEpisodes, score } = props;
 
+  const dispatch = useDispatch();
+
+  // TODO
+  // Refactor this function to dispatch error based on token expiration
   const handleEpisodeChange = async (newEpisode) => {
     try {
       const request = await fetch(`${url}/api/list`, {
@@ -43,6 +51,23 @@ const Card = (props) => {
       const response = await request.json();
 
       console.log(response);
+
+      const isAuthenticationResponse = response.isAuthenticated !== undefined;
+
+      dispatch(
+        handleError({
+          refreshError: response.error,
+          errorMessage: response.status,
+        })
+      );
+
+      if (isAuthenticationResponse) {
+        dispatch(handleAuthentication(response.isAuthenticated));
+      }
+
+      if (!response.error) {
+        dispatch(handleClientList(response.list));
+      }
     } catch (error) {
       console.error(error);
     }
