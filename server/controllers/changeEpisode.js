@@ -1,6 +1,6 @@
 const userModel = require("../models/User");
 
-const changeUserList = async (req, res) => {
+const changeEpisode = async (req, res) => {
   try {
     const { title, currentEpisode } = req.body;
     const { userId } = req.user;
@@ -28,4 +28,4 @@ const changeUserList = async (req, res) => {
   }
 };
 
-module.exports = changeUserList;
+module.exports = changeEpisode;

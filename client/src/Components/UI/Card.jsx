@@ -63,7 +63,7 @@ const Card = (props) => {
       </Box>
 
       <Box sx={cardStyles.progress}>
-        <IconButton>
+        <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)}>
           <Remove />
         </IconButton>
 
