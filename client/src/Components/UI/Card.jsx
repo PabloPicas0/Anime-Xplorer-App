@@ -53,8 +53,6 @@ const Card = (props) => {
 
       const response = await request.json();
 
-      console.log(response);
-
       const isAuthenticationResponse = response.isAuthenticated !== undefined;
 
       if (isAuthenticationResponse) {
@@ -79,6 +77,13 @@ const Card = (props) => {
       }
     } catch (error) {
       console.error(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
   };
 

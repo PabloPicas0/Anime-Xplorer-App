@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -11,6 +12,7 @@ import {
   MenuItem,
   Select,
   Skeleton,
+  Snackbar,
   Tooltip,
   Typography,
   Zoom,
@@ -24,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 const homeStyles = {
   container: {
@@ -96,6 +99,15 @@ const Home = () => {
     }
   );
 
+  const handleClose = () => {
+    dispatch(
+      handleError({
+        error: false,
+        errorMessage: status.errorMessage,
+      })
+    );
+  };
+
   return (
     <Box id="container" sx={homeStyles.container}>
       {!isAuthenticated ? (
@@ -147,6 +159,17 @@ const Home = () => {
         </>
       ) : (
         <>
+          <Snackbar
+            open={status.error}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            TransitionComponent={Zoom}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+            <Alert severity="error" onClose={handleClose}>
+              {status.errorMessage[0].msg}
+            </Alert>
+          </Snackbar>
+
           <Menu />
 
           <FormControl fullWidth sx={homeStyles.selectForm}>
