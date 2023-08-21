@@ -21,7 +21,7 @@ const changeEpisode = async (req, res) => {
     await user.save();
 
     return res.status(200).json({
-      error: false,
+      error: true,
       status: [{ msg: "OK" }],
       list: user.animeList,
     });

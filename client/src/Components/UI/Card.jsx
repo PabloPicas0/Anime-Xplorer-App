@@ -38,6 +38,9 @@ const Card = (props) => {
   // TODO
   // Refactor this function to dispatch error based on token expiration
   const handleEpisodeChange = async (newEpisode) => {
+    if (newEpisode <= 0) newEpisode = 0;
+    if (newEpisode >= allEpisodes) newEpisode = allEpisodes;
+
     try {
       const request = await fetch(`${url}/api/list`, {
         method: "PUT",
@@ -54,15 +57,21 @@ const Card = (props) => {
 
       const isAuthenticationResponse = response.isAuthenticated !== undefined;
 
-      dispatch(
-        handleError({
-          refreshError: response.error,
-          errorMessage: response.status,
-        })
-      );
-
       if (isAuthenticationResponse) {
+        dispatch(
+          handleError({
+            refreshError: response.error,
+            errorMessage: response.status,
+          })
+        );
         dispatch(handleAuthentication(response.isAuthenticated));
+      } else {
+        dispatch(
+          handleError({
+            error: response.error,
+            errorMessage: response.status,
+          })
+        );
       }
 
       if (!response.error) {
