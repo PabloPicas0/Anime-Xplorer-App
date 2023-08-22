@@ -107,6 +107,13 @@ const AddToList = () => {
       }
     } catch (error) {
       console.error(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
   };
 
