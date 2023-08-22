@@ -1,5 +1,5 @@
 import { Add, Remove } from "@mui/icons-material";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Rating, Typography } from "@mui/material";
 
 import { useDispatch } from "react-redux";
 
@@ -28,6 +28,11 @@ const cardStyles = {
     alignItems: "center",
     gap: "10px",
   },
+  rating: {
+    "&.MuiRating-root": {
+      color: "#ff8f00",
+    },
+  },
 };
 
 const Card = (props) => {
@@ -37,7 +42,7 @@ const Card = (props) => {
 
   const handleEpisodeChange = async (newEpisode) => {
     if (newEpisode < 0 || newEpisode > allEpisodes) return;
-    
+
     try {
       const request = await fetch(`${url}/api/list`, {
         method: "PUT",
@@ -99,17 +104,23 @@ const Card = (props) => {
       </Box>
 
       <Box sx={cardStyles.progress}>
-        <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)}>
-          <Remove />
-        </IconButton>
+        {animeStatus === "Completed" ? (
+          <Rating disabled value={score} sx={cardStyles.rating} />
+        ) : (
+          <>
+            <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)}>
+              <Remove />
+            </IconButton>
 
-        <Typography>
-          {currentEpisode}/{allEpisodes}
-        </Typography>
+            <Typography>
+              {currentEpisode}/{allEpisodes}
+            </Typography>
 
-        <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)}>
-          <Add />
-        </IconButton>
+            <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)}>
+              <Add />
+            </IconButton>
+          </>
+        )}
       </Box>
     </Box>
   );
