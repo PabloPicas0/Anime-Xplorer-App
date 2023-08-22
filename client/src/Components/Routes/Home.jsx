@@ -73,9 +73,10 @@ const filterIcons = [
 
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
-  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
+  const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+  const isDialogVisible = useSelector((state) => state.menu.openDialog);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -160,9 +161,9 @@ const Home = () => {
       ) : (
         <>
           <Snackbar
-            open={status.error}
-            autoHideDuration={3000}
+            open={status.error && !isDialogVisible}
             onClose={handleClose}
+            autoHideDuration={3000}
             TransitionComponent={Zoom}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
             <Alert severity="error" onClose={handleClose}>
