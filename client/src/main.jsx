@@ -22,11 +22,6 @@ import store from "./Components/Redux/Store/Store.js";
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
 
-// TODO
-// Configure server authentication with OAuth or JWT
-// If user is authenticated or logined in send data to store with anime
-// Store client options in DB or in local storage
-
 const router = createBrowserRouter([
   {
     path: "/",

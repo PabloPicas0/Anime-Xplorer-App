@@ -35,12 +35,9 @@ const Card = (props) => {
 
   const dispatch = useDispatch();
 
-  // TODO
-  // Refactor this function to dispatch error based on token expiration
   const handleEpisodeChange = async (newEpisode) => {
-    if (newEpisode <= 0) newEpisode = 0;
-    if (newEpisode >= allEpisodes) newEpisode = allEpisodes;
-
+    if (newEpisode < 0 || newEpisode > allEpisodes) return;
+    
     try {
       const request = await fetch(`${url}/api/list`, {
         method: "PUT",
