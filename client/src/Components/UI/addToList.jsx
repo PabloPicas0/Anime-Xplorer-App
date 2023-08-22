@@ -44,6 +44,7 @@ const addToListStyles = {
 const AddToList = () => {
   const [dialogValues, setDialogValues] = useState({
     title: "",
+    type: "TV",
     status: "Plan to watch",
     watchedEp: 0,
     allEp: 0,
@@ -70,6 +71,7 @@ const AddToList = () => {
     );
     setDialogValues({
       title: "",
+      type: "TV",
       status: "Plan to watch",
       watchedEp: 0,
       allEp: 0,
@@ -85,9 +87,7 @@ const AddToList = () => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `username=${username}&type=${"ova"}&title=${dialogValues.title}&status=${
-          dialogValues.status
-        }&currentEp=${dialogValues.watchedEp}&allEp=${dialogValues.allEp}&score=${dialogValues.score}`,
+        body: `username=${username}&type=${dialogValues.type}&title=${dialogValues.title}&status=${dialogValues.status}&currentEp=${dialogValues.watchedEp}&allEp=${dialogValues.allEp}&score=${dialogValues.score}`,
       });
 
       const response = await request.json();
@@ -144,6 +144,30 @@ const AddToList = () => {
             })
           }
         />
+
+        <FormControl fullWidth margin="dense">
+          <InputLabel id="type-label">Anime Type</InputLabel>
+
+          <Select
+            label="Anime Type"
+            labelId="type-label"
+            value={dialogValues.type}
+            MenuProps={{
+              marginThreshold: 10,
+            }}
+            onChange={(e) =>
+              setDialogValues((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.type = e.target.value;
+
+                return newValues;
+              })
+            }>
+            <MenuItem value={"TV"}>TV</MenuItem>
+            <MenuItem value={"OVA"}>OVA</MenuItem>
+            <MenuItem value={"MOVIE"}>MOVIE</MenuItem>
+          </Select>
+        </FormControl>
 
         <FormControl fullWidth margin="dense">
           <InputLabel id="select-label">Status</InputLabel>
