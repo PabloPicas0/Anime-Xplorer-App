@@ -59,7 +59,7 @@ const Menu = () => {
 
       <Box sx={menuStyles.options}>
         <Box style={isVisible ? {} : { pointerEvents: "none" }}>
-          <Link to={"/home"}>
+          <Link to={"/home"} tabIndex={isVisible ? 0 : -1}>
             <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
                 <IconButton size="large" sx={menuStyles.homeIcon}>
@@ -79,7 +79,7 @@ const Menu = () => {
             </Tooltip>
           </Grow>
 
-          <Link to={"/settings"}>
+          <Link to={"/settings"} tabIndex={isVisible ? 0 : -1}>
             <Grow in={isVisible} {...(isVisible ? { timeout: 500 } : {})}>
               <Tooltip TransitionComponent={Zoom} title="Account settings" arrow>
                 <IconButton size="large">
