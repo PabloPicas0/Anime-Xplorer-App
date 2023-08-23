@@ -27,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
+import EditList from "../UI/EditList";
 
 const homeStyles = {
   container: {
@@ -287,6 +288,7 @@ const Home = () => {
           </Box>
         </>
       )}
+      <EditList />
     </Box>
   );
 };

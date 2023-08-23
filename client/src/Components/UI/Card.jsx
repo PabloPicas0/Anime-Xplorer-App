@@ -4,8 +4,10 @@ import { Box, Button, IconButton, Rating, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 import url from "../Utils/api";
+
 import { handleError } from "../Redux/Slices/statusSlice";
 import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
+import { handleEditDialog } from "../Redux/Slices/menuSlice";
 
 const cardStyles = {
   container: {
@@ -108,7 +110,7 @@ const Card = (props) => {
         <Box>
           <Typography>{animeType}</Typography>
           <Typography>{animeName}</Typography>
-          <Button sx={cardStyles.editButton} disableRipple>
+          <Button sx={cardStyles.editButton} onClick={() => dispatch(handleEditDialog(true))} disableRipple>
             Edit
           </Button>
         </Box>

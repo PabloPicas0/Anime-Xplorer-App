@@ -25,6 +25,7 @@ const middleware = (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
+    console.log(new Date().toTimeString());
 
     return res.status(401).json({
       error: true,
