@@ -216,13 +216,14 @@ const Home = () => {
               </Typography>
 
               {sortedList.currentlyWatching.map((listProp, idx) => {
-                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp
 
                 return (
                   <Card
                     key={idx}
                     index={idx}
                     animeName={animeName}
+                    animeType={animeType}
                     animeStatus={animeStatus}
                     currentEpisode={currentEpisode}
                     allEpisodes={allEpisodes}
@@ -242,13 +243,14 @@ const Home = () => {
               </Typography>
 
               {sortedList.completed.map((listProp, idx) => {
-                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp;
 
                 return (
                   <Card
                     key={idx}
                     index={idx}
                     animeName={animeName}
+                    animeType={animeType}
                     animeStatus={animeStatus}
                     currentEpisode={currentEpisode}
                     allEpisodes={allEpisodes}
@@ -266,13 +268,14 @@ const Home = () => {
               </Typography>
 
               {sortedList.planToWatch.map((listProp, idx) => {
-                const { animeName, animeStatus, currentEpisode, allEpisodes, score } = listProp;
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp;
 
                 return (
                   <Card
                     key={idx}
                     index={idx}
                     animeName={animeName}
+                    animeType={animeType}
                     animeStatus={animeStatus}
                     currentEpisode={currentEpisode}
                     allEpisodes={allEpisodes}

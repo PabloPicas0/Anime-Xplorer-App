@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import {
   Dialog,
@@ -21,10 +22,9 @@ import {
 
 import { handleDialog } from "../Redux/Slices/menuSlice";
 import { handleClientList } from "../Redux/Slices/profileSclice";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 import url from "../Utils/api";
-import { handleError } from "../Redux/Slices/statusSlice";
-import { useLocation } from "react-router-dom";
 
 const addToListStyles = {
   dialogBody: {

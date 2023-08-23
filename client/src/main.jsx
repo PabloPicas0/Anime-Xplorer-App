@@ -22,6 +22,8 @@ import store from "./Components/Redux/Store/Store.js";
 // Reminder
 // You can use separate state np isLoaded for component to display domething else np. skeleton from mui
 
+// Bug
+// By keyboard user can click in links to home and settings when are not visible in Menu component
 const router = createBrowserRouter([
   {
     path: "/",

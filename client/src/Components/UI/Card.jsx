@@ -1,5 +1,5 @@
 import { Add, Remove } from "@mui/icons-material";
-import { Box, IconButton, Rating, Typography } from "@mui/material";
+import { Box, Button, IconButton, Rating, Typography } from "@mui/material";
 
 import { useDispatch } from "react-redux";
 
@@ -33,10 +33,19 @@ const cardStyles = {
       color: "#ff8f00",
     },
   },
+  editButton: {
+    padding: 0,
+    justifyContent: "start",
+    minWidth: 0,
+    "&:hover": { background: "transparent" },
+    "&.Mui-focusVisible": {
+      boxShadow: "0px 0px 10px 1px rgba(0, 0, 0, 0.16)",
+    },
+  },
 };
 
 const Card = (props) => {
-  const { index, animeName, animeStatus, currentEpisode, allEpisodes, score } = props;
+  const { index, animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = props;
 
   const dispatch = useDispatch();
 
@@ -97,9 +106,11 @@ const Card = (props) => {
         </Box>
 
         <Box>
-          <Typography>Ova</Typography>
+          <Typography>{animeType}</Typography>
           <Typography>{animeName}</Typography>
-          <Typography>Edit</Typography>
+          <Button sx={cardStyles.editButton} disableRipple>
+            Edit
+          </Button>
         </Box>
       </Box>
 
