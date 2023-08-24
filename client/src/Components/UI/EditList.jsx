@@ -12,7 +12,9 @@ import {
   Rating,
   Select,
   TextField,
+  Tooltip,
   Typography,
+  Zoom,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -116,9 +118,12 @@ const EditList = (props) => {
 
       <DialogActions sx={editListStyles.dialogActions}>
         <Button variant="contained">Submit</Button>
-        <Button variant="contained" color="error">
-          Delete
-        </Button>
+
+        <Tooltip title="Delete anime from your list" arrow placement="top" TransitionComponent={Zoom}>
+          <Button variant="contained" color="error">
+            Delete
+          </Button>
+        </Tooltip>
       </DialogActions>
     </Dialog>
   );
