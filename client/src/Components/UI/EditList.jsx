@@ -68,8 +68,8 @@ const EditList = (props) => {
 
       <DialogContent>
         <Box sx={editListStyles.animeNameBox}>
-          <Typography>Anime name:</Typography>
-          <Typography fontWeight={500}>{animeName}</Typography>
+          <Typography>Anime title:</Typography>
+          <Typography fontWeight={600}>{animeName}</Typography>
         </Box>
 
         <FormControl fullWidth margin="dense">
@@ -95,7 +95,7 @@ const EditList = (props) => {
             value={currentEpisode}
             MenuProps={editListStyles.menuProps}>
             {[...Array(allEpisodes + 1)].map((_, idx) => (
-              <MenuItem value={idx}>{idx}</MenuItem>
+              <MenuItem value={idx} key={idx}>{idx}</MenuItem>
             ))}
           </Select>
         </FormControl>
