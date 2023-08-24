@@ -145,6 +145,7 @@ const Card = (props) => {
         setIsEditVisible={setIsEditVisible}
         animeName={animeName}
         allEpisodes={allEpisodes}
+        currentEpisode={currentEpisode}
         score={score}
         animeType={animeType}
         animeStatus={animeStatus}

@@ -41,11 +41,22 @@ const editListStyles = {
 };
 
 const EditList = (props) => {
-  const { isEditVisible, setIsEditVisible, animeName, allEpisodes, score, animeType, animeStatus } = props;
+  const {
+    isEditVisible,
+    setIsEditVisible,
+    animeName,
+    allEpisodes,
+    currentEpisode,
+    score,
+    animeType,
+    animeStatus,
+  } = props;
 
   const handleClose = () => {
     setIsEditVisible(false);
   };
+
+  console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
     <Dialog
@@ -58,13 +69,17 @@ const EditList = (props) => {
       <DialogContent>
         <Box sx={editListStyles.animeNameBox}>
           <Typography>Anime name:</Typography>
-          <Typography>{animeName}</Typography>
+          <Typography fontWeight={500}>{animeName}</Typography>
         </Box>
 
         <FormControl fullWidth margin="dense">
           <InputLabel id="select-label">Status</InputLabel>
 
-          <Select label="Status" labelId="select-label" value={0} MenuProps={editListStyles.menuProps}>
+          <Select
+            label="Status"
+            labelId="select-label"
+            value={animeStatus}
+            MenuProps={editListStyles.menuProps}>
             <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
             <MenuItem value={"Completed"}>Completed</MenuItem>
             <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
@@ -77,18 +92,18 @@ const EditList = (props) => {
           <Select
             label="Episodes Watched"
             labelId="episodes-label"
-            value={0}
+            value={currentEpisode}
             MenuProps={editListStyles.menuProps}>
-            <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
-            <MenuItem value={"Completed"}>Completed</MenuItem>
-            <MenuItem value={"Plan to watch"}>Plan to watch</MenuItem>
+            {[...Array(allEpisodes + 1)].map((_, idx) => (
+              <MenuItem value={idx}>{idx}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
         <FormControl fullWidth margin="dense">
           <InputLabel id="type-label">Anime Type</InputLabel>
 
-          <Select label="Anime Type" labelId="type-label" value={0} MenuProps={editListStyles.menuProps}>
+          <Select label="Anime Type" labelId="type-label" value={animeType} MenuProps={editListStyles.menuProps}>
             <MenuItem value={"TV"}>TV</MenuItem>
             <MenuItem value={"OVA"}>OVA</MenuItem>
             <MenuItem value={"MOVIE"}>MOVIE</MenuItem>
@@ -97,7 +112,7 @@ const EditList = (props) => {
 
         <Box sx={editListStyles.animeScoreBox}>
           <Typography>Edit score:</Typography>
-          <Rating name="new-socre" value={5} />
+          <Rating name="new-socre" value={score} />
         </Box>
       </DialogContent>
 
