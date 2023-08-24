@@ -5,7 +5,6 @@ export const menuSlice = createSlice({
   initialState: {
     isVisible: false,
     openDialog: false,
-    openEditDialog: false,
   },
   reducers: {
     handleVisibility: (state, action) => {
@@ -14,11 +13,8 @@ export const menuSlice = createSlice({
     handleDialog: (state, action) => {
       state.openDialog = action.payload;
     },
-    handleEditDialog: (state, action) => {
-      state.openEditDialog = action.payload
-    }
   },
 });
 
-export const { handleVisibility, handleDialog, handleEditDialog } = menuSlice.actions;
+export const { handleVisibility, handleDialog } = menuSlice.actions;
 export default menuSlice.reducer;

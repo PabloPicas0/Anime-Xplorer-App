@@ -1,13 +1,15 @@
 import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, IconButton, Rating, Typography } from "@mui/material";
 
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import url from "../Utils/api";
 
 import { handleError } from "../Redux/Slices/statusSlice";
 import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
-import { handleEditDialog } from "../Redux/Slices/menuSlice";
+
+import EditList from "./EditList";
 
 const cardStyles = {
   container: {
@@ -48,6 +50,8 @@ const cardStyles = {
 
 const Card = (props) => {
   const { index, animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = props;
+
+  const [isEditVisible, setIsEditVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -110,7 +114,7 @@ const Card = (props) => {
         <Box>
           <Typography>{animeType}</Typography>
           <Typography>{animeName}</Typography>
-          <Button sx={cardStyles.editButton} onClick={() => dispatch(handleEditDialog(true))} disableRipple>
+          <Button sx={cardStyles.editButton} onClick={() => setIsEditVisible(true)} disableRipple>
             Edit
           </Button>
         </Box>
@@ -135,6 +139,16 @@ const Card = (props) => {
           </>
         )}
       </Box>
+
+      <EditList
+        isEditVisible={isEditVisible}
+        setIsEditVisible={setIsEditVisible}
+        animeName={animeName}
+        allEpisodes={allEpisodes}
+        score={score}
+        animeType={animeType}
+        animeStatus={animeStatus}
+      />
     </Box>
   );
 };

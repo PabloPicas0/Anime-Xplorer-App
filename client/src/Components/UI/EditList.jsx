@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,22 +10,10 @@ import {
   MenuItem,
   Rating,
   Select,
-  TextField,
   Tooltip,
   Typography,
   Zoom,
 } from "@mui/material";
-
-import { useDispatch, useSelector } from "react-redux";
-
-import { handleEditDialog } from "../Redux/Slices/menuSlice";
-
-// REMINDER
-// This component is rigth now in in home component
-// Change his place to card component when you done with it
-
-// TODO
-// Find a way to render menu items dynamicly based on max episodes of card
 
 const editListStyles = {
   dialogBody: {
@@ -54,12 +41,10 @@ const editListStyles = {
 };
 
 const EditList = (props) => {
-  const isEditVisible = useSelector((state) => state.menu.openEditDialog);
-
-  const dispatch = useDispatch();
+  const { isEditVisible, setIsEditVisible, animeName, allEpisodes, score, animeType, animeStatus } = props;
 
   const handleClose = () => {
-    dispatch(handleEditDialog(false));
+    setIsEditVisible(false);
   };
 
   return (
@@ -73,7 +58,7 @@ const EditList = (props) => {
       <DialogContent>
         <Box sx={editListStyles.animeNameBox}>
           <Typography>Anime name:</Typography>
-          <Typography>Name</Typography>
+          <Typography>{animeName}</Typography>
         </Box>
 
         <FormControl fullWidth margin="dense">

@@ -19,9 +19,6 @@ import Settings from "./Components/Routes/Settings.jsx";
 import { Provider as StateProvider } from "react-redux";
 import store from "./Components/Redux/Store/Store.js";
 
-// Reminder
-// You can use separate state np isLoaded for component to display domething else np. skeleton from mui
-
 const router = createBrowserRouter([
   {
     path: "/",
