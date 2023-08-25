@@ -6,6 +6,7 @@ const router = express.Router();
 const addToUserList = require("../controllers/list");
 const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
+const editList = require("../controllers/editList")
 
 const userModel = require("../models/User");
 
@@ -33,6 +34,7 @@ router.post(
   addToUserList
 );
 
-router.put("/", authUser, changeEpisode);
+router.put("/episodes", authUser, changeEpisode);
+router.put("/edit", authUser, editList)
 
 module.exports = router;

@@ -59,7 +59,7 @@ const Card = (props) => {
     if (newEpisode < 0 || newEpisode > allEpisodes) return;
 
     try {
-      const request = await fetch(`${url}/api/list`, {
+      const request = await fetch(`${url}/api/list/episodes`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

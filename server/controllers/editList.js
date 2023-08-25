@@ -6,13 +6,18 @@ const editList = async (req, res) => {
     const { userId } = req.user;
 
     const user = await userModel.findById(userId);
-    const list = user.animeList;
+    const { animeList } = user;
 
-    for (let i = 0; i < list.length; i++) {
-      const { animeName } = list[i];
+    for (let i = 0; i < animeList.length; i++) {
+      const { animeName } = animeList[i];
 
       if (animeName === title) {
-
+        animeList[i].currentEpisode = currentEpisode
+        animeList[i].score = score
+        animeList[i].animeType = animeType
+        animeList[i].animeStatus = animeStatus
+        console.log(animeList[i])
+        break;
       }
     }
   } catch (error) {
@@ -20,4 +25,4 @@ const editList = async (req, res) => {
   }
 };
 
-module.exports = editList
+module.exports = editList;

@@ -14,6 +14,7 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
+import url from "../Utils/api";
 
 const editListStyles = {
   dialogBody: {
@@ -56,7 +57,22 @@ const EditList = (props) => {
     setIsEditVisible(false);
   };
 
-  console.table({animeName, allEpisodes, score, animeType, animeStatus});
+  const handleEdit = async () => {
+    try {
+      const request = await fetch(`${url}/api/list/edit`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: `title=${animeName}&allEpisodes=${allEpisodes}&currentEpisode=${currentEpisode}&score=${score}&animeType=${animeType}&animeStatus=${animeStatus}`
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(props)
+  // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
     <Dialog
@@ -117,7 +133,7 @@ const EditList = (props) => {
       </DialogContent>
 
       <DialogActions sx={editListStyles.dialogActions}>
-        <Button variant="contained">Submit</Button>
+        <Button variant="contained" onClick={handleEdit}>Submit</Button>
 
         <Tooltip title="Delete anime from your list" arrow placement="top" TransitionComponent={Zoom}>
           <Button variant="contained" color="error">
