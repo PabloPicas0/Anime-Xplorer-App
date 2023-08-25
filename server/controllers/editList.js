@@ -12,14 +12,15 @@ const editList = async (req, res) => {
       const { animeName } = animeList[i];
 
       if (animeName === title) {
-        animeList[i].currentEpisode = currentEpisode
-        animeList[i].score = score
-        animeList[i].animeType = animeType
+        animeList[i].currentEpisode = currentEpisode;
+        animeList[i].score = score;
+        animeList[i].animeType = animeType;
         animeList[i].animeStatus = animeStatus
-        console.log(animeList[i])
         break;
       }
     }
+
+    await user.save()
   } catch (error) {
     console.log(error);
   }

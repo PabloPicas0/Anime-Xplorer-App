@@ -15,6 +15,7 @@ import {
   Zoom,
 } from "@mui/material";
 import url from "../Utils/api";
+import { useState } from "react";
 
 const editListStyles = {
   dialogBody: {
@@ -53,6 +54,15 @@ const EditList = (props) => {
     animeStatus,
   } = props;
 
+  const [anime, setAnime] = useState({
+    animeName,
+    allEpisodes,
+    currentEpisode,
+    score,
+    animeType,
+    animeStatus,
+  });
+
   const handleClose = () => {
     setIsEditVisible(false);
   };
@@ -65,13 +75,13 @@ const EditList = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `title=${animeName}&allEpisodes=${allEpisodes}&currentEpisode=${currentEpisode}&score=${score}&animeType=${animeType}&animeStatus=${animeStatus}`
+        body: `title=${anime.animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  console.log(props)
+  };
+  console.log(anime)
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
@@ -94,7 +104,12 @@ const EditList = (props) => {
           <Select
             label="Status"
             labelId="select-label"
-            value={animeStatus}
+            value={anime.animeStatus}
+            onChange={(e) =>
+              setAnime((oldValues) => {
+                return { ...oldValues, animeStatus: e.target.value };
+              })
+            }
             MenuProps={editListStyles.menuProps}>
             <MenuItem value={"Currently watching"}>Currently watching</MenuItem>
             <MenuItem value={"Completed"}>Completed</MenuItem>
@@ -108,10 +123,17 @@ const EditList = (props) => {
           <Select
             label="Episodes Watched"
             labelId="episodes-label"
-            value={currentEpisode}
+            value={anime.currentEpisode}
+            onChange={(e) =>
+              setAnime((oldValues) => {
+                return { ...oldValues, currentEpisode: e.target.value };
+              })
+            }
             MenuProps={editListStyles.menuProps}>
             {[...Array(allEpisodes + 1)].map((_, idx) => (
-              <MenuItem value={idx} key={idx}>{idx}</MenuItem>
+              <MenuItem value={idx} key={idx}>
+                {idx}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -119,7 +141,16 @@ const EditList = (props) => {
         <FormControl fullWidth margin="dense">
           <InputLabel id="type-label">Anime Type</InputLabel>
 
-          <Select label="Anime Type" labelId="type-label" value={animeType} MenuProps={editListStyles.menuProps}>
+          <Select
+            label="Anime Type"
+            labelId="type-label"
+            value={anime.animeType}
+            onChange={(e) =>
+              setAnime((oldValues) => {
+                return { ...oldValues, animeType: e.target.value };
+              })
+            }
+            MenuProps={editListStyles.menuProps}>
             <MenuItem value={"TV"}>TV</MenuItem>
             <MenuItem value={"OVA"}>OVA</MenuItem>
             <MenuItem value={"MOVIE"}>MOVIE</MenuItem>
@@ -128,12 +159,22 @@ const EditList = (props) => {
 
         <Box sx={editListStyles.animeScoreBox}>
           <Typography>Edit score:</Typography>
-          <Rating name="new-socre" value={score} />
+          <Rating
+            name="new-socre"
+            value={anime.score}
+            onChange={(e) =>
+              setAnime((oldValues) => {
+                return { ...oldValues, score: e.target.value };
+              })
+            }
+          />
         </Box>
       </DialogContent>
 
       <DialogActions sx={editListStyles.dialogActions}>
-        <Button variant="contained" onClick={handleEdit}>Submit</Button>
+        <Button variant="contained" onClick={handleEdit}>
+          Submit
+        </Button>
 
         <Tooltip title="Delete anime from your list" arrow placement="top" TransitionComponent={Zoom}>
           <Button variant="contained" color="error">
