@@ -77,6 +77,12 @@ const EditList = (props) => {
         },
         body: `title=${anime.animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
       });
+
+      const response = await request.json()
+
+      console.log(response)
+
+      handleClose()
     } catch (error) {
       console.log(error);
     }

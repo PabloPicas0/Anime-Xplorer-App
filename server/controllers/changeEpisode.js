@@ -28,7 +28,7 @@ const changeEpisode = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    return res.status(200).json({
+    return res.status(500).json({
       error: false,
       status: [{ msg: "Internal server error. Please try again later." }],
     });
