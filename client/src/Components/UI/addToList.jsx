@@ -125,10 +125,9 @@ const AddToList = () => {
       open={openDialog}
       PaperProps={{ style: addToListStyles.dialogBody }}
       disableScrollLock>
-      <Slide direction="down" in={status.error || isSettings} unmountOnExit timeout={0}>
-        <Alert severity={status.error || isSettings ? "error" : "success"} sx={addToListStyles.alert}>
+      <Slide direction="down" in={isSettings} unmountOnExit timeout={0}>
+        <Alert severity="error" sx={addToListStyles.alert}>
           {" "}
-          {status.errorMessage[0].msg}
           {isSettings ? "Cannot add to list while in settings. Please visit home page." : null}
         </Alert>
       </Slide>
