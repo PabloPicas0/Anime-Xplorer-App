@@ -139,10 +139,6 @@ const EditList = (props) => {
       open={isEditVisible}
       PaperProps={editListStyles.dialogBody}
       disableScrollLock>
-      <Slide direction="down" in={status.error} unmountOnExit timeout={0}>
-        <Alert severity={status.error ? "error" : "success"}>{status.errorMessage[0].msg}</Alert>
-      </Slide>
-
       <DialogTitle textAlign={"center"}>Edit Anime</DialogTitle>
 
       <DialogContent>
