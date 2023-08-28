@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Dialog,
@@ -10,12 +11,19 @@ import {
   MenuItem,
   Rating,
   Select,
+  Slide,
   Tooltip,
   Typography,
   Zoom,
 } from "@mui/material";
+
 import url from "../Utils/api";
+
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { handleError } from "../Redux/Slices/statusSlice";
+import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
 
 const editListStyles = {
   dialogBody: {
@@ -42,6 +50,8 @@ const editListStyles = {
   },
 };
 
+ // TODO
+ //Add global state if anime edit list is visible for disabling snackbar in home component 
 const EditList = (props) => {
   const {
     isEditVisible,
@@ -63,6 +73,10 @@ const EditList = (props) => {
     animeStatus,
   });
 
+  const status = useSelector((state) => state.status);
+
+  const dispatch = useDispatch();
+
   const handleClose = () => {
     setIsEditVisible(false);
   };
@@ -78,16 +92,45 @@ const EditList = (props) => {
         body: `title=${anime.animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
       });
 
-      const response = await request.json()
+      const response = await request.json();
 
-      console.log(response)
+      console.log(response);
 
-      handleClose()
+      const isAuthenticationResponse = response.isAuthenticated !== undefined;
+
+      if (isAuthenticationResponse) {
+        dispatch(
+          handleError({
+            refreshError: response.error,
+            errorMessage: response.status,
+          })
+        );
+        dispatch(handleAuthentication(response.isAuthenticated));
+      } else {
+        dispatch(
+          handleError({
+            error: response.error,
+            errorMessage: response.status,
+          })
+        );
+      }
+
+      if (!response.error) {
+        dispatch(handleClientList(response.list));
+        handleClose();
+      }
     } catch (error) {
       console.log(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
   };
-  console.log(anime)
+  console.log(anime);
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
@@ -96,6 +139,10 @@ const EditList = (props) => {
       open={isEditVisible}
       PaperProps={editListStyles.dialogBody}
       disableScrollLock>
+      <Slide direction="down" in={status.error} unmountOnExit timeout={0}>
+        <Alert severity={status.error ? "error" : "success"}>{status.errorMessage[0].msg}</Alert>
+      </Slide>
+
       <DialogTitle textAlign={"center"}>Edit Anime</DialogTitle>
 
       <DialogContent>
