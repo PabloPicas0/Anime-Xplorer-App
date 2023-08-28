@@ -216,10 +216,10 @@ const EditList = (props) => {
           <Rating
             name="new-socre"
             value={anime.score}
-            onChange={(e) =>
+            onChange={(e, newValue) =>
               setAnime((oldValues) => {
                 const newValues = { ...oldValues };
-                newValues.score = e.target.value;
+                newValues.score = newValue;
 
                 return newValues;
               })
