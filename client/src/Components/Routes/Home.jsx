@@ -76,7 +76,6 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
-  const isDialogVisible = useSelector((state) => state.menu.openDialog);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -161,7 +160,7 @@ const Home = () => {
       ) : (
         <>
           <Snackbar
-            open={status.error && !isDialogVisible}
+            open={status.error}
             onClose={handleClose}
             autoHideDuration={3000}
             TransitionComponent={Zoom}
