@@ -50,8 +50,6 @@ const editListStyles = {
   },
 };
 
- // TODO
- //Add global state if anime edit list is visible for disabling snackbar in home component 
 const EditList = (props) => {
   const {
     isEditVisible,
@@ -72,8 +70,6 @@ const EditList = (props) => {
     animeType,
     animeStatus,
   });
-
-  const status = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
 
@@ -156,7 +152,10 @@ const EditList = (props) => {
             value={anime.animeStatus}
             onChange={(e) =>
               setAnime((oldValues) => {
-                return { ...oldValues, animeStatus: e.target.value };
+                const newValues = { ...oldValues };
+                newValues.animeStatus = e.target.value;
+
+                return newValues;
               })
             }
             MenuProps={editListStyles.menuProps}>
@@ -175,7 +174,10 @@ const EditList = (props) => {
             value={anime.currentEpisode}
             onChange={(e) =>
               setAnime((oldValues) => {
-                return { ...oldValues, currentEpisode: e.target.value };
+                const newValues = { ...oldValues };
+                newValues.currentEpisode = e.target.value;
+
+                return newValues;
               })
             }
             MenuProps={editListStyles.menuProps}>
@@ -196,7 +198,10 @@ const EditList = (props) => {
             value={anime.animeType}
             onChange={(e) =>
               setAnime((oldValues) => {
-                return { ...oldValues, animeType: e.target.value };
+                const newValues = { ...oldValues };
+                newValues.animeType = e.target.value;
+
+                return newValues;
               })
             }
             MenuProps={editListStyles.menuProps}>
@@ -213,7 +218,10 @@ const EditList = (props) => {
             value={anime.score}
             onChange={(e) =>
               setAnime((oldValues) => {
-                return { ...oldValues, score: e.target.value };
+                const newValues = { ...oldValues };
+                newValues.score = e.target.value;
+
+                return newValues;
               })
             }
           />
