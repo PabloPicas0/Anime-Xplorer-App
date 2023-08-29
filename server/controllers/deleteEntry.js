@@ -12,7 +12,9 @@ const deleteEntry = async (req, res) => {
     );
 
     console.log(user);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error)
+  }
 };
 
 module.exports = deleteEntry;
