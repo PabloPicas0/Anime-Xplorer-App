@@ -11,9 +11,18 @@ const deleteEntry = async (req, res) => {
       { new: true }
     );
 
-    console.log(user);
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "OK" }],
+      list: user.animeList,
+    });
   } catch (error) {
-    console.error(error)
+    console.error(error);
+
+    return res.status(500).json({
+      error: true,
+      status: [{ msg: "Internal server error. Please try again later." }],
+    });
   }
 };
 
