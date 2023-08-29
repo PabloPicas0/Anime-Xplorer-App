@@ -7,6 +7,7 @@ const addToUserList = require("../controllers/list");
 const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
 const editList = require("../controllers/editList")
+const deleteEntry = require("../controllers/deleteEntry")
 
 const userModel = require("../models/User");
 
@@ -36,5 +37,6 @@ router.post(
 
 router.put("/episodes", authUser, changeEpisode);
 router.put("/edit", authUser, editList)
+router.delete("/delete", authUser, deleteEntry)
 
 module.exports = router;
