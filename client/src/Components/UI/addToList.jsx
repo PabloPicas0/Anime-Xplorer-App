@@ -53,7 +53,6 @@ const AddToList = () => {
 
   const username = useSelector((state) => state.profile.profileFields.username);
   const openDialog = useSelector((state) => state.menu.openDialog);
-  const status = useSelector((state) => state.status);
 
   const { pathname } = useLocation();
 
