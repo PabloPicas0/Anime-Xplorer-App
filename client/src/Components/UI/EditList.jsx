@@ -141,6 +141,29 @@ const EditList = (props) => {
       );
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      const request = await fetch(`${url}/api/list/delete`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: `title=${animeName}`
+      });
+
+      const response = await request.json()
+
+      console.log(response)
+
+      if(!response.error) {
+        dispatch(handleClientList(response.list))
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
   // console.log(anime);
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
@@ -249,7 +272,7 @@ const EditList = (props) => {
         </Button>
 
         <Tooltip title="Delete anime from your list" arrow placement="top" TransitionComponent={Zoom}>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={handleDelete}>
             Delete
           </Button>
         </Tooltip>
