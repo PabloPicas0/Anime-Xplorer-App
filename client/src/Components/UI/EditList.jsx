@@ -1,5 +1,4 @@
 import {
-  Alert,
   Box,
   Button,
   Dialog,
@@ -11,7 +10,6 @@ import {
   MenuItem,
   Rating,
   Select,
-  Slide,
   Tooltip,
   Typography,
   Zoom,
@@ -20,7 +18,7 @@ import {
 import url from "../Utils/api";
 
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { handleError } from "../Redux/Slices/statusSlice";
 import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
@@ -73,7 +71,22 @@ const EditList = (props) => {
 
   const dispatch = useDispatch();
 
+  const stateChanged =
+    JSON.stringify({
+      animeName,
+      allEpisodes,
+      currentEpisode,
+      score,
+      animeType,
+      animeStatus,
+    }) !== JSON.stringify(anime);
+
   const handleClose = () => {
+    if (stateChanged) {
+      setAnime((oldValues) => {
+        return { ...oldValues, currentEpisode, score, animeType, animeStatus };
+      });
+    }
     setIsEditVisible(false);
   };
 
@@ -85,7 +98,7 @@ const EditList = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `title=${anime.animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
+        body: `title=${animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
       });
 
       const response = await request.json();
@@ -113,7 +126,7 @@ const EditList = (props) => {
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
-        handleClose();
+        setIsEditVisible(false);
       }
     } catch (error) {
       console.log(error);
@@ -126,7 +139,7 @@ const EditList = (props) => {
       );
     }
   };
-  console.log(anime);
+  // console.log(anime);
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
