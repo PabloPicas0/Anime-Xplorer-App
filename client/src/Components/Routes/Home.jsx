@@ -219,7 +219,7 @@ const Home = () => {
 
                 return (
                   <Card
-                    key={idx}
+                    key={animeName}
                     index={idx}
                     animeName={animeName}
                     animeType={animeType}
@@ -246,7 +246,7 @@ const Home = () => {
 
                 return (
                   <Card
-                    key={idx}
+                    key={animeName}
                     index={idx}
                     animeName={animeName}
                     animeType={animeType}
@@ -271,7 +271,7 @@ const Home = () => {
 
                 return (
                   <Card
-                    key={idx}
+                    key={animeName}
                     index={idx}
                     animeName={animeName}
                     animeType={animeType}
