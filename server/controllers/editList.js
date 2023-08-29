@@ -2,7 +2,7 @@ const userModel = require("../models/User");
 
 const editList = async (req, res) => {
   try {
-    const { title, allEpisodes, currentEpisode, score, animeType, animeStatus } = req.body;
+    const { title, currentEpisode, score, animeType, animeStatus } = req.body;
     const { userId } = req.user;
 
     const user = await userModel.findById(userId);
