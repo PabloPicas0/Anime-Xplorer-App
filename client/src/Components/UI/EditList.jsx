@@ -150,20 +150,47 @@ const EditList = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `title=${animeName}`
+        body: `title=${animeName}`,
       });
 
-      const response = await request.json()
+      const response = await request.json();
 
-      console.log(response)
+      console.log(response);
 
-      if(!response.error) {
-        dispatch(handleClientList(response.list))
+      const isAuthenticationResponse = response.isAuthenticated !== undefined;
+
+      if (isAuthenticationResponse) {
+        dispatch(
+          handleError({
+            refreshError: response.error,
+            errorMessage: response.status,
+          })
+        );
+        dispatch(handleAuthentication(response.isAuthenticated));
+      } else {
+        dispatch(
+          handleError({
+            error: response.error,
+            errorMessage: response.status,
+          })
+        );
+      }
+
+      if (!response.error) {
+        dispatch(handleClientList(response.list));
+        setIsEditVisible(false);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
-  }
+  };
   // console.log(anime);
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
