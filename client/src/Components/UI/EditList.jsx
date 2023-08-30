@@ -21,7 +21,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { handleError } from "../Redux/Slices/statusSlice";
-import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
+import { handleClientList } from "../Redux/Slices/profileSclice";
+import useErrorHandler from "../Utils/useErrorHandler";
 
 const editListStyles = {
   dialogBody: {
@@ -70,6 +71,7 @@ const EditList = (props) => {
   });
 
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler()
 
   const stateChanged =
     JSON.stringify({
@@ -107,24 +109,7 @@ const EditList = (props) => {
 
       console.log(response);
 
-      const isAuthenticationResponse = response.isAuthenticated !== undefined;
-
-      if (isAuthenticationResponse) {
-        dispatch(
-          handleError({
-            refreshError: response.error,
-            errorMessage: response.status,
-          })
-        );
-        dispatch(handleAuthentication(response.isAuthenticated));
-      } else {
-        dispatch(
-          handleError({
-            error: response.error,
-            errorMessage: response.status,
-          })
-        );
-      }
+      errorHandler(response)
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
@@ -157,24 +142,7 @@ const EditList = (props) => {
 
       console.log(response);
 
-      const isAuthenticationResponse = response.isAuthenticated !== undefined;
-
-      if (isAuthenticationResponse) {
-        dispatch(
-          handleError({
-            refreshError: response.error,
-            errorMessage: response.status,
-          })
-        );
-        dispatch(handleAuthentication(response.isAuthenticated));
-      } else {
-        dispatch(
-          handleError({
-            error: response.error,
-            errorMessage: response.status,
-          })
-        );
-      }
+      errorHandler(response)
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
