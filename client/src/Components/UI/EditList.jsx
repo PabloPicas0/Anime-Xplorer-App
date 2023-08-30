@@ -71,9 +71,10 @@ const EditList = (props) => {
   });
 
   const dispatch = useDispatch();
-  const errorHandler = useErrorHandler()
+  const errorHandler = useErrorHandler();
 
-  const stateChanged =
+  // This line compares props with current state
+  const stateIsDifferent =
     JSON.stringify({
       animeName,
       allEpisodes,
@@ -83,8 +84,15 @@ const EditList = (props) => {
       animeStatus,
     }) !== JSON.stringify(anime);
 
+  // Keeps in sync props and state when user change episode oustside EditList
+  if (stateIsDifferent && !isEditVisible) {
+    setAnime((oldValues) => {
+      return { ...oldValues, currentEpisode };
+    });
+  }
+
   const handleClose = () => {
-    if (stateChanged) {
+    if (stateIsDifferent) {
       setAnime((oldValues) => {
         return { ...oldValues, currentEpisode, score, animeType, animeStatus };
       });
@@ -109,7 +117,7 @@ const EditList = (props) => {
 
       console.log(response);
 
-      errorHandler(response)
+      errorHandler(response);
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
@@ -142,7 +150,7 @@ const EditList = (props) => {
 
       console.log(response);
 
-      errorHandler(response)
+      errorHandler(response);
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
