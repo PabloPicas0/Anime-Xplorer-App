@@ -7,9 +7,10 @@ import { useDispatch } from "react-redux";
 import url from "../Utils/api";
 
 import { handleError } from "../Redux/Slices/statusSlice";
-import { handleAuthentication, handleClientList } from "../Redux/Slices/profileSclice";
+import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import EditList from "./EditList";
+import useErrorHandler from "../Utils/useErrorHandler";
 
 const cardStyles = {
   container: {
@@ -54,6 +55,7 @@ const Card = (props) => {
   const [isEditVisible, setIsEditVisible] = useState(false);
 
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler()
 
   const handleEpisodeChange = async (newEpisode) => {
     if (newEpisode < 0 || newEpisode > allEpisodes) return;
@@ -70,24 +72,7 @@ const Card = (props) => {
 
       const response = await request.json();
 
-      const isAuthenticationResponse = response.isAuthenticated !== undefined;
-
-      if (isAuthenticationResponse) {
-        dispatch(
-          handleError({
-            refreshError: response.error,
-            errorMessage: response.status,
-          })
-        );
-        dispatch(handleAuthentication(response.isAuthenticated));
-      } else {
-        dispatch(
-          handleError({
-            error: response.error,
-            errorMessage: response.status,
-          })
-        );
-      }
+      errorHandler(response)
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
