@@ -107,8 +107,6 @@ const SignUp = () => {
       );
 
       if (!response.error) {
-        localStorage.setItem("token", response.token);
-
         setTimeout(() => {
           navigate("/login");
         }, 500);
