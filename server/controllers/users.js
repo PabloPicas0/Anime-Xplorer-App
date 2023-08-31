@@ -4,8 +4,6 @@ const bcrypt = require("bcryptjs");
 
 const userModel = require("../models/User");
 
-const jwt = require("jsonwebtoken");
-
 const registerUser = async (req, res) => {
   const errors = validationResult(req);
 
@@ -31,23 +29,9 @@ const registerUser = async (req, res) => {
 
     await user.save();
 
-    const payload = {
-      userId: user.id,
-    };
-
-    jwt.sign(payload, process.env.KEY, { expiresIn: "1h" }, (err, token) => {
-      if (err) {
-        return res.status(400).json({
-          error: true,
-          status: [{ msg: "Token error" }],
-        });
-      }
-
-      return res.status(200).json({
-        error: false,
-        status: [{ msg: "Account Created" }],
-        token: token,
-      });
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "Account Created" }],
     });
   } catch (error) {
     console.log(error);
