@@ -7,6 +7,27 @@ import { handleError } from "./statusSlice";
 export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatch }) => {
   const currentToken = localStorage.getItem("token");
 
+  if (!currentToken) {
+    dispatch(
+      handleError({
+        refreshError: true,
+        errorMessage: [{ msg: "You don't have profile token. Please login or sign up." }],
+      })
+    );
+
+    return {
+      error: true,
+      status: [{ msg: "You don't have profile token. Please login or sign up." }],
+      profile: {
+        username: "",
+        date: 0,
+        options: [],
+        list: [],
+      },
+      isAuthenticated: false,
+    };
+  }
+
   try {
     const request = await fetch(`${url}/api/login`, {
       method: "GET",
