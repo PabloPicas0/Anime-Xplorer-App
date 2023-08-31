@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const middleware = (req, res, next) => {
   const token = req.header("Authorization").split(" ")[1];
 
+  // LoadUser have its own validation but its better to leave this if here
   if (token === "null") {
     return res.status(401).json({
       error: true,
