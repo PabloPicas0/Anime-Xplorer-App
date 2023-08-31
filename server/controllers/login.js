@@ -79,13 +79,13 @@ const authLogin = async (req, res) => {
       if (err) {
         return res.status(400).json({
           error: true,
-          status: [{ msg: "Token error. Please try again" }],
+          status: [{ msg: "Token error. Please try again." }],
         });
       }
 
       return res.status(200).json({
         error: false,
-        status: [{ msg: "" }],
+        status: [{ msg: "OK" }],
         token: token,
         profile: {
           username: user.username,
