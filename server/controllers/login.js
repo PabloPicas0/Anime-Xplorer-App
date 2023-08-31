@@ -85,7 +85,7 @@ const authLogin = async (req, res) => {
 
       return res.status(200).json({
         error: false,
-        status: [{ msg: "OK" }],
+        status: [{ msg: "" }],
         token: token,
         profile: {
           username: user.username,
