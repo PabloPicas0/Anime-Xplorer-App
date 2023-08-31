@@ -101,7 +101,7 @@ const EditList = (props) => {
   };
 
   const handleEdit = async () => {
-    if (!stateChanged) return;
+    if (!stateIsDifferent) return;
 
     try {
       const request = await fetch(`${url}/api/list/edit`, {
