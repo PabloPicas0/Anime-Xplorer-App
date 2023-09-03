@@ -18,7 +18,7 @@ import {
 import Menu from "../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
-import { handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
+import { handleAuthentication, handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
 
 import url from "../Utils/api";
@@ -132,24 +132,37 @@ const Settings = () => {
       "This process irreversible. Are you sure you want to delete your account ?"
     );
 
-    if (!userConfirmed) return
+    if (!userConfirmed) return;
 
     try {
       const request = await fetch(`${url}/api/users`, {
         method: "DELETE",
-         headers: {
+        headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
+      });
 
-      const response = await request.json()
+      const response = await request.json();
 
-      console.log(response)
+      console.log(response);
+
+      if (!response.error) {
+        localStorage.removeItem("token");
+        dispatch(handleAuthentication(response.isAuthenticated));
+        navigate("/");
+      }
     } catch (error) {
-      console.error(error)
+      console.error(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
-  }
+  };
 
   return (
     <Box sx={settingsStyles.container}>
@@ -281,10 +294,7 @@ const Settings = () => {
 
                 <Box sx={settingsStyles.deleteAccountWrapper}>
                   <Typography sx={settingsStyles.deleteAccountHeading}>Delete Account</Typography>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    onClick={handleDeleteAccount}>
+                  <Button variant="contained" color="error" onClick={handleDeleteAccount}>
                     Delete your account
                   </Button>
                 </Box>
