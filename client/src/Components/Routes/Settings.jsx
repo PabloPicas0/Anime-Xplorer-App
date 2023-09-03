@@ -47,6 +47,22 @@ const settingsStyles = {
     alignItems: "center",
     gap: "20px",
   },
+  dangerZoneWrapper: {
+    border: "1px groove red",
+  },
+  dangerZoneLegend: {
+    fontSize: "1.3rem",
+  },
+  deleteAccountWrapper: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: "10px",
+  },
+  deleteAccountHeading: {
+    fontSize: "1.2rem",
+    fontWeight: 500,
+  },
   buttons: {
     display: "flex",
     justifyContent: "center",
@@ -236,11 +252,11 @@ const Settings = () => {
             </Box>
 
             <Box>
-              <fieldset style={{ border: "1px groove red" }}>
-                <legend style={{ fontSize: "1.3rem" }}>Danger Zone</legend>
+              <fieldset style={settingsStyles.dangerZoneWrapper}>
+                <legend style={settingsStyles.dangerZoneLegend}>Danger Zone</legend>
 
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px" }}>
-                  <Typography sx={{ fontSize: "1.2rem", fontWeight: 500 }}>Delete Account</Typography>
+                <Box sx={settingsStyles.deleteAccountWrapper}>
+                  <Typography sx={settingsStyles.deleteAccountHeading}>Delete Account</Typography>
                   <Button variant="contained" color="error">
                     Delete your account
                   </Button>
