@@ -141,7 +141,6 @@ const Settings = () => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `username=${profile.username}`
       })
 
       const response = await request.json()
