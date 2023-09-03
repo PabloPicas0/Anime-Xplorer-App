@@ -127,6 +127,31 @@ const Settings = () => {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    const userConfirmed = confirm(
+      "This process irreversible. Are you sure you want to delete your account ?"
+    );
+
+    if (!userConfirmed) return
+
+    try {
+      const request = await fetch(`${url}/api/users`, {
+        method: "DELETE",
+         headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: `username=${profile.username}`
+      })
+
+      const response = await request.json()
+
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <Box sx={settingsStyles.container}>
       {options.length < 1 ? (
@@ -257,7 +282,10 @@ const Settings = () => {
 
                 <Box sx={settingsStyles.deleteAccountWrapper}>
                   <Typography sx={settingsStyles.deleteAccountHeading}>Delete Account</Typography>
-                  <Button variant="contained" color="error">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleDeleteAccount}>
                     Delete your account
                   </Button>
                 </Box>
