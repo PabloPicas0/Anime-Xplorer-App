@@ -19,7 +19,7 @@ import Menu from "../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
 import { handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
-import { handleRefresh, handleError } from "../Redux/Slices/statusSlice";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 import url from "../Utils/api";
 
