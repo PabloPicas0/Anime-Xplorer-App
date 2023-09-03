@@ -2,6 +2,8 @@ const express = require("express");
 
 const userModel = require("../models/User");
 const registerUser = require("../controllers/users");
+const deleteUser = require("../controllers/deleteUser")
+const authUser = require("../middleware/authUser")
 
 const { check } = require("express-validator");
 
@@ -32,5 +34,7 @@ router.post(
   check("email", "Invalid email adress").isEmail(),
   registerUser
 );
+
+router.delete("/", authUser, deleteUser)
 
 module.exports = router;
