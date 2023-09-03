@@ -24,9 +24,13 @@ const cardStyles = {
     display: "flex",
     gap: "20px",
   },
+  indexWrapper: {
+    display: "flex",
+    alignItems: "center",
+  },
   index: {
     display: "block",
-    transform: "translateY(100%)",
+    fontSize: "1.5rem",
   },
   progress: {
     display: "flex",
@@ -55,7 +59,7 @@ const Card = (props) => {
   const [isEditVisible, setIsEditVisible] = useState(false);
 
   const dispatch = useDispatch();
-  const errorHandler = useErrorHandler()
+  const errorHandler = useErrorHandler();
 
   const handleEpisodeChange = async (newEpisode) => {
     if (newEpisode < 0 || newEpisode > allEpisodes) return;
@@ -72,7 +76,7 @@ const Card = (props) => {
 
       const response = await request.json();
 
-      errorHandler(response)
+      errorHandler(response);
 
       if (!response.error) {
         dispatch(handleClientList(response.list));
