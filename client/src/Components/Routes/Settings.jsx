@@ -7,13 +7,14 @@ import {
   DialogContent,
   DialogContentText,
   FormControl,
-  Grow,
   InputLabel,
   MenuItem,
   Select,
   Skeleton,
+  Snackbar,
   Switch,
   Typography,
+  Zoom,
 } from "@mui/material";
 import Menu from "../UI/Menu";
 
@@ -91,6 +92,15 @@ const Settings = () => {
   useEffect(() => {
     dispatch(loadUser());
   }, []);
+
+  const handleClose = () => {
+    dispatch(
+      handleError({
+        error: false,
+        errorMessage: status.errorMessage,
+      })
+    );
+  };
 
   const handleSubmit = async () => {
     try {
@@ -205,6 +215,17 @@ const Settings = () => {
         </>
       ) : (
         <>
+          <Snackbar
+            open={status.error}
+            onClose={handleClose}
+            autoHideDuration={4000}
+            TransitionComponent={Zoom}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+            <Alert severity="error" onClose={handleClose}>
+              {status.errorMessage[0].msg}
+            </Alert>
+          </Snackbar>
+
           <Menu />
 
           <Box sx={settingsStyles.wrapper}>
@@ -313,10 +334,6 @@ const Settings = () => {
                 Discard
               </Button>
             </Box>
-
-            <Grow in={status.error} unmountOnExit>
-              <Alert severity={status.error ? "error" : "success"}>{status.errorMessage[0].msg}</Alert>
-            </Grow>
           </Box>
         </>
       )}
