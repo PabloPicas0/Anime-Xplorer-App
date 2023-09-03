@@ -235,6 +235,19 @@ const Settings = () => {
               </FormControl>
             </Box>
 
+            <Box>
+              <fieldset style={{ border: "1px groove red" }}>
+                <legend style={{ fontSize: "1.3rem" }}>Danger Zone</legend>
+
+                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px" }}>
+                  <Typography sx={{ fontSize: "1.2rem", fontWeight: 500 }}>Delete Account</Typography>
+                  <Button variant="contained" color="error">
+                    Delete your account
+                  </Button>
+                </Box>
+              </fieldset>
+            </Box>
+
             <Box sx={settingsStyles.buttons}>
               <Button variant="contained" onClick={() => handleSubmit()} disabled={isOptionSame}>
                 Apply
