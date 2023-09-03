@@ -31,10 +31,6 @@ const rootStyles = {
   },
 };
 
-// Bug
-// While user is registred and redirected to /login
-// loadUser fires and redirect to /home
-
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const profileOptions = useSelector((state) => state.profile.profileFields.options[0]);
