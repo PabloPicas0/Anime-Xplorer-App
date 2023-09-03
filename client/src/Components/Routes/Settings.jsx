@@ -241,6 +241,7 @@ const Settings = () => {
               </Button>
               <Button
                 variant="contained"
+                color="error"
                 disabled={isOptionSame}
                 onClick={() => dispatch(handleProfileSettings({ value: oldOptions }))}>
                 Discard
