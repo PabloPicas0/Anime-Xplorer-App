@@ -10,6 +10,9 @@ const theme = createTheme({
       xl: 1536,
     },
   },
+  typography: {
+    fontFamily: ["Inter", "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif"].join(),
+  },
 });
 
 export const Theme = ({ children }) => {
