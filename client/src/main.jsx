@@ -12,6 +12,7 @@ import Login from "./Components/Routes/Login.jsx";
 import SignUp from "./Components/Routes/SignUp.jsx";
 import Recover from "./Components/Routes/Recover.jsx";
 import Home from "./Components/Routes/Home.jsx";
+import ChangePassowrd from "./Components/Routes/ChangePassword.jsx";
 
 import { Theme as ThemeProvider } from "./Components/Theme/Theme.jsx";
 import Settings from "./Components/Routes/Settings.jsx";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/recover",
         element: <Recover />,
+      },
+      {
+        path: "/recover/:userId", 
+        element: <ChangePassowrd />
       },
       {
         path: "/home",
