@@ -1,11 +1,10 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useState } from "react";
 
-import { Alert, Box, Button, Snackbar, TextField } from "@mui/material";
-import { RestartAltSharp } from "@mui/icons-material";
+import { Alert, Box, Button, InputAdornment, Snackbar, TextField } from "@mui/material";
+import { RestartAltSharp, VisibilityOff } from "@mui/icons-material";
 
 import url from "../Utils/api";
-
 
 const ChangePassowrdStyles = {
   container: {
@@ -39,9 +38,9 @@ const ChangePassowrd = () => {
         body: `userId=${userId}&password=${passowrds.newPassword}&password2=${passowrds.confirmNewPassowrd}`,
       });
 
-      const response = await request.json()
+      const response = await request.json();
 
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +50,8 @@ const ChangePassowrd = () => {
 
   return (
     <Box sx={ChangePassowrdStyles.container}>
-      <Snackbar
-        open={false}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-        <Alert severity="error">
-          {"Open"}
-        </Alert>
+      <Snackbar open={false} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+        <Alert severity="error">{"Open"}</Alert>
       </Snackbar>
 
       <h1>User id is {userId}</h1>
@@ -64,9 +59,10 @@ const ChangePassowrd = () => {
       <TextField
         label="New password"
         autoComplete="on"
+        type="password"
         fullWidth
-        sx={ChangePassowrdStyles.formText}
         value={passowrds.newPassword}
+        sx={ChangePassowrdStyles.formText}
         onChange={(e) =>
           setPasswords((oldValues) => {
             const newValues = { ...oldValues };
@@ -80,8 +76,10 @@ const ChangePassowrd = () => {
       <TextField
         label="Confirm new passowrd"
         autoComplete="on"
+        type="password"
         fullWidth
         value={passowrds.confirmNewPassowrd}
+        sx={ChangePassowrdStyles.formText}
         onChange={(e) =>
           setPasswords((oldValues) => {
             const newValues = { ...oldValues };
@@ -90,7 +88,6 @@ const ChangePassowrd = () => {
             return newValues;
           })
         }
-        sx={ChangePassowrdStyles.formText}
       />
 
       <Button variant="contained" onClick={handlePassowrd} endIcon={<RestartAltSharp />}>
