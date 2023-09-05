@@ -105,4 +105,14 @@ const authLogin = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const userId = req.body
+
+  try {
+    const user = await userModel.findById(userId)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = { authLogin, loadUser };
