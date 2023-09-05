@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 const bcrypt = require("bcryptjs");
 
+const mongoose = require("mongoose");
 const userModel = require("../models/User");
 
 const jwt = require("jsonwebtoken");
@@ -106,13 +107,20 @@ const authLogin = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-  const userId = req.body
+  const { userId, password } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(400).json({
+      redirect: true,
+    });
 
   try {
-    const user = await userModel.findById(userId)
+    const user = await userModel.findById(userId);
+
+    console.log(user)
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 module.exports = { authLogin, loadUser };
