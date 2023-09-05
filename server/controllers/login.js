@@ -108,19 +108,20 @@ const authLogin = async (req, res) => {
 
 const changePassword = async (req, res) => {
   const { userId, password } = req.body;
+  const errors = validationResult(req);
 
-  if (!mongoose.Types.ObjectId.isValid(userId))
-    return res.status(400).json({
-      redirect: true,
-    });
+  if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(400).json({ redirect: true });
+  
+  if (!errors.isEmpty()) return res.status(400).json({ error: true, status: errors.array() });
+
 
   try {
     const user = await userModel.findById(userId);
 
-    console.log(user)
+    console.log(user);
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { authLogin, loadUser };
+module.exports = { authLogin, loadUser, changePassword };
