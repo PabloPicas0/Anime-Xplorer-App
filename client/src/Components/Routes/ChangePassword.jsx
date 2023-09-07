@@ -83,6 +83,15 @@ const ChangePassowrd = () => {
     );
   };
 
+  useEffect(() => {
+    const checkID = async () => {
+      await handlePassowrd()
+      handleClose()
+    }
+
+    checkID()
+  }, []);
+
   if (!userId || redirect) return <Navigate to={"/login"} />;
 
   return (
