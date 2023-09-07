@@ -2,7 +2,7 @@ import { Form, Navigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Alert, Box, Button, Snackbar, TextField } from "@mui/material";
+import { Alert, Box, Button, Snackbar, TextField, Zoom } from "@mui/material";
 import { RestartAltSharp } from "@mui/icons-material";
 
 import url from "../Utils/api";
@@ -74,15 +74,31 @@ const ChangePassowrd = () => {
     }
   };
 
+  const handleClose = () => {
+    dispatch(
+      handleError({
+        error: false,
+        errorMessage: status.errorMessage,
+      })
+    );
+  };
+
   if (!userId || redirect) return <Navigate to={"/login"} />;
 
   return (
     <Box sx={changePassowrdStyles.container}>
-      <Snackbar open={status.error} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-        <Alert severity="error">{status.errorMessage[0].msg}</Alert>
+      <Snackbar
+        open={status.error}
+        onClose={handleClose}
+        autoHideDuration={4000}
+        TransitionComponent={Zoom}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+        <Alert severity="error" onClose={handleClose}>
+          {status.errorMessage[0].msg}
+        </Alert>
       </Snackbar>
 
-      <h1>User id is {userId}</h1>
+      <h1>Reset Passowrd</h1>
 
       <Form style={changePassowrdStyles.formStyles} onSubmit={handlePassowrd}>
         <TextField
