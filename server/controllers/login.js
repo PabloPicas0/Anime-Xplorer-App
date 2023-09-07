@@ -111,16 +111,29 @@ const changePassword = async (req, res) => {
   const errors = validationResult(req);
 
   if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(400).json({ redirect: true });
-  
-  if (!errors.isEmpty()) return res.status(400).json({ error: true, status: errors.array() });
 
+  if (!errors.isEmpty()) return res.status(400).json({ error: true, status: errors.array() });
 
   try {
     const user = await userModel.findById(userId);
 
-    console.log(user);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    user.password = hashedPassword;
+
+    await user.save();
+
+    return res.status(200).json({ redirect: true });
   } catch (error) {
     console.log(error);
+
+    return res
+      .status(500)
+      .json({ 
+        error: true, 
+        status: [{ msg: "Internal server error. Please try again later." }] 
+      });
   }
 };
 
