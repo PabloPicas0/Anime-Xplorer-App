@@ -110,7 +110,8 @@ const changePassword = async (req, res) => {
   const { userId, password } = req.body;
   const errors = validationResult(req);
 
-  if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(400).json({ redirect: true });
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(400).json({ redirect: true, error: false, status: [{ msg: "" }] });
 
   if (!errors.isEmpty()) return res.status(400).json({ error: true, status: errors.array() });
 
@@ -124,16 +125,14 @@ const changePassword = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({ redirect: true });
+    return res.status(200).json({ redirect: true, error: false, status: [{ msg: "OK" }] });
   } catch (error) {
     console.log(error);
 
-    return res
-      .status(500)
-      .json({ 
-        error: true, 
-        status: [{ msg: "Internal server error. Please try again later." }] 
-      });
+    return res.status(500).json({
+      error: true,
+      status: [{ msg: "Internal server error. Please try again later." }],
+    });
   }
 };
 
