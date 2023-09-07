@@ -118,7 +118,7 @@ const changePassword = async (req, res) => {
   try {
     const user = await userModel.findById(userId);
 
-    if(!user) {
+    if (!user) {
       return res.status(404).json({ redirect: true, error: false, status: [{ msg: "" }] });
     }
 
