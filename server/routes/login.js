@@ -22,7 +22,7 @@ router.put(
     .withMessage("Please enter new password.")
     .isLength({ min: 6 })
     .withMessage("Password is too short.")
-    .custom(async (password, { req }) => {
+    .custom((password, { req }) => {
       if (password !== req.body.password2) {
         throw new Error("Passwords don't match");
       } else {
