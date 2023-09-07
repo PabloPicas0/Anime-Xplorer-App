@@ -1,18 +1,25 @@
-import { Navigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { Form, Navigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Alert, Box, Button, InputAdornment, Snackbar, TextField } from "@mui/material";
-import { RestartAltSharp, VisibilityOff } from "@mui/icons-material";
+import { Alert, Box, Button, Snackbar, TextField } from "@mui/material";
+import { RestartAltSharp } from "@mui/icons-material";
 
 import url from "../Utils/api";
+import { handleError } from "../Redux/Slices/statusSlice";
 
-const ChangePassowrdStyles = {
+const changePassowrdStyles = {
   container: {
     height: "100vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    gap: "20px",
+  },
+  formStyles: {
+    display: "flex",
+    flexDirection: "column",
     gap: "20px",
   },
   formText: {
@@ -25,8 +32,13 @@ const ChangePassowrd = () => {
     newPassword: "",
     confirmNewPassowrd: "",
   });
+  const [redirect, setRedirect] = useState(false);
+
+  const status = useSelector((state) => state.status);
 
   const { userId } = useParams();
+
+  const dispatch = useDispatch();
 
   const handlePassowrd = async () => {
     try {
@@ -40,59 +52,79 @@ const ChangePassowrd = () => {
 
       const response = await request.json();
 
+      if (response.redirect) setRedirect(response.redirect);
+
+      dispatch(
+        handleError({
+          error: response.error,
+          errorMessage: response.status,
+        })
+      );
+
       console.log(response);
     } catch (error) {
       console.log(error);
+
+      dispatch(
+        handleError({
+          error: true,
+          errorMessage: [{ msg: "Something went wrong. Please try again later." }],
+        })
+      );
     }
   };
 
-  if (!userId) return <Navigate to={"/"} />;
+  if (!userId || redirect) return <Navigate to={"/login"} />;
 
   return (
-    <Box sx={ChangePassowrdStyles.container}>
-      <Snackbar open={false} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
-        <Alert severity="error">{"Open"}</Alert>
+    <Box sx={changePassowrdStyles.container}>
+      <Snackbar open={status.error} anchorOrigin={{ vertical: "bottom", horizontal: "right" }}>
+        <Alert severity="error">{status.errorMessage[0].msg}</Alert>
       </Snackbar>
 
       <h1>User id is {userId}</h1>
 
-      <TextField
-        label="New password"
-        autoComplete="on"
-        type="password"
-        fullWidth
-        value={passowrds.newPassword}
-        sx={ChangePassowrdStyles.formText}
-        onChange={(e) =>
-          setPasswords((oldValues) => {
-            const newValues = { ...oldValues };
-            newValues.newPassword = e.target.value;
+      <Form style={changePassowrdStyles.formStyles} onSubmit={handlePassowrd}>
+        <TextField
+          label="New password"
+          autoComplete="on"
+          type="password"
+          fullWidth
+          value={passowrds.newPassword}
+          sx={changePassowrdStyles.formText}
+          onChange={(e) =>
+            setPasswords((oldValues) => {
+              const newValues = { ...oldValues };
+              newValues.newPassword = e.target.value;
 
-            return newValues;
-          })
-        }
-      />
+              return newValues;
+            })
+          }
+        />
 
-      <TextField
-        label="Confirm new passowrd"
-        autoComplete="on"
-        type="password"
-        fullWidth
-        value={passowrds.confirmNewPassowrd}
-        sx={ChangePassowrdStyles.formText}
-        onChange={(e) =>
-          setPasswords((oldValues) => {
-            const newValues = { ...oldValues };
-            newValues.confirmNewPassowrd = e.target.value;
+        <TextField
+          label="Confirm new passowrd"
+          autoComplete="on"
+          type="password"
+          fullWidth
+          value={passowrds.confirmNewPassowrd}
+          sx={changePassowrdStyles.formText}
+          onChange={(e) =>
+            setPasswords((oldValues) => {
+              const newValues = { ...oldValues };
+              newValues.confirmNewPassowrd = e.target.value;
 
-            return newValues;
-          })
-        }
-      />
+              return newValues;
+            })
+          }
+        />
 
-      <Button variant="contained" onClick={handlePassowrd} endIcon={<RestartAltSharp />}>
-        Reset
-      </Button>
+        <Box sx={{ textAlign: "center" }}>
+          <Button variant="contained" type="submit" endIcon={<RestartAltSharp />}>
+            Reset
+          </Button>
+        </Box>
+      </Form>
     </Box>
   );
 };
