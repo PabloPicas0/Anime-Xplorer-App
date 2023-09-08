@@ -27,6 +27,7 @@ const recoverStyles = {
 
 const Recover = () => {
   const [email, setEmail] = useState("");
+  const [emailNotExists, setEmailNotExists] = useState(false)
 
   return (
     <Box sx={recoverStyles.container}>
@@ -35,10 +36,12 @@ const Recover = () => {
 
         <TextField
           id="e-mail"
-          label="E-mail"
+          label={emailNotExists ? "Error" : "E-mail"}
           name="email-recover"
           fullWidth
           required
+          error={emailNotExists}
+          helperText={emailNotExists ? "Incorrect email" : ""}
           margin="normal"
           autoComplete="on"
           onChange={(e) => setEmail(e.target.value)}
