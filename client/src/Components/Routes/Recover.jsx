@@ -1,6 +1,9 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
+
 import { useState } from "react";
 import { Form } from "react-router-dom";
+
+import url from "../Utils/api";
 
 const recoverStyles = {
   container: {
@@ -27,11 +30,25 @@ const recoverStyles = {
 
 const Recover = () => {
   const [email, setEmail] = useState("");
-  const [emailNotExists, setEmailNotExists] = useState(false)
+  const [emailNotExists, setEmailNotExists] = useState(false);
+
+  const handleSubmit = async () => {
+    const request = await fetch(`${url}/api/login/recover`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `email=${email}`,
+    });
+
+    const response = await request.json()
+
+    console.log(response)
+  };
 
   return (
     <Box sx={recoverStyles.container}>
-      <Form style={recoverStyles.formStyles}>
+      <Form style={recoverStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={recoverStyles.formTitle}>Reset Password</h2>
 
         <TextField
