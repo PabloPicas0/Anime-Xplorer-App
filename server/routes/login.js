@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const userModel = require("../models/User");
+
 const { authLogin, loadUser, changePassword } = require("../controllers/login");
 const authUser = require("../middleware/authUser");
 
@@ -30,6 +32,18 @@ router.put(
       }
     }),
   changePassword
+);
+
+router.put(
+  "/recover",
+  check("email").custom(async (email) => {
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      throw new Error("Incorrect email");
+    }
+  }),
+  sendRecover
 );
 
 module.exports = router;
