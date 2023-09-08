@@ -1,4 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { Form } from "react-router-dom";
 
 const recoverStyles = {
@@ -25,6 +26,8 @@ const recoverStyles = {
 };
 
 const Recover = () => {
+  const [email, setEmail] = useState("");
+
   return (
     <Box sx={recoverStyles.container}>
       <Form style={recoverStyles.formStyles}>
@@ -38,6 +41,8 @@ const Recover = () => {
           required
           margin="normal"
           autoComplete="on"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
           sx={recoverStyles.formText}
         />
 
