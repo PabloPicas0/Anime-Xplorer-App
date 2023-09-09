@@ -34,15 +34,25 @@ router.put(
   changePassword
 );
 
+// Possible bug when many same email exists
 router.put(
   "/recover",
-  check("email").custom(async (email) => {
-    const user = await userModel.findOne({ email: email });
+  check("username", "Username is required").notEmpty(),
+  check("email")
+    .notEmpty()
+    .custom(async (email, { req }) => {
+      const user = await userModel.findOne({ email: email });
 
-    if (!user) {
-      throw new Error("Incorrect email");
-    }
-  }),
+      if (!user) {
+        throw new Error("Incorrect email");
+      }
+
+      const isUserValid = req.body.username === user.username;
+
+      if (!isUserValid) {
+        throw new Error("Incorrect username");
+      }
+    }),
   sendRecover
 );
 
