@@ -33,17 +33,21 @@ const Recover = () => {
   const [emailNotExists, setEmailNotExists] = useState(false);
 
   const handleSubmit = async () => {
-    const request = await fetch(`${url}/api/login/recover`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `email=${email}`,
-    });
+    try {
+      const request = await fetch(`${url}/api/login/recover`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `email=${email}`,
+      });
 
-    const response = await request.json()
+      const response = await request.json();
 
-    console.log(response)
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
