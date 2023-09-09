@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
 import { useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 
 import url from "../Utils/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,7 @@ const Recover = () => {
   const recoverStatus = useSelector((state) => state.status);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -59,18 +60,23 @@ const Recover = () => {
       const response = await request.json();
 
       console.log(response);
+
       dispatch(
         handleError({
           error: response.error,
           errorMessage: response.status,
         })
       );
+
+      if (!response.error) {
+        navigate(`/recover/${response.id}`);
+      }
     } catch (error) {
       console.error(error);
       dispatch(
         handleError({
           error: true,
-          status: [{ msg: "Something went worng. Please try again later." }],
+          errorMessage: [{ msg: "Something went worng. Please try again later." }],
         })
       );
     }
