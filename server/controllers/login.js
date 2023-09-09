@@ -157,18 +157,34 @@ const changePassword = async (req, res) => {
 };
 
 const sendRecover = async (req, res) => {
-  const { email } = req.body;
+  const { email, username } = req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(400).json({
       error: true,
-      status: errors.array()
+      status: errors.array(),
     });
   }
 
-  const user = await userModel.findOne({ email: email });
-  console.log(user);
+  try {
+    const user = await userModel.findOne({ email: email });
+
+    console.log(user.id);
+
+    return res.status(200).json({
+      error: false,
+      status: [{ msg: "OK" }],
+      id: user.id,
+    });
+  } catch (error) {
+    console.error(error)
+
+    return res.status(500).json({
+      error: true,
+      status: [{msg: "Internal server error. Please try again later."}]
+    })
+  }
 };
 
 module.exports = { authLogin, loadUser, changePassword, sendRecover };
