@@ -40,7 +40,7 @@ const recoverStyles = {
 
 const Recover = () => {
   const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
+  const [username, setUsername] = useState("");
 
   const recoverStatus = useSelector((state) => state.status);
 
@@ -53,7 +53,7 @@ const Recover = () => {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `email=${email}`,
+        body: `email=${email}&username=${username}`,
       });
 
       const response = await request.json();
@@ -78,35 +78,33 @@ const Recover = () => {
 
   return (
     <Box sx={recoverStyles.container}>
-      {/* <Slide in={recoverStatus.error}>
+      <Slide in={recoverStatus.error}>
         <Alert severity="error" sx={recoverStyles.alert}>
           {recoverStatus.errorMessage[0].msg}
         </Alert>
-      </Slide> */}
+      </Slide>
 
       <Form style={recoverStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={recoverStyles.formTitle}>Reset Password</h2>
 
         <TextField
-          id="nickname"
-          label="Nickname"
+          id="username"
+          label="Username"
           fullWidth
           required
           margin="normal"
           autoComplete="on"
           type="text"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           sx={recoverStyles.formText}
         />
 
         <TextField
           id="e-mail"
-          label={recoverStatus.error ? "Error" : "E-mail"}
+          label="E-mail"
           fullWidth
           required
-          error={recoverStatus.error}
-          helperText={recoverStatus.error ? recoverStatus.errorMessage[0].msg : ""}
           margin="normal"
           autoComplete="on"
           type="text"
