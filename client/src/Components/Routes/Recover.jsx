@@ -1,9 +1,11 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 
 import { useState } from "react";
 import { Form } from "react-router-dom";
 
 import url from "../Utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { handleError } from "../Redux/Slices/statusSlice";
 
 const recoverStyles = {
   container: {
@@ -26,11 +28,18 @@ const recoverStyles = {
   formText: {
     width: { xs: "223px", sm: "486px" },
   },
+  alert: {
+    position: "fixed",
+    top: 70,
+  },
 };
 
 const Recover = () => {
   const [email, setEmail] = useState("");
-  const [emailNotExists, setEmailNotExists] = useState(false);
+
+  const recoverStatus = useSelector((state) => state.status);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     try {
@@ -45,26 +54,44 @@ const Recover = () => {
       const response = await request.json();
 
       console.log(response);
+      dispatch(
+        handleError({
+          error: response.error,
+          errorMessage: response.status,
+        })
+      );
     } catch (error) {
       console.error(error);
+      dispatch(
+        handleError({
+          error: true,
+          status: [{ msg: "Something went worng. Please try again later." }],
+        })
+      );
     }
   };
 
   return (
     <Box sx={recoverStyles.container}>
+      {/* <Slide in={recoverStatus.error}>
+        <Alert severity="error" sx={recoverStyles.alert}>
+          {recoverStatus.errorMessage[0].msg}
+        </Alert>
+      </Slide> */}
+
       <Form style={recoverStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={recoverStyles.formTitle}>Reset Password</h2>
 
         <TextField
           id="e-mail"
-          label={emailNotExists ? "Error" : "E-mail"}
-          name="email-recover"
+          label={recoverStatus.error ? "Error" : "E-mail"}
           fullWidth
           required
-          error={emailNotExists}
-          helperText={emailNotExists ? "Incorrect email" : ""}
+          error={recoverStatus.error}
+          helperText={recoverStatus.error ? recoverStatus.errorMessage[0].msg : ""}
           margin="normal"
           autoComplete="on"
+          type="text"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           sx={recoverStyles.formText}
