@@ -15,6 +15,10 @@ const recoverStyles = {
     alignItems: "center",
   },
   formStyles: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
     padding: "0px 20px",
   },
   formTitle: {
@@ -36,6 +40,7 @@ const recoverStyles = {
 
 const Recover = () => {
   const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const recoverStatus = useSelector((state) => state.status);
 
@@ -81,6 +86,19 @@ const Recover = () => {
 
       <Form style={recoverStyles.formStyles} onSubmit={handleSubmit}>
         <h2 style={recoverStyles.formTitle}>Reset Password</h2>
+
+        <TextField
+          id="nickname"
+          label="Nickname"
+          fullWidth
+          required
+          margin="normal"
+          autoComplete="on"
+          type="text"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          sx={recoverStyles.formText}
+        />
 
         <TextField
           id="e-mail"
