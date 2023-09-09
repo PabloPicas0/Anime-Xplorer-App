@@ -111,15 +111,27 @@ const changePassword = async (req, res) => {
   const errors = validationResult(req);
 
   if (!mongoose.Types.ObjectId.isValid(userId))
-    return res.status(400).json({ redirect: true, error: false, status: [{ msg: "" }] });
+    return res.status(400).json({
+      redirect: true,
+      error: false,
+      status: [{ msg: "" }],
+    });
 
-  if (!errors.isEmpty()) return res.status(400).json({ error: true, status: errors.array() });
+  if (!errors.isEmpty())
+    return res.status(400).json({
+      error: true,
+      status: errors.array(),
+    });
 
   try {
     const user = await userModel.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ redirect: true, error: false, status: [{ msg: "" }] });
+      return res.status(404).json({
+        redirect: true,
+        error: false,
+        status: [{ msg: "" }],
+      });
     }
 
     const salt = await bcrypt.genSalt();
@@ -129,7 +141,11 @@ const changePassword = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({ redirect: true, error: false, status: [{ msg: "OK" }] });
+    return res.status(200).json({
+      redirect: true,
+      error: false,
+      status: [{ msg: "OK" }],
+    });
   } catch (error) {
     console.log(error);
 
@@ -140,4 +156,19 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { authLogin, loadUser, changePassword };
+const sendRecover = async (req, res) => {
+  const { email } = req.body;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      error: true,
+      status: errors.array()
+    });
+  }
+
+  const user = await userModel.findOne({ email: email });
+  console.log(user);
+};
+
+module.exports = { authLogin, loadUser, changePassword, sendRecover };
