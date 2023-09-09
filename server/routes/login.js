@@ -3,7 +3,7 @@ const router = express.Router();
 
 const userModel = require("../models/User");
 
-const { authLogin, loadUser, changePassword } = require("../controllers/login");
+const { authLogin, loadUser, changePassword, sendRecover } = require("../controllers/login");
 const authUser = require("../middleware/authUser");
 
 const { check } = require("express-validator");
