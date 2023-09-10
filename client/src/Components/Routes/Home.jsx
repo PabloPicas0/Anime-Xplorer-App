@@ -17,7 +17,7 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import { BarChartSharp, FilterAlt, FilterList } from "@mui/icons-material";
+import { BarChartSharp, FilterAlt, SortSharp } from "@mui/icons-material";
 
 import Card from "../UI/Card";
 import Menu from "../UI/Menu";
@@ -27,6 +27,8 @@ import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
+import { useCallback, useMemo } from "react";
+import useSorting from "../Utils/useSorting";
 
 const homeStyles = {
   container: {
@@ -67,7 +69,7 @@ const filterIcons = [
   },
   {
     description: "Sort",
-    icon: <FilterList />,
+    icon: <SortSharp />,
   },
 ];
 
@@ -79,25 +81,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const sortedList = list.reduce(
-    (acc, currentList) => {
-      const currentStatus = currentList.animeStatus
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) => {
-          return index == 0 ? word.toLowerCase() : word.toUpperCase();
-        })
-        .replace(/\s+/g, "");
-
-      acc[`${currentStatus}`].push(currentList);
-
-      return acc;
-    },
-    {
-      "currentlyWatching": [],
-      "planToWatch": [],
-      "completed": [],
-    }
-  );
+  const groupList = useSorting(list);
 
   const handleClose = () => {
     dispatch(
@@ -214,8 +198,8 @@ const Home = () => {
                 Currently watching
               </Typography>
 
-              {sortedList.currentlyWatching.map((listProp, idx) => {
-                const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp
+              {groupList.currentlyWatching.map((listProp, idx) => {
+                const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp;
 
                 return (
                   <Card
@@ -241,7 +225,7 @@ const Home = () => {
                 Completed
               </Typography>
 
-              {sortedList.completed.map((listProp, idx) => {
+              {groupList.completed.map((listProp, idx) => {
                 const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp;
 
                 return (
@@ -266,7 +250,7 @@ const Home = () => {
                 Plan to watch
               </Typography>
 
-              {sortedList.planToWatch.map((listProp, idx) => {
+              {groupList.planToWatch.map((listProp, idx) => {
                 const { animeName, animeStatus, currentEpisode, allEpisodes, score, animeType } = listProp;
 
                 return (
