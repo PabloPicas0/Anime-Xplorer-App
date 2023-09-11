@@ -40,9 +40,9 @@ const useSorting = (list) => {
         return acc;
       },
       {
-        currentlyWatching: [],
-        planToWatch: [],
-        completed: [],
+        "currentlyWatching": [],
+        "planToWatch": [],
+        "completed": [],
       }
     );
 
