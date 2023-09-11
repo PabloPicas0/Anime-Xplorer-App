@@ -57,21 +57,6 @@ const homeStyles = {
   },
 };
 
-const filterIcons = [
-  {
-    description: "Statistic",
-    icon: <BarChartSharp />,
-  },
-  {
-    description: "Filter",
-    icon: <FilterAlt />,
-  },
-  {
-    description: "Sort",
-    icon: <SortSharp />,
-  },
-];
-
 const Home = () => {
   const list = useSelector((state) => state.profile.profileFields.list);
   const showBy = useSelector((state) => state.profile.showBy);
@@ -174,17 +159,23 @@ const Home = () => {
           </FormControl>
 
           <Box sx={homeStyles.filters}>
-            {filterIcons.map((filterIcon) => {
-              const { description, icon } = filterIcon;
-              const isSorting = description === "Sort"
+            <Tooltip TransitionComponent={Zoom} title={"Statistic"} arrow>
+              <IconButton>
+                <BarChartSharp />
+              </IconButton>
+            </Tooltip>
 
-              return (
-                <Tooltip TransitionComponent={Zoom} title={description} key={description} arrow>
-                  <IconButton onClick={isSorting ? () => handleSortOrder() : null}>{icon}</IconButton>
-                  {/* This part of code needs refactor due to low maintainability */}
-                </Tooltip>
-              );
-            })}
+            <Tooltip TransitionComponent={Zoom} title={"Filter"} arrow>
+              <IconButton>
+                <FilterAlt />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip TransitionComponent={Zoom} title={"Sort"} arrow>
+              <IconButton onClick={() => handleSortOrder()}>
+                <SortSharp />
+              </IconButton>
+            </Tooltip>
           </Box>
 
           <Box id="list">
