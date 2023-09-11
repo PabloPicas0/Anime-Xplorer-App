@@ -27,7 +27,6 @@ import { useNavigate } from "react-router-dom";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
-import { useCallback, useMemo } from "react";
 import useSorting from "../Utils/useSorting";
 
 const homeStyles = {
@@ -81,7 +80,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const groupList = useSorting(list);
+  const { groupList, handleSortOrder } = useSorting(list);
 
   const handleClose = () => {
     dispatch(
@@ -177,10 +176,12 @@ const Home = () => {
           <Box sx={homeStyles.filters}>
             {filterIcons.map((filterIcon) => {
               const { description, icon } = filterIcon;
+              const isSorting = description === "Sort"
 
               return (
                 <Tooltip TransitionComponent={Zoom} title={description} key={description} arrow>
-                  <IconButton>{icon}</IconButton>
+                  <IconButton onClick={isSorting ? () => handleSortOrder() : null}>{icon}</IconButton>
+                  {/* This part of code needs refactor due to low maintainability */}
                 </Tooltip>
               );
             })}
