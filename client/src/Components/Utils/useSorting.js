@@ -66,19 +66,29 @@ const useSorting = (list) => {
 
   console.log(sortedGroupList);
 
+  const descriptions = {
+    asc: "Sorted ascending",
+    desc: "Sorted descending",
+    default: "Unsorted",
+  };
+
   const handleSortOrder = () => {
     const sortKeys = Object.keys(sortedGroupList);
     const keysLength = sortKeys.length;
 
     for (let i = 0; i < keysLength; i++) {
       if (sortKeys[i] === sortOrder) {
-        const nextIndex = i + 1 < keysLength ? i + 1 : 0
-        setSortOrder(sortKeys[nextIndex])
+        const nextIndex = i + 1 < keysLength ? i + 1 : 0;
+        setSortOrder(sortKeys[nextIndex]);
       }
     }
   };
 
-  return { groupList: sortedGroupList[sortOrder], handleSortOrder };
+  return {
+    groupList: sortedGroupList[sortOrder],
+    groupListDescription: descriptions[sortOrder],
+    handleSortOrder,
+  };
 };
 
 export default useSorting;
