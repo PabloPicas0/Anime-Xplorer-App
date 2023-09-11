@@ -65,7 +65,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { groupList, handleSortOrder } = useSorting(list);
+  const { groupList, groupListDescription, handleSortOrder } = useSorting(list);
 
   const handleClose = () => {
     dispatch(
@@ -171,7 +171,7 @@ const Home = () => {
               </IconButton>
             </Tooltip>
 
-            <Tooltip TransitionComponent={Zoom} title={"Sort"} arrow>
+            <Tooltip TransitionComponent={Zoom} title={groupListDescription} arrow>
               <IconButton onClick={() => handleSortOrder()}>
                 <SortSharp />
               </IconButton>
