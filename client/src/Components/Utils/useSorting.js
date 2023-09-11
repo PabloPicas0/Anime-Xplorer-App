@@ -67,8 +67,8 @@ const useSorting = (list) => {
   console.log(sortedGroupList);
 
   const descriptions = {
-    asc: "Sorted ascending",
-    desc: "Sorted descending",
+    asc: "Sorted Ascending",
+    desc: "Sorted Descending",
     default: "Unsorted",
   };
 
