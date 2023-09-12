@@ -42,6 +42,9 @@ const homeStyles = {
     textAlign: "end",
     margin: "20px 0px",
   },
+  filterButton: {
+    marginRight: "15px",
+  },
   selectForm: {
     display: { xs: "inline-flex", md: "none" },
     marginTop: "30px",
@@ -83,7 +86,7 @@ const Home = () => {
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
-  const [a, setA] = useState(null);
+  const [filter, setFilter] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -181,20 +184,23 @@ const Home = () => {
           </FormControl>
 
           <Box sx={homeStyles.filters}>
-            <Button startIcon={<BarChartSharp />}>
+            <Button startIcon={<BarChartSharp />} sx={homeStyles.filterButton}>
               Statistics
             </Button>
 
-            <Button startIcon={<FilterAlt />}>Filter</Button>
+            <Button startIcon={<FilterAlt />} sx={homeStyles.filterButton}>
+              Filter
+            </Button>
 
-            <Button startIcon={<SortSharp />} onClick={(e) => setA(e.currentTarget)}>
+            <Button startIcon={<SortSharp />} onClick={(e) => setFilter(e.currentTarget)}>
               Sort
             </Button>
             <Menu
-              anchorEl={a}
-              open={Boolean(a)}
+              anchorEl={filter}
+              open={Boolean(filter)}
               slotProps={homeStyles.menu}
               MenuListProps={homeStyles.menuList}
+              onClose={() => setFilter(null)}
               disableScrollLock>
               <MenuItem>
                 <ListItemIcon>
