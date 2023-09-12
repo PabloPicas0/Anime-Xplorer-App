@@ -7,21 +7,23 @@ import {
   DialogContent,
   DialogContentText,
   FormControl,
-  IconButton,
   InputLabel,
   MenuItem,
   Select,
   Skeleton,
   Snackbar,
-  Tooltip,
   Typography,
+  Menu,
   Zoom,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
-import { BarChartSharp, FilterAlt, SortSharp } from "@mui/icons-material";
+import { BarChartSharp, FilterAlt, North, SortSharp, South } from "@mui/icons-material";
 
 import Card from "../UI/Card";
-import Menu from "../UI/Menu";
+import UserMenu from "../UI/Menu";
 
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -55,6 +57,24 @@ const homeStyles = {
       },
     },
   },
+  menu: {
+    root: {
+      style: {
+        position: "absolute",
+        zIndex: 1099,
+      },
+    },
+  },
+  menuList: {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "10px",
+    },
+  },
+  menuText: {
+    textAlign: "start",
+  },
 };
 
 const Home = () => {
@@ -62,6 +82,8 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+
+  const [a, setA] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -138,7 +160,7 @@ const Home = () => {
             </Alert>
           </Snackbar>
 
-          <Menu />
+          <UserMenu />
 
           <FormControl fullWidth sx={homeStyles.selectForm}>
             <InputLabel id="select-label">Select anime list</InputLabel>
@@ -159,23 +181,35 @@ const Home = () => {
           </FormControl>
 
           <Box sx={homeStyles.filters}>
-            <Tooltip TransitionComponent={Zoom} title={"Statistic"} arrow>
-              <IconButton>
-                <BarChartSharp />
-              </IconButton>
-            </Tooltip>
+            <Button startIcon={<BarChartSharp />}>
+              Statistics
+            </Button>
 
-            <Tooltip TransitionComponent={Zoom} title={"Filter"} arrow>
-              <IconButton>
-                <FilterAlt />
-              </IconButton>
-            </Tooltip>
+            <Button startIcon={<FilterAlt />}>Filter</Button>
 
-            <Tooltip TransitionComponent={Zoom} title={groupListDescription} arrow>
-              <IconButton onClick={() => handleSortOrder()}>
-                <SortSharp />
-              </IconButton>
-            </Tooltip>
+            <Button startIcon={<SortSharp />} onClick={(e) => setA(e.currentTarget)}>
+              Sort
+            </Button>
+            <Menu
+              anchorEl={a}
+              open={Boolean(a)}
+              slotProps={homeStyles.menu}
+              MenuListProps={homeStyles.menuList}
+              disableScrollLock>
+              <MenuItem>
+                <ListItemIcon>
+                  <North />
+                </ListItemIcon>
+                <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
+              </MenuItem>
+
+              <MenuItem>
+                <ListItemIcon>
+                  <South />
+                </ListItemIcon>
+                <ListItemText sx={homeStyles.menu}>Sort Descending</ListItemText>
+              </MenuItem>
+            </Menu>
           </Box>
 
           <Box id="list">
