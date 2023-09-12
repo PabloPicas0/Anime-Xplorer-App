@@ -73,25 +73,33 @@ const homeStyles = {
       },
     },
   },
-  menuList: {
+  sortMenuList: {
     style: {
       display: "flex",
       flexDirection: "column",
       gap: "10px",
     },
   },
+  filterMenuList: {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gap: "10px",
+      padding: "8px"
+    }
+  },
   menuText: {
     textAlign: "start",
   },
   menuItem: {
     "&:hover": {
-      color: homeStyles.colors.purple,
+      color: "rgb(143, 68, 217)",
     },
   },
   colors: {
     purple: "rgb(143 68 217)",
     washedBlack: "rgba(0, 0, 0, 0.54)",
-    black: "#000",
+    black: "rgb(0, 0, 0)",
   },
 };
 
@@ -102,6 +110,7 @@ const Home = () => {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   const [sort, setSort] = useState(null);
+  const [filter, setFilter] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -209,10 +218,35 @@ const Home = () => {
 
             <>
               <Button
-                startIcon={<FilterAlt sx={{ color: "rgba(0, 0, 0, 0.54)" }} />}
-                sx={{ ...homeStyles.filterButtonSpacing, color: "#000" }}>
+                startIcon={
+                  <FilterAlt
+                    sx={
+                      Boolean(filter)
+                        ? { color: homeStyles.colors.purple }
+                        : { color: homeStyles.colors.washedBlack }
+                    }
+                  />
+                }
+                onClick={(e) => setFilter(e.currentTarget)}
+                sx={
+                  Boolean(filter)
+                    ? { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.purple }
+                    : { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.black }
+                }>
                 Filter
               </Button>
+
+              <Menu
+                open={Boolean(filter)}
+                anchorEl={filter}
+                slotProps={homeStyles.menu}
+                MenuListProps={homeStyles.filterMenuList}
+                onClose={() => setFilter(null)}>
+                <MenuItem>Date</MenuItem>
+                <MenuItem>Score</MenuItem>
+                <MenuItem>Type</MenuItem>
+                <MenuItem>Search</MenuItem>
+              </Menu>
             </>
 
             <>
@@ -235,20 +269,16 @@ const Home = () => {
                 anchorEl={sort}
                 open={Boolean(sort)}
                 slotProps={homeStyles.menu}
-                MenuListProps={homeStyles.menuList}
+                MenuListProps={homeStyles.sortMenuList}
                 onClose={() => setSort(null)}>
-                <MenuItem
-                  onClick={() => setSortOrder("asc")}
-                  sx={homeStyles.menuItem}>
+                <MenuItem onClick={() => setSortOrder("asc")} sx={homeStyles.menuItem}>
                   <ListItemIcon sx={{ color: "inherit" }}>
                     <North />
                   </ListItemIcon>
                   <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
                 </MenuItem>
 
-                <MenuItem
-                  onClick={() => setSortOrder("desc")}
-                  sx={homeStyles.menuItem}>
+                <MenuItem onClick={() => setSortOrder("desc")} sx={homeStyles.menuItem}>
                   <ListItemIcon sx={{ color: "inherit" }}>
                     <South />
                   </ListItemIcon>
