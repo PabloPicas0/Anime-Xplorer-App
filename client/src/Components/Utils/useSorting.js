@@ -64,7 +64,7 @@ const useSorting = (list) => {
     return order;
   }, [list]);
 
-  console.log(sortedGroupList);
+  // console.log(sortedGroupList);
 
   return {
     groupList: sortedGroupList[sortOrder],
