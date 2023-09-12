@@ -42,7 +42,7 @@ const homeStyles = {
     textAlign: "end",
     margin: "20px 0px",
   },
-  filterButton: {
+  filterButtonSpacing: {
     marginRight: "15px",
   },
   selectForm: {
@@ -61,6 +61,11 @@ const homeStyles = {
     },
   },
   menu: {
+    paper: {
+      style: {
+        borderRadius: "15px",
+      },
+    },
     root: {
       style: {
         position: "absolute",
@@ -78,6 +83,16 @@ const homeStyles = {
   menuText: {
     textAlign: "start",
   },
+  menuItem: {
+    "&:hover": {
+      color: homeStyles.colors.purple,
+    },
+  },
+  colors: {
+    purple: "rgb(143 68 217)",
+    washedBlack: "rgba(0, 0, 0, 0.54)",
+    black: "#000",
+  },
 };
 
 const Home = () => {
@@ -86,7 +101,7 @@ const Home = () => {
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
-  const [filter, setFilter] = useState(null);
+  const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -184,37 +199,63 @@ const Home = () => {
           </FormControl>
 
           <Box sx={homeStyles.filters}>
-            <Button startIcon={<BarChartSharp />} sx={homeStyles.filterButton}>
-              Statistics
-            </Button>
+            <>
+              <Button
+                startIcon={<BarChartSharp sx={{ color: "rgba(0, 0, 0, 0.54)" }} />}
+                sx={{ ...homeStyles.filterButtonSpacing, color: "#000" }}>
+                Statistics
+              </Button>
+            </>
 
-            <Button startIcon={<FilterAlt />} sx={homeStyles.filterButton}>
-              Filter
-            </Button>
+            <>
+              <Button
+                startIcon={<FilterAlt sx={{ color: "rgba(0, 0, 0, 0.54)" }} />}
+                sx={{ ...homeStyles.filterButtonSpacing, color: "#000" }}>
+                Filter
+              </Button>
+            </>
 
-            <Button startIcon={<SortSharp />} onClick={(e) => setFilter(e.currentTarget)}>
-              Sort
-            </Button>
-            <Menu
-              anchorEl={filter}
-              open={Boolean(filter)}
-              slotProps={homeStyles.menu}
-              MenuListProps={homeStyles.menuList}
-              onClose={() => setFilter(null)}>
-              <MenuItem onClick={() => setSortOrder("asc")}>
-                <ListItemIcon>
-                  <North />
-                </ListItemIcon>
-                <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
-              </MenuItem>
+            <>
+              <Button
+                startIcon={
+                  <SortSharp
+                    sx={
+                      Boolean(sort)
+                        ? { color: homeStyles.colors.purple }
+                        : { color: homeStyles.colors.washedBlack }
+                    }
+                  />
+                }
+                sx={Boolean(sort) ? { color: homeStyles.colors.purple } : { color: homeStyles.colors.black }}
+                onClick={(e) => setSort(e.currentTarget)}>
+                Sort
+              </Button>
 
-              <MenuItem onClick={() => setSortOrder("desc")}>
-                <ListItemIcon>
-                  <South />
-                </ListItemIcon>
-                <ListItemText sx={homeStyles.menu}>Sort Descending</ListItemText>
-              </MenuItem>
-            </Menu>
+              <Menu
+                anchorEl={sort}
+                open={Boolean(sort)}
+                slotProps={homeStyles.menu}
+                MenuListProps={homeStyles.menuList}
+                onClose={() => setSort(null)}>
+                <MenuItem
+                  onClick={() => setSortOrder("asc")}
+                  sx={homeStyles.menuItem}>
+                  <ListItemIcon sx={{ color: "inherit" }}>
+                    <North />
+                  </ListItemIcon>
+                  <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
+                </MenuItem>
+
+                <MenuItem
+                  onClick={() => setSortOrder("desc")}
+                  sx={homeStyles.menuItem}>
+                  <ListItemIcon sx={{ color: "inherit" }}>
+                    <South />
+                  </ListItemIcon>
+                  <ListItemText sx={homeStyles.menu}>Sort Descending</ListItemText>
+                </MenuItem>
+              </Menu>
+            </>
           </Box>
 
           <Box id="list">
