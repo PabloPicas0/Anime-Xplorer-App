@@ -90,7 +90,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { groupList, groupListDescription, handleSortOrder } = useSorting(list);
+  const { groupList, setSortOrder } = useSorting(list);
 
   const handleClose = () => {
     dispatch(
@@ -200,16 +200,15 @@ const Home = () => {
               open={Boolean(filter)}
               slotProps={homeStyles.menu}
               MenuListProps={homeStyles.menuList}
-              onClose={() => setFilter(null)}
-              disableScrollLock>
-              <MenuItem>
+              onClose={() => setFilter(null)}>
+              <MenuItem onClick={() => setSortOrder("asc")}>
                 <ListItemIcon>
                   <North />
                 </ListItemIcon>
                 <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
               </MenuItem>
 
-              <MenuItem>
+              <MenuItem onClick={() => setSortOrder("desc")}>
                 <ListItemIcon>
                   <South />
                 </ListItemIcon>

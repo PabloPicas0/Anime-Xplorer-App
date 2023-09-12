@@ -14,6 +14,9 @@ import { loadUser } from "./Components/Redux/Slices/profileSclice";
 
 const rootStyles = {
   navbar: {
+    backgroundColor: "#fff"
+  },
+  toolbar: {
     justifyContent: "space-around",
     alignItems: "stretch",
   },
@@ -46,8 +49,8 @@ function App() {
 
   return (
     <>
-      <AppBar component={"nav"} id="navbar">
-        <Toolbar sx={{ ...rootStyles.navbar, ...rootStyles[color.toLowerCase()] }}>
+      <AppBar component={"nav"} id="navbar" sx={rootStyles.navbar}>
+        <Toolbar sx={{ ...rootStyles.toolbar, ...rootStyles[color.toLowerCase()] }}>
           {isAuthenticated ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>
