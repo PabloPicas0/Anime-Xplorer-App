@@ -260,11 +260,7 @@ const Home = () => {
                 slotProps={homeStyles.menu}
                 MenuListProps={homeStyles.filterMenuList}
                 onClose={() => setFilter(null)}>
-                <MenuItem
-                  sx={{
-                    ...homeStyles.menuItemHover,
-                    ...homeStyles.menuItem,
-                  }}>
+                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
                   <DateRange />
                   Date
                 </MenuItem>
