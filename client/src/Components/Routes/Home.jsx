@@ -18,7 +18,17 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { BarChartSharp, FilterAlt, North, SortSharp, South } from "@mui/icons-material";
+import {
+  BarChartSharp,
+  DateRange,
+  FilterAlt,
+  North,
+  Search,
+  SortSharp,
+  South,
+  StarBorder,
+  Tv,
+} from "@mui/icons-material";
 
 import Card from "../UI/Card";
 import UserMenu from "../UI/Menu";
@@ -85,15 +95,23 @@ const homeStyles = {
       display: "grid",
       gridTemplateColumns: "repeat(2, 1fr)",
       gap: "10px",
-      padding: "8px"
-    }
+      padding: "8px",
+    },
   },
   menuText: {
     textAlign: "start",
   },
   menuItem: {
+    borderRadius: "15px",
+    height: "80px",
+    justifyContent: "center",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  menuItemHover: {
     "&:hover": {
       color: "rgb(143, 68, 217)",
+      backgroundColor: "rgb(243, 234, 251)",
     },
   },
   colors: {
@@ -242,10 +260,26 @@ const Home = () => {
                 slotProps={homeStyles.menu}
                 MenuListProps={homeStyles.filterMenuList}
                 onClose={() => setFilter(null)}>
-                <MenuItem>Date</MenuItem>
-                <MenuItem>Score</MenuItem>
-                <MenuItem>Type</MenuItem>
-                <MenuItem>Search</MenuItem>
+                <MenuItem
+                  sx={{
+                    ...homeStyles.menuItemHover,
+                    ...homeStyles.menuItem,
+                  }}>
+                  <DateRange />
+                  Date
+                </MenuItem>
+                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
+                  <StarBorder />
+                  Score
+                </MenuItem>
+                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
+                  <Tv />
+                  Type
+                </MenuItem>
+                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
+                  <Search />
+                  Search
+                </MenuItem>
               </Menu>
             </>
 
@@ -271,14 +305,14 @@ const Home = () => {
                 slotProps={homeStyles.menu}
                 MenuListProps={homeStyles.sortMenuList}
                 onClose={() => setSort(null)}>
-                <MenuItem onClick={() => setSortOrder("asc")} sx={homeStyles.menuItem}>
+                <MenuItem onClick={() => setSortOrder("asc")} sx={homeStyles.menuItemHover}>
                   <ListItemIcon sx={{ color: "inherit" }}>
                     <North />
                   </ListItemIcon>
                   <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
                 </MenuItem>
 
-                <MenuItem onClick={() => setSortOrder("desc")} sx={homeStyles.menuItem}>
+                <MenuItem onClick={() => setSortOrder("desc")} sx={homeStyles.menuItemHover}>
                   <ListItemIcon sx={{ color: "inherit" }}>
                     <South />
                   </ListItemIcon>
