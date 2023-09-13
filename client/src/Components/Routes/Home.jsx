@@ -30,8 +30,8 @@ import {
   Tv,
 } from "@mui/icons-material";
 
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 
 import Card from "../UI/Card";
@@ -132,7 +132,9 @@ const Home = () => {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   const [sort, setSort] = useState(null);
+
   const [filter, setFilter] = useState(null);
+  const [showDate, setShowDate] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -264,8 +266,10 @@ const Home = () => {
                 slotProps={homeStyles.menu}
                 MenuListProps={homeStyles.filterMenuList}
                 onClose={() => setFilter(null)}>
-                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
-                  <DateRange />
+                <MenuItem
+                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
+                  onClick={(e) => setShowDate(e.target.parentElement)}>
+                  <DateRange sx={{ pointerEvents: "none" }} />
                   Date
                 </MenuItem>
                 <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
@@ -279,6 +283,24 @@ const Home = () => {
                 <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
                   <Search />
                   Search
+                </MenuItem>
+              </Menu>
+
+              {/* TODO
+                  Split to separate component after creation
+                */}
+              <Menu
+                open={Boolean(showDate)}
+                anchorEl={showDate}
+                onClose={() => setShowDate(null)}
+                transformOrigin={{ horizontal: 180 }}
+                slotProps={{ root: { style: { marginTop: "5px" } } }}>
+                <MenuItem>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker />
+                    -
+                    <DatePicker />
+                  </LocalizationProvider>
                 </MenuItem>
               </Menu>
             </>
