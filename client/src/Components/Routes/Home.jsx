@@ -17,6 +17,8 @@ import {
   Zoom,
   ListItemIcon,
   ListItemText,
+  TextField,
+  Rating,
 } from "@mui/material";
 import {
   BarChartSharp,
@@ -111,6 +113,7 @@ const homeStyles = {
     justifyContent: "center",
     flexDirection: "column",
     gap: "10px",
+    color: "rgba(0, 0, 0, 0.6)",
   },
   menuItemHover: {
     "&:hover": {
@@ -135,6 +138,7 @@ const Home = () => {
 
   const [filter, setFilter] = useState(null);
   const [showDate, setShowDate] = useState(null);
+  const [showScore, setShowScore] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -272,16 +276,21 @@ const Home = () => {
                   <DateRange sx={{ pointerEvents: "none" }} />
                   Date
                 </MenuItem>
-                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
-                  <StarBorder />
+
+                <MenuItem
+                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
+                  onClick={(e) => setShowScore(e.target.parentElement)}>
+                  <StarBorder sx={{ pointerEvents: "none" }} />
                   Score
                 </MenuItem>
+
                 <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
-                  <Tv />
+                  <Tv sx={{ pointerEvents: "none" }} />
                   Type
                 </MenuItem>
+
                 <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
-                  <Search />
+                  <Search sx={{ pointerEvents: "none" }} />
                   Search
                 </MenuItem>
               </Menu>
@@ -289,6 +298,28 @@ const Home = () => {
               {/* TODO
                   Split to separate component after creation
                 */}
+
+              <Menu
+                open={Boolean(showScore)}
+                anchorEl={showScore}
+                onClose={() => setShowScore(null)}
+                transformOrigin={{
+                  horizontal: 5,
+                  vertical: "top",
+                }}
+                slotProps={{
+                  root: {
+                    style: {
+                      marginTop: "5px",
+                    },
+                  },
+                }}>
+                <MenuItem sx={{gap: "5px"}}>
+                  Score:
+                  <Rating value={5} />
+                </MenuItem>
+              </Menu>
+
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Menu
                   open={Boolean(showDate)}
