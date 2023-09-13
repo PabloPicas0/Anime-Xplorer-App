@@ -289,20 +289,51 @@ const Home = () => {
               {/* TODO
                   Split to separate component after creation
                 */}
-              <Menu
-                open={Boolean(showDate)}
-                anchorEl={showDate}
-                onClose={() => setShowDate(null)}
-                transformOrigin={{ horizontal: 180 }}
-                slotProps={{ root: { style: { marginTop: "5px" } } }}>
-                <MenuItem>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker />
-                    -
-                    <DatePicker />
-                  </LocalizationProvider>
-                </MenuItem>
-              </Menu>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Menu
+                  open={Boolean(showDate)}
+                  anchorEl={showDate}
+                  onClose={() => setShowDate(null)}
+                  transformOrigin={{
+                    horizontal: 180,
+                    vertical: "top",
+                  }}
+                  slotProps={{
+                    root: {
+                      style: {
+                        marginTop: "5px",
+                      },
+                    },
+                  }}
+                  MenuListProps={{
+                    sx: {
+                      display: "flex",
+                      alignItems: "center",
+                    },
+                  }}>
+                  <MenuItem
+                    style={{ backgroundColor: "transparent" }}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                    disableRipple>
+                    <DatePicker format="DD/MM/YYYY" label="From" />
+                  </MenuItem>
+                  -
+                  <MenuItem
+                    style={{ backgroundColor: "transparent" }}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                    }}
+                    disableRipple>
+                    <DatePicker format="DD/MM/YYYY" label="To" />
+                  </MenuItem>
+                </Menu>
+              </LocalizationProvider>
             </>
 
             <>
