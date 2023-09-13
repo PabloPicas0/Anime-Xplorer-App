@@ -19,6 +19,7 @@ import {
   ListItemText,
   TextField,
   Rating,
+  Chip,
 } from "@mui/material";
 import {
   BarChartSharp,
@@ -139,6 +140,7 @@ const Home = () => {
   const [filter, setFilter] = useState(null);
   const [showDate, setShowDate] = useState(null);
   const [showScore, setShowScore] = useState(null);
+  const [showType, setShowType] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -239,7 +241,7 @@ const Home = () => {
             <>
               <Button
                 startIcon={<BarChartSharp sx={{ color: "rgba(0, 0, 0, 0.54)" }} />}
-                sx={{ ...homeStyles.filterButtonSpacing, color: "#000" }}>
+                sx={{ ...homeStyles.filterButtonSpacing, color: homeStyles.colors.washedBlack }}>
                 Statistics
               </Button>
             </>
@@ -259,7 +261,7 @@ const Home = () => {
                 sx={
                   Boolean(filter)
                     ? { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.purple }
-                    : { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.black }
+                    : { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.washedBlack }
                 }>
                 Filter
               </Button>
@@ -284,7 +286,9 @@ const Home = () => {
                   Score
                 </MenuItem>
 
-                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
+                <MenuItem
+                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
+                  onClick={(e) => setShowType(e.target.parentElement)}>
                   <Tv sx={{ pointerEvents: "none" }} />
                   Type
                 </MenuItem>
@@ -299,6 +303,31 @@ const Home = () => {
                   Split to separate component after creation
                 */}
 
+              {/* Type */}
+              <Menu
+                open={Boolean(showType)}
+                anchorEl={showType}
+                onClose={() => setShowType(null)}
+                transformOrigin={{
+                  horizontal: 15,
+                  vertical: "top",
+                }}
+                slotProps={{
+                  root: {
+                    style: {
+                      marginTop: "5px",
+                    },
+                  },
+                }}>
+                <MenuItem sx={{gap: 2}}>
+                  <Chip label="TV" />
+                  <Chip label="OVA" />
+                  <Chip label="MOVIE" />
+                </MenuItem>
+              </Menu>
+              {/* Type */}
+
+              {/* Score */}
               <Menu
                 open={Boolean(showScore)}
                 anchorEl={showScore}
@@ -314,12 +343,14 @@ const Home = () => {
                     },
                   },
                 }}>
-                <MenuItem sx={{gap: "5px"}}>
+                <MenuItem sx={{ gap: "5px" }}>
                   Score:
                   <Rating value={5} />
                 </MenuItem>
               </Menu>
+              {/* Score */}
 
+              {/* Date */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Menu
                   open={Boolean(showDate)}
@@ -365,6 +396,7 @@ const Home = () => {
                   </MenuItem>
                 </Menu>
               </LocalizationProvider>
+              {/* Date */}
             </>
 
             <>
@@ -378,7 +410,11 @@ const Home = () => {
                     }
                   />
                 }
-                sx={Boolean(sort) ? { color: homeStyles.colors.purple } : { color: homeStyles.colors.black }}
+                sx={
+                  Boolean(sort)
+                    ? { color: homeStyles.colors.purple }
+                    : { color: homeStyles.colors.washedBlack }
+                }
                 onClick={(e) => setSort(e.currentTarget)}>
                 Sort
               </Button>
