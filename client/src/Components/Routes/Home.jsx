@@ -141,6 +141,7 @@ const Home = () => {
   const [showDate, setShowDate] = useState(null);
   const [showScore, setShowScore] = useState(null);
   const [showType, setShowType] = useState(null);
+  const [showSearch, setShowSearch] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -293,7 +294,9 @@ const Home = () => {
                   Type
                 </MenuItem>
 
-                <MenuItem sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}>
+                <MenuItem
+                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
+                  onClick={(e) => setShowSearch(e.target.parentElement)}>
                   <Search sx={{ pointerEvents: "none" }} />
                   Search
                 </MenuItem>
@@ -301,7 +304,29 @@ const Home = () => {
 
               {/* TODO
                   Split to separate component after creation
-                */}
+              */}
+
+              {/* Search */}
+              <Menu
+                open={Boolean(showSearch)}
+                anchorEl={showSearch}
+                onClose={() => setShowSearch(null)}
+                transformOrigin={{
+                  horizontal: 25,
+                  vertical: "top",
+                }}
+                slotProps={{
+                  root: {
+                    style: {
+                      marginTop: "5px",
+                    },
+                  },
+                }}>
+                <MenuItem>
+                  <TextField label="Enter title" />
+                </MenuItem>
+              </Menu>
+              {/* Search */}
 
               {/* Type */}
               <Menu
@@ -319,7 +344,7 @@ const Home = () => {
                     },
                   },
                 }}>
-                <MenuItem sx={{gap: 2}}>
+                <MenuItem sx={{ gap: 2 }}>
                   <Chip label="TV" />
                   <Chip label="OVA" />
                   <Chip label="MOVIE" />
