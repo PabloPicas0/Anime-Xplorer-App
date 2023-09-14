@@ -126,6 +126,7 @@ const homeStyles = {
     purple: "rgb(143 68 217)",
     washedBlack: "rgba(0, 0, 0, 0.54)",
     black: "rgb(0, 0, 0)",
+    hoverPurple: "rgb(243, 234, 251)",
   },
 };
 
@@ -344,10 +345,14 @@ const Home = () => {
                     },
                   },
                 }}>
-                <MenuItem sx={{ gap: 2 }}>
-                  <Chip label="TV" />
-                  <Chip label="OVA" />
-                  <Chip label="MOVIE" />
+                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
+                  <Typography>Select Types:</Typography>
+                </MenuItem>
+
+                <MenuItem style={{ backgroundColor: "transparent" }} sx={{ gap: 2, cursor: "default" }} disableRipple>
+                  <Chip label="TV" sx={{ cursor: "pointer" }} />
+                  <Chip label="OVA" sx={{ cursor: "pointer" }} />
+                  <Chip label="MOVIE" sx={{ cursor: "pointer" }} />
                 </MenuItem>
               </Menu>
               {/* Type */}
@@ -368,8 +373,34 @@ const Home = () => {
                     },
                   },
                 }}>
-                <MenuItem sx={{ gap: "5px" }}>
-                  Score:
+                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
+                  <Typography>Select score:</Typography>
+                </MenuItem>
+                <MenuItem
+                  sx={{
+                    gap: "5px",
+                    justifyContent: "space-between",
+                    cursor: "default",
+                    "&:hover": {
+                      backgroundColor: homeStyles.colors.hoverPurple,
+                      color: homeStyles.colors.purple,
+                    },
+                  }}>
+                  From:
+                  <Rating value={5} />
+                </MenuItem>
+
+                <MenuItem
+                  sx={{
+                    gap: "5px",
+                    justifyContent: "space-between",
+                    cursor: "default",
+                    "&:hover": {
+                      backgroundColor: homeStyles.colors.hoverPurple,
+                      color: homeStyles.colors.purple,
+                    },
+                  }}>
+                  To:
                   <Rating value={5} />
                 </MenuItem>
               </Menu>
@@ -399,7 +430,7 @@ const Home = () => {
                     },
                   }}>
                   <MenuItem
-                    style={{ backgroundColor: "transparent" }}
+                    style={{ backgroundColor: "transparent", cursor: "default" }}
                     sx={{
                       "&:hover": {
                         backgroundColor: "transparent",
@@ -410,7 +441,7 @@ const Home = () => {
                   </MenuItem>
                   -
                   <MenuItem
-                    style={{ backgroundColor: "transparent" }}
+                    style={{ backgroundColor: "transparent", cursor: "default" }}
                     sx={{
                       "&:hover": {
                         backgroundColor: "transparent",
