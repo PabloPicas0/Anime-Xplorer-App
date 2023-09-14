@@ -324,8 +324,12 @@ const Home = () => {
                     },
                   },
                 }}>
-                <MenuItem>
-                  <TextField label="Enter title" />
+                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
+                  <Typography>Find Title:</Typography>
+                </MenuItem>
+
+                <MenuItem disableRipple style={{ backgroundColor: "transparent", cursor: "default" }}>
+                  <TextField type="text" label="Enter title" />
                 </MenuItem>
               </Menu>
               {/* Search */}
