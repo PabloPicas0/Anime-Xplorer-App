@@ -40,14 +40,15 @@ import { DatePicker } from "@mui/x-date-pickers";
 
 import Card from "../UI/Card";
 import UserMenu from "../UI/Menu";
+import Sort from "../UI/Sort";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useSorting from "../Utils/useSorting";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
-import useSorting from "../Utils/useSorting";
 
 const homeStyles = {
   container: {
@@ -136,8 +137,6 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
-
-  const [sort, setSort] = useState(null);
 
   const [filter, setFilter] = useState(null);
   const [showDate, setShowDate] = useState(null);
@@ -495,47 +494,7 @@ const Home = () => {
               {/* Date */}
             </>
 
-            <>
-              <Button
-                startIcon={
-                  <SortSharp
-                    sx={
-                      Boolean(sort)
-                        ? { color: homeStyles.colors.purple }
-                        : { color: homeStyles.colors.washedBlack }
-                    }
-                  />
-                }
-                sx={
-                  Boolean(sort)
-                    ? { color: homeStyles.colors.purple }
-                    : { color: homeStyles.colors.washedBlack }
-                }
-                onClick={(e) => setSort(e.currentTarget)}>
-                Sort
-              </Button>
-
-              <Menu
-                anchorEl={sort}
-                open={Boolean(sort)}
-                slotProps={homeStyles.menu}
-                MenuListProps={homeStyles.sortMenuList}
-                onClose={() => setSort(null)}>
-                <MenuItem onClick={() => setSortOrder("asc")} sx={homeStyles.menuItemHover}>
-                  <ListItemIcon sx={{ color: "inherit" }}>
-                    <North />
-                  </ListItemIcon>
-                  <ListItemText sx={homeStyles.menuText}>Sort Ascending</ListItemText>
-                </MenuItem>
-
-                <MenuItem onClick={() => setSortOrder("desc")} sx={homeStyles.menuItemHover}>
-                  <ListItemIcon sx={{ color: "inherit" }}>
-                    <South />
-                  </ListItemIcon>
-                  <ListItemText sx={homeStyles.menu}>Sort Descending</ListItemText>
-                </MenuItem>
-              </Menu>
-            </>
+            <Sort setSortOrder={setSortOrder} />
           </Box>
 
           <Box id="list">
