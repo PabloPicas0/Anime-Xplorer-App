@@ -20,6 +20,7 @@ import {
   TextField,
   Rating,
   Chip,
+  ButtonBase,
 } from "@mui/material";
 import {
   BarChartSharp,
@@ -349,10 +350,45 @@ const Home = () => {
                   <Typography>Select Types:</Typography>
                 </MenuItem>
 
-                <MenuItem style={{ backgroundColor: "transparent" }} sx={{ gap: 2, cursor: "default" }} disableRipple>
-                  <Chip label="TV" sx={{ cursor: "pointer" }} />
-                  <Chip label="OVA" sx={{ cursor: "pointer" }} />
-                  <Chip label="MOVIE" sx={{ cursor: "pointer" }} />
+                <MenuItem
+                  style={{ backgroundColor: "transparent" }}
+                  sx={{ gap: 2, cursor: "default" }}
+                  disableRipple>
+                  <ButtonBase
+                    sx={{ borderRadius: "16px" }}
+                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
+                    <Chip
+                      label="TV"
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
+                      }}
+                    />
+                  </ButtonBase>
+
+                  <ButtonBase
+                    sx={{ borderRadius: "16px" }}
+                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
+                    <Chip
+                      label="OVA"
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
+                      }}
+                    />
+                  </ButtonBase>
+
+                  <ButtonBase
+                    sx={{ borderRadius: "16px" }}
+                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
+                    <Chip
+                      label="MOVIE"
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
+                      }}
+                    />
+                  </ButtonBase>
                 </MenuItem>
               </Menu>
               {/* Type */}
