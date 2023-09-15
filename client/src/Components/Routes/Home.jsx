@@ -13,36 +13,15 @@ import {
   Skeleton,
   Snackbar,
   Typography,
-  Menu,
   Zoom,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Rating,
-  Chip,
-  ButtonBase,
 } from "@mui/material";
-import {
-  BarChartSharp,
-  DateRange,
-  FilterAlt,
-  North,
-  Search,
-  SortSharp,
-  South,
-  StarBorder,
-  Tv,
-} from "@mui/icons-material";
-
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers";
+import { BarChartSharp } from "@mui/icons-material";
 
 import Card from "../UI/Card";
 import UserMenu from "../UI/Menu";
 import Sort from "../UI/Sort";
+import Filter from "../UI/Filter";
 
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSorting from "../Utils/useSorting";
@@ -137,12 +116,6 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
-
-  const [filter, setFilter] = useState(null);
-  const [showDate, setShowDate] = useState(null);
-  const [showScore, setShowScore] = useState(null);
-  const [showType, setShowType] = useState(null);
-  const [showSearch, setShowSearch] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -248,252 +221,7 @@ const Home = () => {
               </Button>
             </>
 
-            <>
-              <Button
-                startIcon={
-                  <FilterAlt
-                    sx={
-                      Boolean(filter)
-                        ? { color: homeStyles.colors.purple }
-                        : { color: homeStyles.colors.washedBlack }
-                    }
-                  />
-                }
-                onClick={(e) => setFilter(e.currentTarget)}
-                sx={
-                  Boolean(filter)
-                    ? { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.purple }
-                    : { ...homeStyles.filterButtonSpacing, color: homeStyles.colors.washedBlack }
-                }>
-                Filter
-              </Button>
-
-              <Menu
-                open={Boolean(filter)}
-                anchorEl={filter}
-                slotProps={homeStyles.menu}
-                MenuListProps={homeStyles.filterMenuList}
-                onClose={() => setFilter(null)}>
-                <MenuItem
-                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
-                  onClick={(e) => setShowDate(e.target.parentElement)}>
-                  <DateRange sx={{ pointerEvents: "none" }} />
-                  Date
-                </MenuItem>
-
-                <MenuItem
-                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
-                  onClick={(e) => setShowScore(e.target.parentElement)}>
-                  <StarBorder sx={{ pointerEvents: "none" }} />
-                  Score
-                </MenuItem>
-
-                <MenuItem
-                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
-                  onClick={(e) => setShowType(e.target.parentElement)}>
-                  <Tv sx={{ pointerEvents: "none" }} />
-                  Type
-                </MenuItem>
-
-                <MenuItem
-                  sx={{ ...homeStyles.menuItemHover, ...homeStyles.menuItem }}
-                  onClick={(e) => setShowSearch(e.target.parentElement)}>
-                  <Search sx={{ pointerEvents: "none" }} />
-                  Search
-                </MenuItem>
-              </Menu>
-
-              {/* TODO
-                  Split to separate component after creation
-              */}
-
-              {/* Search */}
-              <Menu
-                open={Boolean(showSearch)}
-                anchorEl={showSearch}
-                onClose={() => setShowSearch(null)}
-                transformOrigin={{
-                  horizontal: 25,
-                  vertical: "top",
-                }}
-                slotProps={{
-                  root: {
-                    style: {
-                      marginTop: "5px",
-                    },
-                  },
-                }}>
-                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
-                  <Typography>Find Title:</Typography>
-                </MenuItem>
-
-                <MenuItem disableRipple style={{ backgroundColor: "transparent", cursor: "default" }}>
-                  <TextField type="text" label="Enter title" />
-                </MenuItem>
-              </Menu>
-              {/* Search */}
-
-              {/* Type */}
-              <Menu
-                open={Boolean(showType)}
-                anchorEl={showType}
-                onClose={() => setShowType(null)}
-                transformOrigin={{
-                  horizontal: 15,
-                  vertical: "top",
-                }}
-                slotProps={{
-                  root: {
-                    style: {
-                      marginTop: "5px",
-                    },
-                  },
-                }}>
-                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
-                  <Typography>Select Types:</Typography>
-                </MenuItem>
-
-                <MenuItem
-                  style={{ backgroundColor: "transparent" }}
-                  sx={{ gap: 2, cursor: "default" }}
-                  disableRipple>
-                  <ButtonBase
-                    sx={{ borderRadius: "16px" }}
-                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
-                    <Chip
-                      label="TV"
-                      sx={{
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
-                      }}
-                    />
-                  </ButtonBase>
-
-                  <ButtonBase
-                    sx={{ borderRadius: "16px" }}
-                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
-                    <Chip
-                      label="OVA"
-                      sx={{
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
-                      }}
-                    />
-                  </ButtonBase>
-
-                  <ButtonBase
-                    sx={{ borderRadius: "16px" }}
-                    TouchRippleProps={{ style: { color: homeStyles.colors.purple } }}>
-                    <Chip
-                      label="MOVIE"
-                      sx={{
-                        cursor: "pointer",
-                        "&:hover": { backgroundColor: homeStyles.colors.hoverPurple },
-                      }}
-                    />
-                  </ButtonBase>
-                </MenuItem>
-              </Menu>
-              {/* Type */}
-
-              {/* Score */}
-              <Menu
-                open={Boolean(showScore)}
-                anchorEl={showScore}
-                onClose={() => setShowScore(null)}
-                transformOrigin={{
-                  horizontal: 5,
-                  vertical: "top",
-                }}
-                slotProps={{
-                  root: {
-                    style: {
-                      marginTop: "5px",
-                    },
-                  },
-                }}>
-                <MenuItem sx={{ justifyContent: "center", pointerEvents: "none" }}>
-                  <Typography>Select score:</Typography>
-                </MenuItem>
-                <MenuItem
-                  sx={{
-                    gap: "5px",
-                    justifyContent: "space-between",
-                    cursor: "default",
-                    "&:hover": {
-                      backgroundColor: homeStyles.colors.hoverPurple,
-                      color: homeStyles.colors.purple,
-                    },
-                  }}>
-                  From:
-                  <Rating value={5} />
-                </MenuItem>
-
-                <MenuItem
-                  sx={{
-                    gap: "5px",
-                    justifyContent: "space-between",
-                    cursor: "default",
-                    "&:hover": {
-                      backgroundColor: homeStyles.colors.hoverPurple,
-                      color: homeStyles.colors.purple,
-                    },
-                  }}>
-                  To:
-                  <Rating value={5} />
-                </MenuItem>
-              </Menu>
-              {/* Score */}
-
-              {/* Date */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Menu
-                  open={Boolean(showDate)}
-                  anchorEl={showDate}
-                  onClose={() => setShowDate(null)}
-                  transformOrigin={{
-                    horizontal: 180,
-                    vertical: "top",
-                  }}
-                  slotProps={{
-                    root: {
-                      style: {
-                        marginTop: "5px",
-                      },
-                    },
-                  }}
-                  MenuListProps={{
-                    sx: {
-                      display: "flex",
-                      alignItems: "center",
-                    },
-                  }}>
-                  <MenuItem
-                    style={{ backgroundColor: "transparent", cursor: "default" }}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                    disableRipple>
-                    <DatePicker format="DD/MM/YYYY" label="From" />
-                  </MenuItem>
-                  -
-                  <MenuItem
-                    style={{ backgroundColor: "transparent", cursor: "default" }}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                    }}
-                    disableRipple>
-                    <DatePicker format="DD/MM/YYYY" label="To" />
-                  </MenuItem>
-                </Menu>
-              </LocalizationProvider>
-              {/* Date */}
-            </>
-
+            <Filter />
             <Sort setSortOrder={setSortOrder} />
           </Box>
 
