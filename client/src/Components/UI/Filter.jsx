@@ -94,14 +94,14 @@ const filterStyles = {
     cursor: "default",
   },
   inputPropsIcon: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton aria-label="search">
-                    <Search />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton aria-label="search">
+          <Search />
+        </IconButton>
+      </InputAdornment>
+    ),
+  },
   // Search //
 
   // Type //
@@ -302,11 +302,7 @@ const Filter = () => {
         </MenuItem>
 
         <MenuItem disableRipple style={filterStyles.searchBar}>
-          <TextField
-            type="text"
-            label="Enter title"
-            InputProps={filterStyles.inputPropsIcon}
-          />
+          <TextField type="text" label="Enter title" InputProps={filterStyles.inputPropsIcon} />
         </MenuItem>
       </Menu>
       {/* Search */}
