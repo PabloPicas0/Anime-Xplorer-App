@@ -160,9 +160,10 @@ const filterStyles = {
     },
   },
   scoreMenuItem: {
-    gap: "5px",
+    gap: "15px",
     justifyContent: "space-between",
     cursor: "default",
+    marginBottom: "10px",
     "&:hover": {
       backgroundColor: "rgb(243, 234, 251)",
       color: "rgb(143 68 217)",
