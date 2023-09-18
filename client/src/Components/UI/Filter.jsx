@@ -1,5 +1,17 @@
 import { DateRange, FilterAlt, Search, StarBorder, Tv } from "@mui/icons-material";
-import { Box, Button, ButtonBase, Chip, Menu, MenuItem, Rating, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonBase,
+  Chip,
+  IconButton,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  Rating,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -81,6 +93,15 @@ const filterStyles = {
     backgroundColor: "transparent",
     cursor: "default",
   },
+  inputPropsIcon: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton aria-label="search">
+                    <Search />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
   // Search //
 
   // Type //
@@ -281,7 +302,11 @@ const Filter = () => {
         </MenuItem>
 
         <MenuItem disableRipple style={filterStyles.searchBar}>
-          <TextField type="text" label="Enter title" />
+          <TextField
+            type="text"
+            label="Enter title"
+            InputProps={filterStyles.inputPropsIcon}
+          />
         </MenuItem>
       </Menu>
       {/* Search */}
