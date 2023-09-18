@@ -1,5 +1,5 @@
 import { DateRange, FilterAlt, Search, StarBorder, Tv } from "@mui/icons-material";
-import { Button, ButtonBase, Chip, Menu, MenuItem, Rating, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Chip, Menu, MenuItem, Rating, TextField, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
@@ -165,6 +165,7 @@ const filterStyles = {
     menuListProps: {
       sx: {
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
       },
     },
@@ -276,7 +277,7 @@ const Filter = () => {
         transformOrigin={filterStyles.searchMenu.transformOrigin}
         slotProps={filterStyles.searchMenu.slotProps}>
         <MenuItem sx={filterStyles.searchTitle}>
-          <Typography>Find Title:</Typography>
+          <Typography fontWeight={"Bold"}>Find Title</Typography>
         </MenuItem>
 
         <MenuItem disableRipple style={filterStyles.searchBar}>
@@ -293,7 +294,7 @@ const Filter = () => {
         transformOrigin={filterStyles.typeMenu.transformOrigin}
         slotProps={filterStyles.typeMenu.slotProps}>
         <MenuItem sx={filterStyles.searchTitle}>
-          <Typography>Select Types:</Typography>
+          <Typography fontWeight={"Bold"}>Select Types</Typography>
         </MenuItem>
 
         <MenuItem style={filterStyles.typeMenuItem.style} sx={filterStyles.typeMenuItem.sx} disableRipple>
@@ -326,7 +327,7 @@ const Filter = () => {
         transformOrigin={filterStyles.scoreMenu.transformOrigin}
         slotProps={filterStyles.scoreMenu.slotProps}>
         <MenuItem sx={filterStyles.searchTitle}>
-          <Typography>Select score:</Typography>
+          <Typography fontWeight={"Bold"}>Select score</Typography>
         </MenuItem>
 
         <MenuItem sx={filterStyles.scoreMenuItem}>
@@ -350,12 +351,16 @@ const Filter = () => {
           transformOrigin={filterStyles.dateMenu.transformOrigin}
           slotProps={filterStyles.dateMenu.slotProps}
           MenuListProps={filterStyles.dateMenu.menuListProps}>
-          <MenuItem style={filterStyles.dateMenuItem.style} sx={filterStyles.dateMenuItem.sx} disableRipple>
-            <DatePicker format="DD/MM/YYYY" label="From" />
+          <MenuItem sx={filterStyles.searchTitle}>
+            <Typography fontWeight={"Bold"}>Select Date</Typography>
           </MenuItem>
-          -
+
           <MenuItem style={filterStyles.dateMenuItem.style} sx={filterStyles.dateMenuItem.sx} disableRipple>
-            <DatePicker format="DD/MM/YYYY" label="To" />
+            <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
+              <DatePicker format="DD/MM/YYYY" label="From" />
+              -
+              <DatePicker format="DD/MM/YYYY" label="To" />
+            </Box>
           </MenuItem>
         </Menu>
       </LocalizationProvider>
