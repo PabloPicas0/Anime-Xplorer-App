@@ -253,6 +253,7 @@ const Filter = () => {
       max: 1,
     },
     type: "",
+    search: "",
   });
 
   const dispatch = useDispatch();
@@ -336,7 +337,20 @@ const Filter = () => {
         </MenuItem>
 
         <MenuItem disableRipple style={filterStyles.searchBar}>
-          <TextField type="text" label="Enter title" InputProps={filterStyles.inputPropsIcon} />
+          <TextField
+            type="text"
+            label="Enter title"
+            InputProps={filterStyles.inputPropsIcon}
+            value={filterProps.search}
+            onChange={(e) =>
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.search = e.target.value;
+
+                return newValues;
+              })
+            }
+          />
         </MenuItem>
       </Menu>
       {/* Search */}
