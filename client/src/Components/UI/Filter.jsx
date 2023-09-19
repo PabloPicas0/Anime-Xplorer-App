@@ -252,6 +252,7 @@ const Filter = () => {
       min: 1,
       max: 1,
     },
+    type: "",
   });
 
   const dispatch = useDispatch();
@@ -354,19 +355,43 @@ const Filter = () => {
         <MenuItem style={filterStyles.typeMenuItem.style} sx={filterStyles.typeMenuItem.sx} disableRipple>
           <ButtonBase
             sx={filterStyles.typeButtonBase.sx}
-            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}>
+            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}
+            onClick={() =>
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.type = "TV";
+
+                return newValues;
+              })
+            }>
             <Chip label="TV" sx={filterStyles.typeChip} />
           </ButtonBase>
 
           <ButtonBase
             sx={filterStyles.typeButtonBase.sx}
-            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}>
+            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}
+            onClick={() =>
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.type = "OVA";
+
+                return newValues;
+              })
+            }>
             <Chip label="OVA" sx={filterStyles.typeChip} />
           </ButtonBase>
 
           <ButtonBase
             sx={filterStyles.typeButtonBase.sx}
-            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}>
+            TouchRippleProps={filterStyles.typeButtonBase.touchRippleProps}
+            onClick={() =>
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues };
+                newValues.type = "MOVIE";
+
+                return newValues;
+              })
+            }>
             <Chip label="MOVIE" sx={filterStyles.typeChip} />
           </ButtonBase>
         </MenuItem>
@@ -409,7 +434,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues, score: { ...oldValues.score } };
                 const { min } = newValues.score;
-                
+
                 if (newMaxRating < min) {
                   newValues.score.max = min;
                 } else {
