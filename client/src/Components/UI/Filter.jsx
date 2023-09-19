@@ -248,6 +248,10 @@ const Filter = () => {
       from: dayjs(),
       to: dayjs().endOf("month"),
     },
+    score: {
+      min: 1,
+      max: 1,
+    },
   });
 
   const dispatch = useDispatch();
@@ -381,13 +385,33 @@ const Filter = () => {
         </MenuItem>
 
         <MenuItem sx={filterStyles.scoreMenuItem}>
-          From:
-          <Rating value={5} />
+          min:
+          <Rating
+            value={filterProps.score.min}
+            onChange={(e, newRating) => {
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues, score: { ...oldValues.score } };
+                newValues.score.min = newRating;
+
+                return newValues;
+              });
+            }}
+          />
         </MenuItem>
 
         <MenuItem sx={filterStyles.scoreMenuItem}>
-          To:
-          <Rating value={5} />
+          max:
+          <Rating
+            value={filterProps.score.max}
+            onChange={(e, newRating) => {
+              setFilterProps((oldValues) => {
+                const newValues = { ...oldValues, score: { ...oldValues.score } };
+                newValues.score.max = newRating;
+
+                return newValues;
+              });
+            }}
+          />
         </MenuItem>
       </Menu>
       {/* Score */}
