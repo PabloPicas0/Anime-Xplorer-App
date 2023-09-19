@@ -388,10 +388,12 @@ const Filter = () => {
           min:
           <Rating
             value={filterProps.score.min}
-            onChange={(e, newRating) => {
+            onChange={(e, newMinRating) => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues, score: { ...oldValues.score } };
-                newValues.score.min = newRating;
+                newValues.score.min = newMinRating;
+
+                if (newMinRating > newValues.score.max) newValues.score.max = newMinRating;
 
                 return newValues;
               });
@@ -403,10 +405,16 @@ const Filter = () => {
           max:
           <Rating
             value={filterProps.score.max}
-            onChange={(e, newRating) => {
+            onChange={(e, newMaxRating) => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues, score: { ...oldValues.score } };
-                newValues.score.max = newRating;
+                const { min } = newValues.score;
+                
+                if (newMaxRating < min) {
+                  newValues.score.max = min;
+                } else {
+                  newValues.score.max = newMaxRating;
+                }
 
                 return newValues;
               });
