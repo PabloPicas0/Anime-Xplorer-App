@@ -83,6 +83,11 @@ const filterStyles = {
           marginTop: "5px",
         },
       },
+      paper: {
+        style: {
+          borderRadius: "15px",
+        },
+      },
     },
   },
   searchTitle: {
@@ -114,6 +119,11 @@ const filterStyles = {
       root: {
         style: {
           marginTop: "5px",
+        },
+      },
+      paper: {
+        style: {
+          borderRadius: "15px",
         },
       },
     },
@@ -157,6 +167,11 @@ const filterStyles = {
           marginTop: "5px",
         },
       },
+      paper: {
+        style: {
+          borderRadius: "15px",
+        },
+      },
     },
   },
   scoreMenuItem: {
@@ -181,6 +196,11 @@ const filterStyles = {
       root: {
         style: {
           marginTop: "5px",
+        },
+      },
+      paper: {
+        style: {
+          borderRadius: "15px",
         },
       },
     },
