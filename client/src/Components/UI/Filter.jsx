@@ -18,7 +18,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { handleFilter } from "../Redux/Slices/menuSlice";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import dayjs from "dayjs";
 
 const filterStyles = {
   // Filter main menu //
@@ -242,6 +243,13 @@ const Filter = () => {
   const showDate = useSelector((state) => state.menu.showDate);
   const showDateEl = useRef(null);
 
+  const [filterProps, setFilterProps] = useState({
+    date: {
+      from: dayjs(),
+      to: dayjs().endOf("month"),
+    },
+  });
+
   const dispatch = useDispatch();
 
   return (
@@ -399,9 +407,33 @@ const Filter = () => {
 
           <MenuItem style={filterStyles.dateMenuItem.style} sx={filterStyles.dateMenuItem.sx} disableRipple>
             <Box sx={{ display: "flex", alignItems: "center", gap: "15px" }}>
-              <DatePicker format="DD/MM/YYYY" label="From" />
+              <DatePicker
+                format="DD/MM/YYYY"
+                label="From"
+                value={filterProps.date.from}
+                onChange={(newDate) =>
+                  setFilterProps((oldValues) => {
+                    const newValues = { ...oldValues, date: { ...oldValues.date } };
+                    newValues.date.from = newDate;
+
+                    return newValues;
+                  })
+                }
+              />
               -
-              <DatePicker format="DD/MM/YYYY" label="To" />
+              <DatePicker
+                format="DD/MM/YYYY"
+                label="To"
+                value={filterProps.date.to}
+                onChange={(newDate) => {
+                  setFilterProps((oldValues) => {
+                    const newValues = { ...oldValues, date: { ...oldValues.date } };
+                    newValues.date.to = newDate;
+
+                    return newValues;
+                  });
+                }}
+              />
             </Box>
           </MenuItem>
         </Menu>
