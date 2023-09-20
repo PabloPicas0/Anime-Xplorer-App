@@ -11,16 +11,15 @@ const useFilter = (props) => {
   const { min, max } = props.score;
   const { from, to } = props.date;
 
-  if (isInitialState) return;
-
   const dispatch = useDispatch();
 
   const reqeusetFilteredList = async (signal) => {
     try {
       const request = await fetch(`${url}/api/list`, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: `type=${type}&search=${search}&min=${min}&max=${max}&fromDate=${from}&toDate=${to}`,
         signal: signal,
@@ -32,14 +31,14 @@ const useFilter = (props) => {
 
       dispatch(handleClientList(response.list));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   useEffect(() => {
     const controller = new AbortController();
 
-    reqeusetFilteredList(controller.signal);
+    if (!isInitialState) reqeusetFilteredList(controller.signal);
 
     return () => controller.abort();
   }, [props]);
