@@ -19,7 +19,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleFilter } from "../Redux/Slices/menuSlice";
 
 import { useRef, useState } from "react";
-import dayjs from "dayjs";
+
+import useFilter from "../Utils/useFilter";
 
 const filterStyles = {
   // Filter main menu //
@@ -245,16 +246,22 @@ const Filter = () => {
 
   const [filterProps, setFilterProps] = useState({
     date: {
-      from: dayjs(),
-      to: dayjs().endOf("month"),
+      from: null,
+      to: null,
     },
     score: {
-      min: 1,
-      max: 1,
+      min: 0,
+      max: 0,
     },
     type: "",
     search: "",
+    isInitialState: true,
   });
+
+  // Type: function //
+  // Description: Cusom hook that makes a new list request with user specific data //
+  // return void //
+  useFilter(filterProps);
 
   const dispatch = useDispatch();
 
