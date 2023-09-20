@@ -353,6 +353,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues };
                 newValues.search = e.target.value;
+                newValues.isInitialState = false;
 
                 return newValues;
               })
@@ -381,6 +382,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues };
                 newValues.type = "TV";
+                newValues.isInitialState = false;
 
                 return newValues;
               })
@@ -395,6 +397,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues };
                 newValues.type = "OVA";
+                newValues.isInitialState = false;
 
                 return newValues;
               })
@@ -409,6 +412,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues };
                 newValues.type = "MOVIE";
+                newValues.isInitialState = false;
 
                 return newValues;
               })
@@ -438,6 +442,7 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues, score: { ...oldValues.score } };
                 newValues.score.min = newMinRating;
+                newValues.isInitialState = false;
 
                 if (newMinRating > newValues.score.max) newValues.score.max = newMinRating;
 
@@ -455,6 +460,8 @@ const Filter = () => {
               setFilterProps((oldValues) => {
                 const newValues = { ...oldValues, score: { ...oldValues.score } };
                 const { min } = newValues.score;
+
+                newValues.isInitialState = false;
 
                 if (newMaxRating < min) {
                   newValues.score.max = min;
@@ -493,6 +500,7 @@ const Filter = () => {
                   setFilterProps((oldValues) => {
                     const newValues = { ...oldValues, date: { ...oldValues.date } };
                     newValues.date.from = newDate;
+                    newValues.isInitialState = false;
 
                     return newValues;
                   })
@@ -507,6 +515,7 @@ const Filter = () => {
                   setFilterProps((oldValues) => {
                     const newValues = { ...oldValues, date: { ...oldValues.date } };
                     newValues.date.to = newDate;
+                    newValues.isInitialState = false;
 
                     return newValues;
                   });
