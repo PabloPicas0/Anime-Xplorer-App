@@ -116,8 +116,8 @@ const AddToList = () => {
     }
   };
 
-  // Blocking addToList while user is in settings is needed
-  // Settings and addToList use same redux state, blocking this component prevent from dubble error display
+  // Blocking addToList while user is in settings is needed //
+  // Settings and addToList use same redux state, blocking this component prevent from dubble error display //
   return (
     <Dialog
       onClose={() => handleClose()}
