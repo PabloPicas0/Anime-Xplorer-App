@@ -4,6 +4,7 @@ const { check } = require("express-validator");
 const router = express.Router();
 
 const addToUserList = require("../controllers/list");
+const filterUserList = require("../controllers/filterUserList")
 const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
 const editList = require("../controllers/editList")
@@ -34,6 +35,7 @@ router.post(
   }),
   addToUserList
 );
+router.put("/", authUser, filterUserList)
 
 router.put("/episodes", authUser, changeEpisode);
 router.put("/edit", authUser, editList)
