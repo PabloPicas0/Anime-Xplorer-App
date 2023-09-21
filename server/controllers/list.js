@@ -23,6 +23,8 @@ const addToUserList = async (req, res) => {
       animeStatus: status,
       currentEpisode: currentEp,
       allEpisodes: allEp,
+      startWatching: new Date().getTime(),
+      endWatching: 0,
       score: score,
     });
 
