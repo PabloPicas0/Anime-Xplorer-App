@@ -54,6 +54,8 @@ const userSchema = new mongoose.Schema({
       animeStatus: String,
       currentEpisode: Number,
       allEpisodes: Number,
+      startWatching: Number,
+      endWatching: Number,
       score: Number,
     },
   ],
