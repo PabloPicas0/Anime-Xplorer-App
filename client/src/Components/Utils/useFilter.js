@@ -23,7 +23,7 @@ const useFilter = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `type=${type}&search=${search}&min=${min}&max=${max}&fromDate=${from}&toDate=${to}`,
+        body: `animeType=${type}&animeName=${search}&minScore=${min}&maxScore=${max}&startWatching=${new Date(from).getTime()}&endWatching=${new Date(to).getTime()}`,
         signal: signal,
       });
 
