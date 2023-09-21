@@ -16,6 +16,9 @@ const editList = async (req, res) => {
         animeList[i].score = score;
         animeList[i].animeType = animeType;
         animeList[i].animeStatus = animeStatus;
+        animeList[i].endWatching === 0 && animeStatus === "Completed"
+          ? (animeList[i].endWatching = new Date().getTime())
+          : null;
         break;
       }
     }
