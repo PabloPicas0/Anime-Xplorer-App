@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 import url from "./api";
 
+import useErrorHandler from "./useErrorHandler";
+
 import { useDispatch } from "react-redux";
 import { handleClientList } from "../Redux/Slices/profileSclice";
 
@@ -12,6 +14,7 @@ const useFilter = (props) => {
   const { from, to } = props.date;
 
   const dispatch = useDispatch();
+  const errorHandler = useErrorHandler();
 
   const reqeusetFilteredList = async (signal) => {
     try {
@@ -28,8 +31,11 @@ const useFilter = (props) => {
       const response = await request.json();
 
       console.log(response);
+      errorHandler(response);
 
-      dispatch(handleClientList(response.list));
+      if (!response.error) {
+        dispatch(handleClientList(response.list));
+      }
     } catch (error) {
       console.error(error);
     }
