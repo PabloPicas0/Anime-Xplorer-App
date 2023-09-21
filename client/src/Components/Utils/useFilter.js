@@ -7,7 +7,6 @@ import useErrorHandler from "./useErrorHandler";
 import { useDispatch } from "react-redux";
 import { handleClientList } from "../Redux/Slices/profileSclice";
 
-// TODO: Add error handling. //
 const useFilter = (props) => {
   const { isInitialState, type, search } = props;
   const { min, max } = props.score;
