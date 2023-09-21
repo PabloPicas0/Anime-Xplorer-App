@@ -4,11 +4,11 @@ const { check } = require("express-validator");
 const router = express.Router();
 
 const addToUserList = require("../controllers/list");
-const filterUserList = require("../controllers/filterUserList")
+const { filterUserList, checkScore, checkDate } = require("../controllers/filterUserList");
 const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
-const editList = require("../controllers/editList")
-const deleteEntry = require("../controllers/deleteEntry")
+const editList = require("../controllers/editList");
+const deleteEntry = require("../controllers/deleteEntry");
 
 const userModel = require("../models/User");
 
@@ -35,10 +35,10 @@ router.post(
   }),
   addToUserList
 );
-router.put("/", authUser, filterUserList)
+router.put("/", authUser, checkScore, checkDate);
 
 router.put("/episodes", authUser, changeEpisode);
-router.put("/edit", authUser, editList)
-router.delete("/delete", authUser, deleteEntry)
+router.put("/edit", authUser, editList);
+router.delete("/delete", authUser, deleteEntry);
 
 module.exports = router;
