@@ -4,7 +4,7 @@ const { check } = require("express-validator");
 const router = express.Router();
 
 const addToUserList = require("../controllers/list");
-const { filterUserList, checkScore, checkDate } = require("../controllers/filterUserList");
+const { sendToUser, findScore, findDate, findType, findTitle } = require("../controllers/filterUserList");
 const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
 const editList = require("../controllers/editList");
@@ -35,7 +35,10 @@ router.post(
   }),
   addToUserList
 );
-router.put("/", authUser, checkScore, checkDate);
+// WARNING //
+// Find Score controller needs to be first because he adds list to filter to req object //
+// Moving it without edit may cause a bugs //
+router.put("/", authUser, findScore, findDate, findType, findTitle, sendToUser);
 
 router.put("/episodes", authUser, changeEpisode);
 router.put("/edit", authUser, editList);
