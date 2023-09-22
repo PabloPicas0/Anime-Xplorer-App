@@ -19,6 +19,7 @@ const cardStyles = {
     padding: "10px",
     boxShadow: 2,
     marginBottom: "20px",
+    borderRadius: "10px"
   },
   about: {
     display: "flex",
