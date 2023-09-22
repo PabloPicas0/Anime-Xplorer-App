@@ -29,7 +29,7 @@ const useFilter = (props) => {
 
       const response = await request.json();
 
-      console.log(response);
+      // console.log(response);
       errorHandler(response);
 
       if (!response.error) {
