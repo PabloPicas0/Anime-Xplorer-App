@@ -2,7 +2,7 @@ import { Add, Remove } from "@mui/icons-material";
 import { Box, Button, IconButton, Rating, Typography } from "@mui/material";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import url from "../Utils/api";
 
@@ -59,6 +59,9 @@ const Card = (props) => {
 
   const [isEditVisible, setIsEditVisible] = useState(false);
 
+  const options = useSelector((state) => state.profile.profileFields.options[0]);
+  const { darkMode } = options;
+
   const dispatch = useDispatch();
   const errorHandler = useErrorHandler();
 
@@ -95,7 +98,12 @@ const Card = (props) => {
   };
 
   return (
-    <Box sx={cardStyles.container}>
+    <Box
+      sx={
+        darkMode
+          ? { ...cardStyles.container, backgroundColor: "rgba(255, 255, 255, 0.1)" }
+          : cardStyles.container
+      }>
       <Box sx={cardStyles.about}>
         <Box id="number" sx={cardStyles.indexWrapper}>
           <span style={cardStyles.index}>{index + 1}</span>
