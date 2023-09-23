@@ -28,6 +28,12 @@ export const Theme = ({ children }) => {
             "sans-serif",
           ].join(),
         },
+        palette: {
+          mode: options ? (options.darkMode ? "dark" : "light") : "light",
+          background: {
+            default: options ? (options.darkMode ? "#121212" : "#fafafa") : "#edf1f5",
+          },
+        },
       }),
     [options]
   );
