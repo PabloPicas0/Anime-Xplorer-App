@@ -69,7 +69,6 @@ const filterStyles = {
     justifyContent: "center",
     flexDirection: "column",
     gap: "10px",
-    color: "rgba(0, 0, 0, 0.6)",
   },
   // Filter main menu //
 
@@ -244,6 +243,9 @@ const Filter = () => {
   const showDate = useSelector((state) => state.menu.showDate);
   const showDateEl = useRef(null);
 
+  const options = useSelector((state) => state.profile.profileFields.options[0]);
+  const { darkMode } = options;
+
   const [filterProps, setFilterProps] = useState({
     date: {
       from: null,
@@ -271,14 +273,21 @@ const Filter = () => {
         ref={filterMainMenuEl}
         startIcon={
           <FilterAlt
-            sx={filter ? { color: filterStyles.colors.purple } : { color: filterStyles.colors.washedBlack }}
+            sx={
+              filter
+                ? { color: filterStyles.colors.purple }
+                : { color: darkMode ? "#fff" : filterStyles.colors.washedBlack }
+            }
           />
         }
         onClick={() => dispatch(handleFilter({ type: "filter", isActive: true }))}
         sx={
           filter
             ? { ...filterStyles.filterButtonSpacing, color: filterStyles.colors.purple }
-            : { ...filterStyles.filterButtonSpacing, color: filterStyles.colors.washedBlack }
+            : {
+                ...filterStyles.filterButtonSpacing,
+                color: darkMode ? "#fff" : filterStyles.colors.washedBlack,
+              }
         }>
         Filter
       </Button>

@@ -45,6 +45,9 @@ const Sort = (props) => {
   const sort = useSelector((state) => state.menu.sort);
   const sortEl = useRef(null);
 
+  const options = useSelector((state) => state.profile.profileFields.options[0]);
+  const { darkMode } = options;
+
   const dispatch = useDispatch();
 
   return (
@@ -53,10 +56,18 @@ const Sort = (props) => {
         ref={sortEl}
         startIcon={
           <SortSharp
-            sx={sort ? { color: sortStyles.colors.purple } : { color: sortStyles.colors.washedBlack }}
+            sx={
+              sort
+                ? { color: sortStyles.colors.purple }
+                : { color: darkMode ? "#fff" : sortStyles.colors.washedBlack }
+            }
           />
         }
-        sx={sort ? { color: sortStyles.colors.purple } : { color: sortStyles.colors.washedBlack }}
+        sx={
+          sort
+            ? { color: sortStyles.colors.purple }
+            : { color: darkMode ? "#fff" : sortStyles.colors.washedBlack }
+        }
         onClick={(e) => {
           dispatch(handleSort(true));
         }}>
