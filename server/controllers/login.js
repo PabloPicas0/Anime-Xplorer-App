@@ -76,26 +76,31 @@ const authLogin = async (req, res) => {
       userId: user.id,
     };
 
-    jwt.sign(payload, process.env.KEY, { expiresIn: "1h" }, (err, token) => {
-      if (err) {
-        return res.status(400).json({
-          error: true,
-          status: [{ msg: "Token error. Please try again." }],
+    jwt.sign(
+      payload,
+      process.env.KEY,
+      { expiresIn: user.accountSettings[0].keepLogined ? "7d" : "1h" },
+      (err, token) => {
+        if (err) {
+          return res.status(400).json({
+            error: true,
+            status: [{ msg: "Token error. Please try again." }],
+          });
+        }
+
+        return res.status(200).json({
+          error: false,
+          status: [{ msg: "" }],
+          token: token,
+          profile: {
+            username: user.username,
+            date: user.accountCreated,
+            options: user.accountSettings,
+            list: user.animeList,
+          },
         });
       }
-
-      return res.status(200).json({
-        error: false,
-        status: [{ msg: "" }],
-        token: token,
-        profile: {
-          username: user.username,
-          date: user.accountCreated,
-          options: user.accountSettings,
-          list: user.animeList,
-        },
-      });
-    });
+    );
   } catch (error) {
     console.log(error);
 
@@ -178,12 +183,12 @@ const sendRecover = async (req, res) => {
       id: user.id,
     });
   } catch (error) {
-    console.error(error)
+    console.error(error);
 
     return res.status(500).json({
       error: true,
-      status: [{msg: "Internal server error. Please try again later."}]
-    })
+      status: [{ msg: "Internal server error. Please try again later." }],
+    });
   }
 };
 
