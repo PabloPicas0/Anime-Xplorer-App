@@ -80,7 +80,7 @@ const Card = (props) => {
       errorHandler(response);
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ type: "changeEpisode", data: { title: animeName, newEp: newEpisode } }));
       }
     } catch (error) {
       console.error(error);
