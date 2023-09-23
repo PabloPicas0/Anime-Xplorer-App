@@ -28,7 +28,13 @@ const editList = async (req, res) => {
     return res.status(200).json({
       error: false,
       status: [{ msg: "OK" }],
-      list: user.animeList,
+      list: {
+        title,
+        currentEpisode: Number(currentEpisode),
+        score: Number(score),
+        animeType,
+        animeStatus,
+      },
     });
   } catch (error) {
     console.log(error);
