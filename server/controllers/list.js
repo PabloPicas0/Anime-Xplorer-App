@@ -17,7 +17,7 @@ const addToUserList = async (req, res) => {
   try {
     const user = await userModel.findOne({ username: username });
 
-    user.animeList.push({
+    const newTitle = {
       animeType: type,
       animeName: title,
       animeStatus: status,
@@ -25,15 +25,17 @@ const addToUserList = async (req, res) => {
       allEpisodes: allEp,
       startWatching: new Date().getTime(),
       endWatching: 0,
-      score: score,
-    });
+      score: Number(score),
+    };
+
+    user.animeList.push(newTitle);
 
     await user.save();
 
     return res.status(200).json({
       error: false,
       status: [{ msg: "OK" }],
-      list: user.animeList,
+      list: newTitle,
     });
   } catch (error) {
     console.log(error);
