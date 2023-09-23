@@ -19,6 +19,7 @@ import Settings from "./Components/Routes/Settings.jsx";
 
 import { Provider as StateProvider } from "react-redux";
 import store from "./Components/Redux/Store/Store.js";
+import { ScopedCssBaseline } from "@mui/material";
 
 const router = createBrowserRouter([
   {
@@ -43,8 +44,8 @@ const router = createBrowserRouter([
         element: <Recover />,
       },
       {
-        path: "/recover/:userId", 
-        element: <ChangePassowrd />
+        path: "/recover/:userId",
+        element: <ChangePassowrd />,
       },
       {
         path: "/home",
@@ -63,7 +64,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <StateProvider store={store}>
       <ThemeProvider>
-        <RouterProvider router={router} />
+        <ScopedCssBaseline enableColorScheme>
+          <RouterProvider router={router} />
+        </ScopedCssBaseline>
       </ThemeProvider>
     </StateProvider>
   </React.StrictMode>
