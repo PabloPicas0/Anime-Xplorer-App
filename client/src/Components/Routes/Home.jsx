@@ -31,7 +31,7 @@ import { handleError } from "../Redux/Slices/statusSlice";
 
 const homeStyles = {
   container: {
-    margin: "64px auto 0px auto", // margin due to 64px height of navbar to prevent stacking
+    margin: "64px auto 0px auto", // margin due to 64px height of navbar to prevent stacking - TO FIX mobile navbar have smaller height
     maxWidth: "1024px",
     padding: "3rem 10px",
     minHeight: "calc(100vh - 64px)",
@@ -116,6 +116,7 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
+  const darkMode = useSelector((state) => state.profile.profileFields.options[0]?.darkMode);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -215,8 +216,17 @@ const Home = () => {
           <Box sx={homeStyles.filters}>
             <>
               <Button
-                startIcon={<BarChartSharp sx={{ color: "rgba(0, 0, 0, 0.54)" }} />}
-                sx={{ ...homeStyles.filterButtonSpacing, color: homeStyles.colors.washedBlack }}>
+                startIcon={
+                  <BarChartSharp
+                    sx={{
+                      color: darkMode ? "#fff" : "rgba(0, 0, 0, 0.54)",
+                    }}
+                  />
+                }
+                sx={{
+                  ...homeStyles.filterButtonSpacing,
+                  color: darkMode ? "#fff" : homeStyles.colors.washedBlack,
+                }}>
                 Statistics
               </Button>
             </>
