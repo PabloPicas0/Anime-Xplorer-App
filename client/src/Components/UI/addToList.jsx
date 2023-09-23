@@ -101,7 +101,7 @@ const AddToList = () => {
       );
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ type: "addToList", data: response.list }));
         handleClose();
       }
     } catch (error) {
