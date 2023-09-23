@@ -18,6 +18,7 @@
   -webkit-text-size-adjust: 100%;
 
   --main-color: #edf1f5;
+  --error-color: rgba(0, 0, 0, 0.871);
 }
 
 a {
