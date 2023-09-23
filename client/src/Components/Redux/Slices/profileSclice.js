@@ -90,7 +90,28 @@ export const profileSlice = createSlice({
       state.showBy = action.payload.profile.options[0].defaultListFilter;
     },
     handleClientList: (state, action) => {
-      state.profileFields.list = action.payload;
+      const { list } = state.profileFields;
+      const { type, data } = action.payload;
+
+      switch (type) {
+        case "changeEpisode":
+          const newEpisode = list.map((anime) => {
+            if (anime.animeName === data.name) {
+              anime.currentEpisode = data.episode;
+            }
+            return anime;
+          });
+          state.profileFields.list = newEpisode;
+          break;
+        case "addToList":
+          break;
+        case "editList":
+          break;
+        case "deleteFromList":
+          break;
+        default:
+          state.profileFields.list = data;
+      }
     },
     handleUserSortingStatus: (state, action) => {
       state.showBy = action.payload;
