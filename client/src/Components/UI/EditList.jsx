@@ -112,7 +112,7 @@ const EditList = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `title=${animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
+        body: `title=${animeName}&allEpisodes=${anime.allEpisodes}&currentEpisode=${anime.currentEpisode > allEpisodes ? allEpisodes : anime.currentEpisode}&score=${anime.score}&animeType=${anime.animeType}&animeStatus=${anime.animeStatus}`,
       });
 
       const response = await request.json();
@@ -169,7 +169,7 @@ const EditList = (props) => {
       );
     }
   };
-  // console.log(anime);
+  // console.log(typeof allEpisodes);
   // console.table({animeName, allEpisodes, score, animeType, animeStatus});
 
   return (
@@ -215,6 +215,10 @@ const EditList = (props) => {
           fullWidth
           margin="dense"
           InputProps={{
+            inputProps: {
+              min: 0,
+              max: allEpisodes,
+            },
             endAdornment: (
               <InputAdornment position="end" disablePointerEvents>
                 / {allEpisodes}
@@ -224,7 +228,9 @@ const EditList = (props) => {
           onChange={(e) =>
             setAnime((oldValues) => {
               const newValues = { ...oldValues };
-              newValues.currentEpisode = e.target.value;
+              const { valueAsNumber } = e.target;
+
+              newValues.currentEpisode = valueAsNumber;
 
               return newValues;
             })
