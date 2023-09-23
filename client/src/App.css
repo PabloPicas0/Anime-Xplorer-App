@@ -1,8 +1,9 @@
 #error-page {
-    display: flex;
-    height: 100vh;
-    background-color: var(--main-color);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  height: 100vh;
+  background-color: var(--main-color);
+  color: var(--error-color);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
