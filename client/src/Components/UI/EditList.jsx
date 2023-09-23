@@ -122,7 +122,7 @@ const EditList = (props) => {
       errorHandler(response);
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ type: "editList", data: response.list }));
         setIsEditVisible(false);
       }
     } catch (error) {
@@ -155,7 +155,7 @@ const EditList = (props) => {
       errorHandler(response);
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ type: "deleteTitle", data: animeName }));
         setIsEditVisible(false);
       }
     } catch (error) {

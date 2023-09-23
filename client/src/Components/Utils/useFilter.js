@@ -33,7 +33,7 @@ const useFilter = (props) => {
       errorHandler(response);
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ data: response.list }));
       }
     } catch (error) {
       console.error(error);
