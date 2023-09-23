@@ -6,10 +6,12 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Rating,
   Select,
+  TextField,
   Tooltip,
   Typography,
   Zoom,
@@ -206,29 +208,28 @@ const EditList = (props) => {
           </Select>
         </FormControl>
 
-        <FormControl fullWidth margin="dense">
-          <InputLabel id="episodes-label">Episodes Watched</InputLabel>
+        <TextField
+          label="Episodes Watched"
+          value={anime.currentEpisode}
+          type="number"
+          fullWidth
+          margin="dense"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end" disablePointerEvents>
+                / {allEpisodes}
+              </InputAdornment>
+            ),
+          }}
+          onChange={(e) =>
+            setAnime((oldValues) => {
+              const newValues = { ...oldValues };
+              newValues.currentEpisode = e.target.value;
 
-          <Select
-            label="Episodes Watched"
-            labelId="episodes-label"
-            value={anime.currentEpisode}
-            onChange={(e) =>
-              setAnime((oldValues) => {
-                const newValues = { ...oldValues };
-                newValues.currentEpisode = e.target.value;
-
-                return newValues;
-              })
-            }
-            MenuProps={editListStyles.menuProps}>
-            {[...Array(allEpisodes + 1)].map((_, idx) => (
-              <MenuItem value={idx} key={idx}>
-                {idx}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              return newValues;
+            })
+          }
+        />
 
         <FormControl fullWidth margin="dense">
           <InputLabel id="type-label">Anime Type</InputLabel>
