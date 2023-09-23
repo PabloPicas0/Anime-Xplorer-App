@@ -90,7 +90,45 @@ export const profileSlice = createSlice({
       state.showBy = action.payload.profile.options[0].defaultListFilter;
     },
     handleClientList: (state, action) => {
-      state.profileFields.list = action.payload;
+      const { type, data } = action.payload;
+      const { list } = state.profileFields;
+
+      switch (type) {
+        case "changeEpisode":
+          state.profileFields.list = list.map((anime) => {
+            if (anime.animeName === data.title) {
+              anime.currentEpisode = data.newEp;
+            }
+            return anime;
+          });
+          break;
+        case "addToList":
+          const newList = [...list];
+          newList.push(data);
+          state.profileFields.list = newList;
+          break;
+        case "editList":
+          state.profileFields.list = list.map((anime) => {
+            if (anime.animeName === data.title) {
+              anime.currentEpisode = data.newEp;
+              anime.score = data.score;
+              anime.animeType = data.animeType;
+              anime.animeStatus = data.animeStatus;
+              anime.endWatching === 0 && data.animeStatus === "Completed"
+                ? (anime.endWatching = new Date().getTime())
+                : null;
+            }
+            return anime;
+          });
+          break;
+        case "deleteTitle":
+          const titleIndex = list.findIndex((title) => title.animeName === data);
+          const updatedList = list.toSpliced(titleIndex, 1);
+          state.profileFields.list = updatedList;
+          break;
+        default:
+          state.profileFields.list = data;
+      }
     },
     handleUserSortingStatus: (state, action) => {
       state.showBy = action.payload;
