@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
         keepLogined: false,
         darkMode: false,
         color: "Blue",
-        font: "Arial",
+        font: "Inter",
         defaultListFilter: "All anime",
       },
     ],
