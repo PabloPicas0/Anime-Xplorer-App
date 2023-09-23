@@ -19,7 +19,7 @@ const cardStyles = {
     padding: "10px",
     boxShadow: 2,
     marginBottom: "20px",
-    borderRadius: "10px"
+    borderRadius: "10px",
   },
   about: {
     display: "flex",
@@ -80,7 +80,7 @@ const Card = (props) => {
       errorHandler(response);
 
       if (!response.error) {
-        dispatch(handleClientList(response.list));
+        dispatch(handleClientList({ type: "changeEpisode", data: { name: animeName, episode: newEpisode } }));
       }
     } catch (error) {
       console.error(error);
