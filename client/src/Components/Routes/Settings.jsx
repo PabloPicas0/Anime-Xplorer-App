@@ -71,8 +71,8 @@ const settingsStyles = {
   },
 };
 
-// TODO
-// Apply settings to profile
+// TODO //
+// Apply settings to profile //
 
 const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
@@ -280,9 +280,11 @@ const Settings = () => {
                   onChange={(e) =>
                     dispatch(handleProfileSettings({ optionType: "font", value: e.target.value }))
                   }>
+                  <MenuItem value={"Inter"}>Inter</MenuItem>
+                  <MenuItem value={"Times New Roman"}>Times New Roman</MenuItem>
                   <MenuItem value={"Arial"}>Arial</MenuItem>
-                  <MenuItem value={"Roboto"}>Roboto</MenuItem>
-                  <MenuItem value={"system UI"}>system UI</MenuItem>
+                  <MenuItem value={"monospace"}>Monospace</MenuItem>
+                  <MenuItem value={"fantasy"}>Fantasy</MenuItem>
                 </Select>
               </FormControl>
             </Box>
