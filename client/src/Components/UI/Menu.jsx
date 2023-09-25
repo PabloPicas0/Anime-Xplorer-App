@@ -59,7 +59,7 @@ const Menu = () => {
       </Box>
 
       <Box sx={menuStyles.options}>
-        <Box sx={{display: "flex"}} style={isVisible ? {} : { pointerEvents: "none" }}>
+        <Box sx={{ display: "flex" }} style={isVisible ? {} : { pointerEvents: "none" }}>
           <Link to={"/home"} tabIndex={isVisible ? 0 : -1}>
             <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
@@ -69,7 +69,12 @@ const Menu = () => {
               </Tooltip>
             </Grow>
           </Link>
-          <CustomSearchInput />
+
+          <Grow in={isVisible}>
+            <div>
+              <CustomSearchInput />
+            </div>
+          </Grow>
         </Box>
 
         <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
