@@ -1,4 +1,4 @@
-import { Person, HomeOutlined, LogoutSharp, Settings, Add } from "@mui/icons-material";
+import { Person, HomeOutlined, LogoutSharp, Settings, Add, Search } from "@mui/icons-material";
 import { IconButton, Tooltip, Zoom, Grow, Box } from "@mui/material";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -31,7 +31,6 @@ const menuStyles = {
     gap: "25px",
   },
 };
-
 
 const Menu = () => {
   const isVisible = useSelector((state) => state.menu.isVisible);
@@ -69,6 +68,14 @@ const Menu = () => {
               </Tooltip>
             </Grow>
           </Link>
+
+          <Grow in={isVisible}>
+            <Tooltip TransitionComponent={Zoom} title="Find user" arrow>
+              <IconButton size="large">
+                <Search />
+              </IconButton>
+            </Tooltip>
+          </Grow>
         </Box>
 
         <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
