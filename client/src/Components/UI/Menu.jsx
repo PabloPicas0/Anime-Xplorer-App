@@ -9,6 +9,7 @@ import { handleDialog, handleVisibility } from "../Redux/Slices/menuSlice";
 import AddToList from "./addToList";
 
 import { handleReset } from "../Redux/Slices/profileSclice";
+import CustomSearchInput from "./CustomSearchInput";
 
 const menuStyles = {
   menu: {
@@ -58,7 +59,7 @@ const Menu = () => {
       </Box>
 
       <Box sx={menuStyles.options}>
-        <Box style={isVisible ? {} : { pointerEvents: "none" }}>
+        <Box sx={{display: "flex"}} style={isVisible ? {} : { pointerEvents: "none" }}>
           <Link to={"/home"} tabIndex={isVisible ? 0 : -1}>
             <Grow in={isVisible}>
               <Tooltip TransitionComponent={Zoom} title="Home" arrow>
@@ -68,14 +69,7 @@ const Menu = () => {
               </Tooltip>
             </Grow>
           </Link>
-
-          <Grow in={isVisible}>
-            <Tooltip TransitionComponent={Zoom} title="Find user" arrow>
-              <IconButton size="large">
-                <Search />
-              </IconButton>
-            </Tooltip>
-          </Grow>
+          <CustomSearchInput />
         </Box>
 
         <Box id="options" style={isVisible ? {} : { pointerEvents: "none" }}>
