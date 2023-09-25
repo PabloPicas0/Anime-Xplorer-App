@@ -2,12 +2,18 @@ import { SearchRounded } from "@mui/icons-material";
 import { Collapse, Divider, IconButton, InputBase, Paper, Tooltip, Zoom } from "@mui/material";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
-const CustomSearchInputStyles = {
+const customSearchInputStyles = {
   paper: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
+  },
+  colors: {
+    white: "#fff",
+    gray: "#fafafa",
+    dark: "#121212",
   },
   input: {
     inputProps: {
@@ -24,25 +30,34 @@ const CustomSearchInputStyles = {
 };
 
 const CustomSearchInput = () => {
-  const [seeSearch, setSeeSearch] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
+  const mainColor = darkMode ? customSearchInputStyles.colors.dark : customSearchInputStyles.colors.gray;
 
   return (
-    <Paper component={"form"} elevation={seeSearch ? 3 : 0} sx={CustomSearchInputStyles.paper}>
-      <Collapse in={seeSearch} orientation="horizontal">
+    <Paper
+      component={"form"}
+      elevation={isSearchVisible ? 3 : 0}
+      sx={{
+        ...customSearchInputStyles.paper,
+        backgroundColor: mainColor,
+      }}>
+      <Collapse in={isSearchVisible} orientation="horizontal">
         <InputBase
           type="search"
           placeholder="Find user"
-          inputProps={CustomSearchInputStyles.input.inputProps}
-          sx={CustomSearchInputStyles.input.inputStyles}
+          inputProps={customSearchInputStyles.input.inputProps}
+          sx={customSearchInputStyles.input.inputStyles}
         />
       </Collapse>
 
-      <Collapse in={seeSearch} orientation="horizontal">
-        <Divider orientation="vertical" sx={CustomSearchInputStyles.divider} />
+      <Collapse in={isSearchVisible} orientation="horizontal">
+        <Divider orientation="vertical" sx={customSearchInputStyles.divider} />
       </Collapse>
 
       <Tooltip TransitionComponent={Zoom} title="Search" arrow>
-        <IconButton size="large" onClick={() => setSeeSearch((prev) => !prev)}>
+        <IconButton size="large" onClick={() => setIsSearchVisible((prev) => !prev)}>
           <SearchRounded />
         </IconButton>
       </Tooltip>
