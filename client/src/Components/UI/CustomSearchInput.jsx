@@ -101,12 +101,12 @@ const CustomSearchInput = () => {
               }}>
               <Divider />
 
-              <MenuItem sx={{gap: "10px"}}>
+              <MenuItem sx={{ gap: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)" }}>
                 <Avatar alt={users?.username}>
                   <Person />
                 </Avatar>
 
-                <Typography>{users?.username}</Typography>
+                <Typography color={darkMode ? "white" : "black"}>{users?.username}</Typography>
               </MenuItem>
             </MenuList>
           </Fade>
