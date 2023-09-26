@@ -35,7 +35,7 @@ const useSearch = (userName) => {
   };
 
   useEffect(() => {
-    if (userName === "") return;
+    if (userName === "") setUsers(null);
 
     const controller = new AbortController();
     reqeusetUser(controller.signal);
