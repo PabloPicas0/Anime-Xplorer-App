@@ -4,6 +4,7 @@ const userModel = require("../models/User");
 const registerUser = require("../controllers/users");
 const deleteUser = require("../controllers/deleteUser")
 const authUser = require("../middleware/authUser")
+const findUser = require("../controllers/findUser")
 
 const { check } = require("express-validator");
 
@@ -36,5 +37,6 @@ router.post(
 );
 
 router.delete("/", authUser, deleteUser)
+router.put("/", authUser, findUser)
 
 module.exports = router;
