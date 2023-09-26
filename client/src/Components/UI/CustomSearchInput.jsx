@@ -1,13 +1,17 @@
-import { SearchRounded } from "@mui/icons-material";
+import { Person, SearchRounded } from "@mui/icons-material";
 import {
+  Avatar,
   Collapse,
   Divider,
+  Fade,
   IconButton,
   InputBase,
-  Menu,
   MenuItem,
+  MenuList,
   Paper,
+  Popper,
   Tooltip,
+  Typography,
   Zoom,
 } from "@mui/material";
 
@@ -60,7 +64,8 @@ const CustomSearchInput = () => {
         sx={{
           ...customSearchInputStyles.paper,
           backgroundColor: mainColor,
-        }}>
+        }}
+        square>
         <Collapse in={isSearchVisible} orientation="horizontal">
           <InputBase
             type="search"
@@ -82,6 +87,31 @@ const CustomSearchInput = () => {
           </IconButton>
         </Tooltip>
       </Paper>
+
+      <Popper anchorEl={customSearch.current} open={Boolean(users)} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps}>
+            <MenuList
+              sx={{
+                width: customSearch.current && customSearch.current.offsetWidth,
+                backgroundColor: mainColor,
+                padding: 0,
+                boxShadow:
+                  "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 6px 8px 0px rgba(0,0,0,0.12)",
+              }}>
+              <Divider />
+
+              <MenuItem sx={{gap: "10px"}}>
+                <Avatar alt={users?.username}>
+                  <Person />
+                </Avatar>
+
+                <Typography>{users?.username}</Typography>
+              </MenuItem>
+            </MenuList>
+          </Fade>
+        )}
+      </Popper>
     </>
   );
 };
