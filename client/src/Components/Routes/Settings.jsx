@@ -71,9 +71,6 @@ const settingsStyles = {
   },
 };
 
-// TODO //
-// Apply settings to profile //
-
 const Settings = () => {
   const [optionsApplied, setOptionsApplied] = useState(false);
 
