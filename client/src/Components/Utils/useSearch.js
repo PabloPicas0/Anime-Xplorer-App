@@ -22,11 +22,9 @@ const useSearch = (userName) => {
 
       const response = await request.json();
 
-      console.log(response);
-
       errorHandler(response);
 
-      if (!response.error) {
+      if (!response.error && response.users) {
         setUsers(response.users);
       }
     } catch (error) {
