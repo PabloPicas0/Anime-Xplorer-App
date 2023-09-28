@@ -8,7 +8,7 @@ const useSearch = (userName) => {
 
   const errorHandler = useErrorHandler();
 
-  const reqeusetUser = async (signal) => {
+  const requestUser = async (signal) => {
     try {
       const request = await fetch(`${url}/api/users`, {
         method: "PUT",
@@ -35,10 +35,13 @@ const useSearch = (userName) => {
   };
 
   useEffect(() => {
-    if (userName === "") setUsers(null);
+    if (userName === "") {
+      setUsers(null);
+      return;
+    }
 
     const controller = new AbortController();
-    reqeusetUser(controller.signal);
+    requestUser(controller.signal);
 
     return () => controller.abort();
   }, [userName]);
