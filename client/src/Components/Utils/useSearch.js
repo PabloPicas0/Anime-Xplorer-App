@@ -24,7 +24,7 @@ const useSearch = (userName) => {
 
       errorHandler(response);
 
-      if (!response.error && response.users) {
+      if (!response.error) {
         setUsers(response.users);
       }
     } catch (error) {
