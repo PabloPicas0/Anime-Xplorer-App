@@ -42,6 +42,15 @@ const customSearchInputStyles = {
     margin: "0.5rem",
     height: "28px",
   },
+  menuList: {
+    padding: 0,
+    boxShadow:
+      "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 6px 8px 0px rgba(0,0,0,0.12)",
+  },
+  menuItem: {
+    gap: "10px",
+    backgroundColor: "rgba(255, 255, 255, 0.08)",
+  },
 };
 
 const CustomSearchInput = () => {
@@ -93,16 +102,14 @@ const CustomSearchInput = () => {
           <Fade {...TransitionProps}>
             <MenuList
               sx={{
+                ...customSearchInputStyles.menuList,
                 width: customSearch.current && customSearch.current.offsetWidth,
                 backgroundColor: mainColor,
-                padding: 0,
-                boxShadow:
-                  "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 6px 8px 0px rgba(0,0,0,0.12)",
               }}>
               <Divider />
 
-              <MenuItem sx={{ gap: "10px", backgroundColor: "rgba(255, 255, 255, 0.08)" }}>
-                <Avatar alt={users?.username}>
+              <MenuItem sx={customSearchInputStyles.menuItem}>
+                <Avatar alt={users?.username} sx={{ width: 34, height: 34 }}>
                   <Person />
                 </Avatar>
 
