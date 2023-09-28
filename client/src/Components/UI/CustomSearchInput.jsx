@@ -62,7 +62,6 @@ const CustomSearchInput = () => {
 
   const users = useSearch(userName);
   const customSearch = useRef(null);
-  console.log(users);
 
   return (
     <>
@@ -91,13 +90,18 @@ const CustomSearchInput = () => {
         </Collapse>
 
         <Tooltip TransitionComponent={Zoom} title="Search" arrow>
-          <IconButton size="large" onClick={() => setIsSearchVisible((prev) => !prev)}>
+          <IconButton
+            size="large"
+            onClick={() => {
+              setIsSearchVisible((prev) => !prev);
+              setUserName("");
+            }}>
             <SearchRounded />
           </IconButton>
         </Tooltip>
       </Paper>
 
-      <Popper anchorEl={customSearch.current} open={Boolean(users)} transition>
+      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
             <MenuList
@@ -109,11 +113,11 @@ const CustomSearchInput = () => {
               <Divider />
 
               <MenuItem sx={customSearchInputStyles.menuItem}>
-                <Avatar alt={users?.username} sx={{ width: 34, height: 34 }}>
+                <Avatar alt={users} sx={{ width: 34, height: 34 }}>
                   <Person />
                 </Avatar>
 
-                <Typography color={darkMode ? "white" : "black"}>{users?.username}</Typography>
+                <Typography color={darkMode ? "white" : "black"}>{users}</Typography>
               </MenuItem>
             </MenuList>
           </Fade>
