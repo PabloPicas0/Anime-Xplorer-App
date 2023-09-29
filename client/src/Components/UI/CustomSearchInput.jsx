@@ -18,6 +18,7 @@ import {
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import useSearch from "../Utils/useSearch";
+import { Link } from "react-router-dom";
 
 const customSearchInputStyles = {
   paper: {
@@ -113,11 +114,13 @@ const CustomSearchInput = () => {
               <Divider />
 
               <MenuItem sx={customSearchInputStyles.menuItem}>
-                <Avatar alt={users} sx={{ width: 34, height: 34 }}>
-                  <Person />
-                </Avatar>
+                <Link style={{ display: "flex", gap: "10px", alignItems: "center" }} to={`/${users}`}>
+                  <Avatar alt={users} sx={{ width: 34, height: 34 }}>
+                    <Person />
+                  </Avatar>
 
-                <Typography color={darkMode ? "white" : "black"}>{users}</Typography>
+                  <Typography color={darkMode ? "white" : "black"}>{users}</Typography>
+                </Link>
               </MenuItem>
             </MenuList>
           </Fade>
