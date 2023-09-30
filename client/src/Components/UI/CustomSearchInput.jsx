@@ -49,7 +49,7 @@ const customSearchInputStyles = {
       "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 6px 8px 0px rgba(0,0,0,0.12)",
   },
   menuItem: {
-    gap: "10px",
+    display: "list-item",
     backgroundColor: "rgba(255, 255, 255, 0.08)",
   },
 };
