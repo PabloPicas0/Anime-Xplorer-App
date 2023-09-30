@@ -13,13 +13,14 @@ import SignUp from "./Components/Routes/SignUp.jsx";
 import Recover from "./Components/Routes/Recover.jsx";
 import Home from "./Components/Routes/Home.jsx";
 import ChangePassowrd from "./Components/Routes/ChangePassword.jsx";
+import OtherUserHome from "./Components/Routes/OtherUserHome.jsx";
 
 import { Theme as ThemeProvider } from "./Components/Theme/Theme.jsx";
 import Settings from "./Components/Routes/Settings.jsx";
 
 import { Provider as StateProvider } from "react-redux";
-import store from "./Components/Redux/Store/Store.js";
 import { ScopedCssBaseline } from "@mui/material";
+import store from "./Components/Redux/Store/Store.js";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/user/:name",
+        element: <OtherUserHome />,
       },
     ],
   },
