@@ -28,6 +28,7 @@ import useSorting from "../Utils/useSorting";
 
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
 import { handleError } from "../Redux/Slices/statusSlice";
+import HomeSkeleton from "../UI/HomeSkeleton";
 
 const homeStyles = {
   container: {
@@ -155,30 +156,7 @@ const Home = () => {
             </DialogActions>
           </Dialog>
 
-          <Skeleton variant="circular" width={"100px"} height={"100px"}></Skeleton>
-
-          <Box sx={{ ...homeStyles.filters, display: "flex", justifyContent: "end", gap: "10px" }}>
-            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
-            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
-            <Skeleton variant="circular" width={"30px"} height={"30px"}></Skeleton>
-          </Box>
-
-          <Box>
-            <Box sx={homeStyles.listStyle}>
-              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
-              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
-            </Box>
-
-            <Box sx={homeStyles.listStyle}>
-              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
-              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
-            </Box>
-
-            <Box sx={homeStyles.listStyle}>
-              <Skeleton variant="text" height={"32px"} sx={{ marginBottom: 2 }}></Skeleton>
-              <Skeleton variant="rounded" height={"92px"} sx={{ marginBottom: "20px" }}></Skeleton>
-            </Box>
-          </Box>
+          <HomeSkeleton />
         </>
       ) : (
         <>
