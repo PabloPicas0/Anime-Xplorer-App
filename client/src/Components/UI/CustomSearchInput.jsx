@@ -52,6 +52,11 @@ const customSearchInputStyles = {
     display: "list-item",
     backgroundColor: "rgba(255, 255, 255, 0.08)",
   },
+  link: {
+    display: "flex",
+    gap: "10px",
+    alignItems: "center",
+  },
 };
 
 const CustomSearchInput = () => {
@@ -114,7 +119,7 @@ const CustomSearchInput = () => {
               <Divider />
 
               <MenuItem sx={customSearchInputStyles.menuItem}>
-                <Link style={{ display: "flex", gap: "10px", alignItems: "center" }} to={`/${users}`}>
+                <Link style={customSearchInputStyles.link} to={`/user/${users}`}>
                   <Avatar alt={users} sx={{ width: 34, height: 34 }}>
                     <Person />
                   </Avatar>
