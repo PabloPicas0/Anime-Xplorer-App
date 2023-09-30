@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import useErrorHandler from "./useErrorHandler";
 
 import url from "./api";
+import { useSelector } from "react-redux";
 
 const useSearch = (userName) => {
+  const username = useSelector((state) => state.profile.profileFields.username);
+  const isUserAccount = userName === username;
+
   const [users, setUsers] = useState(null);
 
   const errorHandler = useErrorHandler();
@@ -33,7 +37,7 @@ const useSearch = (userName) => {
   };
 
   useEffect(() => {
-    if (userName === "") {
+    if (userName === "" || isUserAccount) {
       setUsers(null);
       return;
     }
