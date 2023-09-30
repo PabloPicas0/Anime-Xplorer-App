@@ -5,7 +5,7 @@ const findUser = async (req, res) => {
 
   try {
     const searchUser = await userModel.findOne({ username: user });
-    console.log(user, searchUser);
+
     return res.status(200).json({ users: searchUser?.username, error: false, status: [{ msg: "" }] });
   } catch (error) {
     console.log(error);
