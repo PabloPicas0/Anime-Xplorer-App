@@ -16,13 +16,13 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import Menu from "../UI/Menu";
+import Menu from "../../UI/Menu";
 
 import { useDispatch, useSelector } from "react-redux";
-import { handleAuthentication, handleProfileSettings, loadUser } from "../Redux/Slices/profileSclice";
-import { handleError } from "../Redux/Slices/statusSlice";
+import { handleAuthentication, handleProfileSettings, loadUser } from "../../Redux/Slices/profileSclice";
+import { handleError } from "../../Redux/Slices/statusSlice";
 
-import url from "../Utils/api";
+import url from "../../Utils/api";
 
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";

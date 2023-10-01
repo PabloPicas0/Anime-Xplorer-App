@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert, Box, Button, Snackbar, TextField, Zoom } from "@mui/material";
 import { RestartAltSharp } from "@mui/icons-material";
 
-import url from "../Utils/api";
-import { handleError } from "../Redux/Slices/statusSlice";
+import url from "../../Utils/api";
+import { handleError } from "../../Redux/Slices/statusSlice";
 
 const changePassowrdStyles = {
   container: {
@@ -85,11 +85,11 @@ const ChangePassowrd = () => {
 
   useEffect(() => {
     const checkID = async () => {
-      await handlePassowrd()
-      handleClose()
-    }
+      await handlePassowrd();
+      handleClose();
+    };
 
-    checkID()
+    checkID();
   }, []);
 
   if (!userId || redirect) return <Navigate to={"/login"} />;

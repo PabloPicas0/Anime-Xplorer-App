@@ -3,9 +3,9 @@ import { Alert, Box, Button, Slide, TextField } from "@mui/material";
 import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 
-import url from "../Utils/api";
+import url from "../../Utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { handleError } from "../Redux/Slices/statusSlice";
+import { handleError } from "../../Redux/Slices/statusSlice";
 
 const recoverStyles = {
   container: {

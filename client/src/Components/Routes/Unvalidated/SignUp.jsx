@@ -1,17 +1,14 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
-
-import { Form, Link, Navigate, useNavigate } from "react-router-dom";
-
-import url from "../Utils/api";
-
 import { useState } from "react";
 
+import { Form, Link, Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { handleAuthentication, handleProfile } from "../Redux/Slices/profileSclice";
-import { handleError } from "../Redux/Slices/statusSlice";
+import url from "../../Utils/api";
 
-const loginStyles = {
+import { handleError } from "../../Redux/Slices/statusSlice";
+
+const singUpStyles = {
   container: {
     height: "100vh",
     display: "flex",
@@ -19,6 +16,7 @@ const loginStyles = {
     alignItems: "center",
   },
   formStyles: {
+    maxWidth: "486px",
     padding: "0px 20px",
   },
   formTitle: {
@@ -30,7 +28,9 @@ const loginStyles = {
     marginTop: "20px",
   },
   linkWrapperStyles: {
-    marginTop: "20px",
+    marginTop: "30px",
+    textAlign: "center",
+    fontWeight: 100,
   },
   link: {
     color: "blue",
@@ -42,8 +42,14 @@ const loginStyles = {
   },
 };
 
-const Login = () => {
-  const [loginFields, setLoginFields] = useState([
+const SignUp = () => {
+  const [signUpfields, setSignUpFields] = useState([
+    {
+      id: "e-mail",
+      label: "E-mail",
+      type: "email",
+      value: "",
+    },
     {
       id: "username",
       label: "Username",
@@ -56,31 +62,37 @@ const Login = () => {
       type: "password",
       value: "",
     },
+    {
+      id: "passwordComfirm",
+      label: "Confirm Password",
+      type: "password",
+      value: "",
+    },
   ]);
-
-  const status = useSelector((state) => state.status);
+  const formStatus = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
 
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleChange = (event, index) => {
-    setLoginFields((prevFields) => {
-      const newFields = [...prevFields];
-      newFields[index].value = event.target.value;
+    setSignUpFields((prevFields) => {
+      const updatedFields = [...prevFields];
+      updatedFields[index].value = event.target.value;
 
-      return newFields;
+      return updatedFields;
     });
   };
 
   const handleSubmit = async () => {
     try {
-      const reqest = await fetch(`${url}/api/login`, {
+      const reqest = await fetch(`${url}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `username=${loginFields[0].value}&password=${loginFields[1].value}`,
+        body: `email=${signUpfields[0].value}&username=${signUpfields[1].value}&password=${signUpfields[2].value}&password2=${signUpfields[3].value}`,
       });
 
       const response = await reqest.json();
@@ -95,15 +107,9 @@ const Login = () => {
       );
 
       if (!response.error) {
-        dispatch(
-          handleProfile({
-            profile: response.profile,
-            token: response.token,
-          })
-        );
-
-        dispatch(handleAuthentication(true));
-        navigate("/home");
+        setTimeout(() => {
+          navigate("/login");
+        }, 500);
       }
     } catch (error) {
       console.error(error);
@@ -120,18 +126,18 @@ const Login = () => {
   if (isAuthenticated) return <Navigate to={"/home"} />;
 
   return (
-    <Box sx={loginStyles.container}>
-      <Slide direction="down" in={status.error}>
-        <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
+    <Box sx={singUpStyles.container}>
+      <Slide direction="down" in={formStatus.error}>
+        <Alert severity={formStatus.error ? "error" : "success"} sx={singUpStyles.alert}>
           {" "}
-          {status.errorMessage[0].msg}
+          {formStatus.errorMessage[0].msg}
         </Alert>
       </Slide>
 
-      <Form style={loginStyles.formStyles} onSubmit={handleSubmit}>
-        <h2 style={loginStyles.formTitle}>Login to AnimeExplorer</h2>
+      <Form style={singUpStyles.formStyles} onSubmit={handleSubmit}>
+        <h2 style={singUpStyles.formTitle}>Sign up to AnimeExplorer</h2>
 
-        {loginFields.map((field, idx) => {
+        {signUpfields.map((field, idx) => {
           const { id, label, type, value } = field;
 
           return (
@@ -139,31 +145,33 @@ const Login = () => {
               key={id}
               id={id}
               label={label}
+              type={type}
+              helperText={idx === 2 ? "Password need at least 6 characters" : ""}
               fullWidth
               required
               margin="normal"
               autoComplete="on"
-              type={type}
               value={value}
               onChange={(e) => handleChange(e, idx)}
             />
           );
         })}
 
-        <Box sx={loginStyles.formButton}>
+        <Box sx={singUpStyles.formButton}>
           <Button type="submit" variant="contained">
-            Login
+            Sign Up
           </Button>
-
-          <div style={loginStyles.linkWrapperStyles}>
-            <Link to={`/recover`} style={loginStyles.link}>
-              Forgot password ?
-            </Link>
-          </div>
         </Box>
+
+        <div style={singUpStyles.linkWrapperStyles}>
+          Already have an account ?{" "}
+          <Link to={`/login`} style={singUpStyles.link}>
+            Log in
+          </Link>
+        </div>
       </Form>
     </Box>
   );
 };
 
-export default Login;
+export default SignUp;

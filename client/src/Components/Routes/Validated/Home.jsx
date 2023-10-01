@@ -10,25 +10,24 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Skeleton,
   Snackbar,
   Typography,
   Zoom,
 } from "@mui/material";
 import { BarChartSharp } from "@mui/icons-material";
 
-import Card from "../UI/Card";
-import UserMenu from "../UI/Menu";
-import Sort from "../UI/Sort";
-import Filter from "../UI/Filter";
+import Card from "../../UI/Card";
+import UserMenu from "../../UI/Menu";
+import Sort from "../../UI/Sort";
+import Filter from "../../UI/Filter";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import useSorting from "../Utils/useSorting";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import useSorting from "../../Utils/useSorting";
 
-import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
-import { handleError } from "../Redux/Slices/statusSlice";
-import HomeSkeleton from "../UI/HomeSkeleton";
+import { handleUserSortingStatus } from "../../Redux/Slices/profileSclice";
+import { handleError } from "../../Redux/Slices/statusSlice";
+import HomeSkeleton from "../../UI/HomeSkeleton";
 
 const homeStyles = {
   container: {
