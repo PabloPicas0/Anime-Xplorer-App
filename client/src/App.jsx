@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./App.css";
 
 import { AppBar, Toolbar } from "@mui/material";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 
 import Unregistered from "./Components/UI/UnregisteredNav";
 import Registred from "./Components/UI/RegisteredNav";
@@ -38,10 +38,12 @@ function App() {
 
   const dispatch = useDispatch();
   const location = useLocation();
-  const path = location.pathname
+  const path = location.pathname;
+
+  const { name } = useParams();
 
   useEffect(() => {
-    dispatch(loadUser());
+    dispatch(loadUser(name));
   }, [path]);
 
   return (
