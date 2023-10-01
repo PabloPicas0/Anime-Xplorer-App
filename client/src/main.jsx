@@ -6,20 +6,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 
-import ErrorPage from "./Components/Routes/ErrorPage.jsx";
-import Landing from "./Components/Routes/Landing.jsx";
-import Login from "./Components/Routes/Login.jsx";
-import SignUp from "./Components/Routes/SignUp.jsx";
-import Recover from "./Components/Routes/Recover.jsx";
-import Home from "./Components/Routes/Home.jsx";
-import ChangePassowrd from "./Components/Routes/ChangePassword.jsx";
+import ErrorPage from "./Components/Routes/Validated/ErrorPage.jsx";
+import Landing from "./Components/Routes//Unvalidated/Landing.jsx";
+import Login from "./Components/Routes/Unvalidated/Login.jsx";
+import SignUp from "./Components/Routes/Unvalidated/SignUp.jsx";
+import Recover from "./Components/Routes//Unvalidated/Recover.jsx";
+import Home from "./Components/Routes/Validated/Home.jsx";
+import ChangePassowrd from "./Components/Routes/Validated/ChangePassword.jsx";
 
 import { Theme as ThemeProvider } from "./Components/Theme/Theme.jsx";
-import Settings from "./Components/Routes/Settings.jsx";
+import Settings from "./Components/Routes/Validated/Settings.jsx";
 
 import { Provider as StateProvider } from "react-redux";
 import { ScopedCssBaseline } from "@mui/material";
 import store from "./Components/Redux/Store/Store.js";
+import url from "./Components/Utils/api.js";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,24 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/user/:name",
+        loader: async ({ params }) => {
+          const request = await fetch(`${url}/api/users`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: `user=${params.name}`,
+          });
+
+          const response = await request.json();
+
+          return response;
+        },
         element: <Home />,
       },
     ],
