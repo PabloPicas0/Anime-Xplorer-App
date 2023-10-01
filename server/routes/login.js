@@ -8,7 +8,7 @@ const authUser = require("../middleware/authUser");
 
 const { check } = require("express-validator");
 
-router.get("/", authUser, loadUser);
+router.put("/data", authUser, loadUser);
 
 router.post(
   "/",
