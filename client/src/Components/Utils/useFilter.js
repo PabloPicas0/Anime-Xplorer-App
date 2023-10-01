@@ -4,8 +4,10 @@ import url from "./api";
 
 import useErrorHandler from "./useErrorHandler";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleClientList } from "../Redux/Slices/profileSclice";
+
+import { useParams } from "react-router-dom";
 
 const useFilter = (props) => {
   const { isInitialState, type, search } = props;
@@ -15,6 +17,9 @@ const useFilter = (props) => {
   const dispatch = useDispatch();
   const errorHandler = useErrorHandler();
 
+  const username = useSelector((state) => state.profile.profileFields.username);
+  const { name } = useParams();
+
   const reqeusetFilteredList = async (signal) => {
     try {
       const request = await fetch(`${url}/api/list`, {
@@ -23,7 +28,7 @@ const useFilter = (props) => {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: `animeType=${type}&animeName=${search}&minScore=${min}&maxScore=${max}&startWatching=${new Date(from).getTime()}&endWatching=${new Date(to).getTime()}`,
+        body: `username=${name || username}&animeType=${type}&animeName=${search}&minScore=${min}&maxScore=${max}&startWatching=${new Date(from).getTime()}&endWatching=${new Date(to).getTime()}`,
         signal: signal,
       });
 
