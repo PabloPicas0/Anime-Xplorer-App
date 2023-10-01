@@ -4,7 +4,7 @@ import url from "../../Utils/api";
 
 import { handleError } from "./statusSlice";
 
-export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatch }) => {
+export const loadUser = createAsyncThunk("profile/loadUser", async (username, { dispatch }) => {
   const currentToken = localStorage.getItem("token");
 
   if (!currentToken) {
@@ -29,11 +29,13 @@ export const loadUser = createAsyncThunk("profile/loadUser", async (_, { dispatc
   }
 
   try {
-    const request = await fetch(`${url}/api/login`, {
-      method: "GET",
+    const request = await fetch(`${url}/api/login/data`, {
+      method: "PUT",
       headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Bearer ${currentToken}`,
       },
+      body: `username=${username}`,
     });
 
     const response = await request.json();
