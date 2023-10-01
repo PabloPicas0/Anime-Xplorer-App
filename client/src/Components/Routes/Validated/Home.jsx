@@ -22,7 +22,7 @@ import Sort from "../../UI/Sort";
 import Filter from "../../UI/Filter";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigate, useParams } from "react-router-dom";
 import useSorting from "../../Utils/useSorting";
 
 import { handleUserSortingStatus } from "../../Redux/Slices/profileSclice";
@@ -112,11 +112,17 @@ const homeStyles = {
 };
 
 const Home = () => {
+  const data = useLoaderData() || {};
+  const { name } = useParams();
+
   const list = useSelector((state) => state.profile.profileFields.list);
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const darkMode = useSelector((state) => state.profile.profileFields.options[0]?.darkMode);
+  const username = useSelector((state) => state.profile.profileFields.username);
+
+  const isUserAccount = name === username;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -130,6 +136,14 @@ const Home = () => {
       })
     );
   };
+
+  // Prevents from load user account from adress bar if he hits this route "/user/:name" //
+  // Returns Navigate component instead hook to prevent react errors //
+  if (isUserAccount) return <Navigate to={"/home"} />;
+
+  // Prevents from load users that don't exists from address bar //
+  //eg. route "/user/:name" ---> user hit in address bar "/user/1" show error if user not exists //
+  if (name && !data.users) throw new Error("User don't exists");
 
   return (
     <Box id="container" sx={homeStyles.container}>
