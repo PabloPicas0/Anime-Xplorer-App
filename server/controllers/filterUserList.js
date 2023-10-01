@@ -4,9 +4,9 @@ const findScore = async (req, res, next) => {
   try {
     const minScore = Number(req.body.minScore);
     const maxScore = Number(req.body.maxScore);
-    const { userId } = req.user;
+    const { username } = req.body;
 
-    const user = await userModel.findById(userId);
+    const user = await userModel.findOne({ username: username });
     const { animeList } = user;
 
     req.list = [...animeList];
