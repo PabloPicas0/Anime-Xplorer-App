@@ -9,9 +9,18 @@ const jwt = require("jsonwebtoken");
 
 const loadUser = async (req, res) => {
   const { userId } = req.user;
+  const { username } = req.body;
+
+  const usernameExists = username != "undefined";
+  let nextUserList = null;
 
   try {
     const user = await userModel.findById(userId);
+
+    if (usernameExists) {
+      const nextUser = await userModel.findOne({ username: username });
+      nextUserList = nextUser.animeList;
+    }
 
     return res.status(200).json({
       error: false,
@@ -21,7 +30,7 @@ const loadUser = async (req, res) => {
         username: user.username,
         date: user.accountCreated,
         options: user.accountSettings,
-        list: user.animeList,
+        list: nextUserList || user.animeList,
       },
     });
   } catch (error) {
