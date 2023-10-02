@@ -1,7 +1,7 @@
 import { Person, HomeOutlined, LogoutSharp, Settings, Add, Search } from "@mui/icons-material";
 import { IconButton, Tooltip, Zoom, Grow, Box } from "@mui/material";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { handleDialog, handleVisibility } from "../Redux/Slices/menuSlice";
@@ -38,6 +38,7 @@ const Menu = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams()
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -51,6 +52,7 @@ const Menu = () => {
         <Tooltip TransitionComponent={Zoom} title="Open Settings" arrow>
           <IconButton
             size="large"
+            disabled={Boolean(params.name)}
             sx={menuStyles.heroIconWrapper}
             onClick={() => dispatch(handleVisibility(!isVisible))}>
             <Person sx={menuStyles.heroIcon} />
