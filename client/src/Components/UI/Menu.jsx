@@ -38,7 +38,8 @@ const Menu = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams()
+  const params = useParams();
+  const isNotUserAccount = Boolean(params.name);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -49,15 +50,21 @@ const Menu = () => {
   return (
     <Box sx={menuStyles.menu}>
       <Box>
-        <Tooltip TransitionComponent={Zoom} title="Open Settings" arrow>
-          <IconButton
-            size="large"
-            disabled={Boolean(params.name)}
-            sx={menuStyles.heroIconWrapper}
-            onClick={() => dispatch(handleVisibility(!isVisible))}>
+        {isNotUserAccount ? (
+          <IconButton size="large" disabled sx={menuStyles.heroIconWrapper}>
             <Person sx={menuStyles.heroIcon} />
           </IconButton>
-        </Tooltip>
+        ) : (
+          <Tooltip TransitionComponent={Zoom} title="Open Settings" arrow>
+            <IconButton
+              size="large"
+              disabled={Boolean(params.name)}
+              sx={menuStyles.heroIconWrapper}
+              onClick={() => dispatch(handleVisibility(!isVisible))}>
+              <Person sx={menuStyles.heroIcon} />
+            </IconButton>
+          </Tooltip>
+        )}
       </Box>
 
       <Box sx={menuStyles.options}>
