@@ -11,6 +11,7 @@ import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import EditList from "./EditList";
 import useErrorHandler from "../Utils/useErrorHandler";
+import { useParams } from "react-router-dom";
 
 const cardStyles = {
   container: {
@@ -65,6 +66,9 @@ const Card = (props) => {
   const dispatch = useDispatch();
   const errorHandler = useErrorHandler();
 
+  const params = useParams();
+  const isNotUserAccount = Boolean(params.name);
+
   const handleEpisodeChange = async (newEpisode) => {
     if (newEpisode < 0 || newEpisode > allEpisodes) return;
 
@@ -112,7 +116,11 @@ const Card = (props) => {
         <Box>
           <Typography>{animeType}</Typography>
           <Typography>{animeName}</Typography>
-          <Button sx={cardStyles.editButton} onClick={() => setIsEditVisible(true)} disableRipple>
+          <Button
+            sx={cardStyles.editButton}
+            onClick={() => setIsEditVisible(true)}
+            disableRipple
+            disabled={isNotUserAccount}>
             Edit
           </Button>
         </Box>
@@ -123,7 +131,7 @@ const Card = (props) => {
           <Rating disabled value={score} sx={cardStyles.rating} />
         ) : (
           <>
-            <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)}>
+            <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)} disabled={isNotUserAccount}>
               <Remove />
             </IconButton>
 
@@ -131,7 +139,7 @@ const Card = (props) => {
               {currentEpisode}/{allEpisodes}
             </Typography>
 
-            <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)}>
+            <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)} disabled={isNotUserAccount}>
               <Add />
             </IconButton>
           </>
