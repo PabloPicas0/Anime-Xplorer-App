@@ -131,15 +131,19 @@ const Card = (props) => {
           <Rating disabled value={score} sx={cardStyles.rating} />
         ) : (
           <>
-            <IconButton onClick={() => handleEpisodeChange(currentEpisode - 1)} disabled={isNotUserAccount}>
+            <IconButton
+              onClick={() => handleEpisodeChange(currentEpisode - 1)}
+              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }} disabled={isNotUserAccount}>
               <Remove />
             </IconButton>
 
-            <Typography>
+            <Typography fontSize={17} sx={{marginRight: isNotUserAccount ? "50px" : "0px"}}>
               {currentEpisode}/{allEpisodes}
             </Typography>
 
-            <IconButton onClick={() => handleEpisodeChange(currentEpisode + 1)} disabled={isNotUserAccount}>
+            <IconButton
+              onClick={() => handleEpisodeChange(currentEpisode + 1)}
+              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }} disabled={isNotUserAccount}>
               <Add />
             </IconButton>
           </>
