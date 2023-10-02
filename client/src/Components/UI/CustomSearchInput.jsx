@@ -16,9 +16,12 @@ import {
 } from "@mui/material";
 
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import useSearch from "../Utils/useSearch";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import useSearch from "../Utils/useSearch";
+
+import { handleVisibility } from "../Redux/Slices/menuSlice";
 
 const customSearchInputStyles = {
   paper: {
@@ -68,6 +71,8 @@ const CustomSearchInput = () => {
 
   const users = useSearch(userName);
   const customSearch = useRef(null);
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -119,7 +124,7 @@ const CustomSearchInput = () => {
               <Divider />
 
               <MenuItem sx={customSearchInputStyles.menuItem}>
-                <Link style={customSearchInputStyles.link} to={`/user/${users}`}>
+                <Link style={customSearchInputStyles.link} to={`/user/${users}`} onClick={() => dispatch(handleVisibility(false))}>
                   <Avatar alt={users} sx={{ width: 34, height: 34 }}>
                     <Person />
                   </Avatar>
