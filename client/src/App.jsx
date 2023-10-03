@@ -11,6 +11,7 @@ import Registred from "./Components/UI/RegisteredNav";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loadUser } from "./Components/Redux/Slices/profileSclice";
+import SideNav from "./Components/UI/SideNav";
 
 const rootStyles = {
   toolbar: {
@@ -53,6 +54,8 @@ function App() {
           {isAuthenticated ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>
+
+      <SideNav />
 
       <div id="detail">
         <Outlet />
