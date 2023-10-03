@@ -113,9 +113,6 @@ const homeStyles = {
   },
 };
 
-// TODO //
-// Filter icons are collapsing on res 320px // 
-
 const Home = () => {
   const data = useLoaderData() || {};
   const { name } = useParams();
