@@ -7,12 +7,16 @@ const SideNav = () => {
       component={"aside"}
       sx={{
         position: "fixed",
-        top: 0,
+        top: { xs: "auto", lg: 0 },
         bottom: 0,
+        right: { xs: 0, lg: "auto" },
+        left: 0,
         display: "flex",
-        flexDirection: "column",
+        flexDirection: { xs: "row", lg: "column" },
         justifyContent: "center",
-        gap: "10px",
+        gap: { xs: "30px", lg: "10px" },
+        backgroundColor: { xs: "#121212", lg: "transparent" },
+        zIndex: 1338,
       }}>
       <Tooltip title={"Home"} placement="right" arrow>
         <IconButton size="large">
