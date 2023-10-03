@@ -1,5 +1,12 @@
 import { Home, Logout, Search, Settings } from "@mui/icons-material";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
+
+const icons = [
+  { icon: <Home />, description: "Home" },
+  { icon: <Search />, description: "Search" },
+  { icon: <Settings />, description: "Settings" },
+  { icon: <Logout />, description: "Logout" },
+];
 
 const SideNav = () => {
   return (
@@ -12,23 +19,17 @@ const SideNav = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        gap: "10px"
+        gap: "10px",
       }}>
-      <IconButton size="large">
-        <Home />
-      </IconButton>
+      {icons.map((iconProps) => {
+        const { icon, description } = iconProps;
 
-      <IconButton size="large">
-        <Search />
-      </IconButton>
-
-      <IconButton size="large">
-        <Settings />
-      </IconButton>
-
-      <IconButton size="large">
-        <Logout />
-      </IconButton>
+        return (
+          <Tooltip title={description} placement="right" key={description} arrow>
+            <IconButton size="large">{icon}</IconButton>
+          </Tooltip>
+        );
+      })}
     </Box>
   );
 };
