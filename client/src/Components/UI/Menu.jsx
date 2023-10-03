@@ -34,12 +34,14 @@ const menuStyles = {
 };
 
 const Menu = () => {
-  const isVisible = useSelector((state) => state.menu.isVisible);
+  const menuVisiblity = useSelector((state) => state.menu.isVisible);
+  const params = useParams();
+
+  const isNotUserAccount = Boolean(params.name);
+  const isVisible = menuVisiblity && !isNotUserAccount;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
-  const isNotUserAccount = Boolean(params.name);
 
   const logout = () => {
     localStorage.removeItem("token");
