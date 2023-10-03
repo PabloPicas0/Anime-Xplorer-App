@@ -1,7 +1,11 @@
 import { Home, Logout, Search, Settings } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
 
+import { useSelector } from "react-redux";
+
 const SideNav = () => {
+  const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
+  
   return (
     <Box
       component={"aside"}
@@ -15,7 +19,7 @@ const SideNav = () => {
         flexDirection: { xs: "row", lg: "column" },
         justifyContent: "center",
         gap: { xs: "30px", lg: "10px" },
-        backgroundColor: { xs: "#121212", lg: "transparent" },
+        backgroundColor: { xs: darkMode ? "#121212" : "#fafafa", lg: "transparent" },
         zIndex: 1338,
       }}>
       <Tooltip title={"Home"} placement="right" arrow>
