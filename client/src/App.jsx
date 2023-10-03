@@ -55,7 +55,7 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      <SideNav />
+      {name ? <SideNav /> : null}
 
       <div id="detail">
         <Outlet />
