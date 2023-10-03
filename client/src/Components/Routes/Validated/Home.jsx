@@ -37,6 +37,8 @@ const homeStyles = {
     minHeight: "calc(100vh - 64px)",
   },
   filters: {
+    display: "flex",
+    justifyContent: "end",
     textAlign: "end",
     margin: "20px 0px",
   },
