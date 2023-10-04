@@ -55,7 +55,7 @@ function App() {
         </Toolbar>
       </AppBar>
 
-      {name ? <SideNav /> : null}
+      {name && isAuthenticated ? <SideNav /> : null}
 
       <div id="detail">
         <Outlet />
