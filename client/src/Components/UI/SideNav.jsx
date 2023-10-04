@@ -1,11 +1,24 @@
 import { Home, Logout, Search, Settings } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
 
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { handleReset } from "../Redux/Slices/profileSclice";
+import CustomSearchInput from "./CustomSearchInput";
 
 const SideNav = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
-  
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    dispatch(handleReset());
+    navigate("/");
+  };
+
   return (
     <Box
       component={"aside"}
@@ -22,29 +35,37 @@ const SideNav = () => {
         backgroundColor: { xs: darkMode ? "#121212" : "#fafafa", lg: "transparent" },
         zIndex: 1338,
       }}>
-      <Tooltip title={"Home"} placement="right" arrow>
-        <IconButton size="large">
-          <Home />
-        </IconButton>
-      </Tooltip>
+      <div>
+        <Link to={"/home"}>
+          <Tooltip title={"Home"} placement="right" arrow>
+            <IconButton size="large">
+              <Home />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      </div>
 
-      <Tooltip title={"Search"} placement="right" arrow>
-        <IconButton size="large">
-          <Search />
-        </IconButton>
-      </Tooltip>
+      <Box display={{ xs: "none", md: "block" }}>
+        <CustomSearchInput placement={"right"} />
+      </Box>
 
-      <Tooltip title={"Settings"} placement="right" arrow>
-        <IconButton size="large">
-          <Settings />
-        </IconButton>
-      </Tooltip>
+      <div>
+        <Link to={"/settings"}>
+          <Tooltip title={"Settings"} placement="right" arrow>
+            <IconButton size="large">
+              <Settings />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      </div>
 
-      <Tooltip title={"Logout"} placement="right" arrow>
-        <IconButton size="large">
-          <Logout />
-        </IconButton>
-      </Tooltip>
+      <div>
+        <Tooltip title={"Logout"} placement="right" arrow>
+          <IconButton size="large" sx={{ justifyContent: "start" }} onClick={logout}>
+            <Logout />
+          </IconButton>
+        </Tooltip>
+      </div>
     </Box>
   );
 };
