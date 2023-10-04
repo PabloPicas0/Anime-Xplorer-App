@@ -17,6 +17,7 @@ const rootStyles = {
   toolbar: {
     justifyContent: "space-around",
     alignItems: "stretch",
+    minHeight: "64px"
   },
   blue: {
     backgroundColor: "#2b2d42",
