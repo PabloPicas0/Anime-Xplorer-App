@@ -62,7 +62,8 @@ const customSearchInputStyles = {
   },
 };
 
-const CustomSearchInput = () => {
+const CustomSearchInput = (props) => {
+  const { placement } = props;
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [userName, setUserName] = useState("");
 
@@ -72,7 +73,7 @@ const CustomSearchInput = () => {
   const users = useSearch(userName);
   const customSearch = useRef(null);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -100,7 +101,7 @@ const CustomSearchInput = () => {
           <Divider orientation="vertical" sx={customSearchInputStyles.divider} />
         </Collapse>
 
-        <Tooltip TransitionComponent={Zoom} title="Search" arrow>
+        <Tooltip TransitionComponent={Zoom} title="Search" placement={placement} arrow>
           <IconButton
             size="large"
             onClick={() => {
@@ -112,7 +113,7 @@ const CustomSearchInput = () => {
         </Tooltip>
       </Paper>
 
-      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} transition>
+      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} sx={{zIndex: 1338}} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
             <MenuList
@@ -124,7 +125,10 @@ const CustomSearchInput = () => {
               <Divider />
 
               <MenuItem sx={customSearchInputStyles.menuItem}>
-                <Link style={customSearchInputStyles.link} to={`/user/${users}`} onClick={() => dispatch(handleVisibility(false))}>
+                <Link
+                  style={customSearchInputStyles.link}
+                  to={`/user/${users}`}
+                  onClick={() => dispatch(handleVisibility(false))}>
                   <Avatar alt={users} sx={{ width: 34, height: 34 }}>
                     <Person />
                   </Avatar>
