@@ -72,6 +72,7 @@ const CustomSearchInput = (props) => {
 
   const users = useSearch(userName);
   const customSearch = useRef(null);
+  console.log(customSearch)
 
   const dispatch = useDispatch();
 
@@ -113,7 +114,7 @@ const CustomSearchInput = (props) => {
         </Tooltip>
       </Paper>
 
-      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} sx={{zIndex: 1338}} transition>
+      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} container={customSearch.current.parentNode}  sx={{zIndex: 1338}} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
             <MenuList
