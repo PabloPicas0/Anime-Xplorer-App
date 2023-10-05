@@ -119,7 +119,7 @@ const CustomSearchInput = (props) => {
         anchorEl={customSearch.current}
         open={Boolean((users && isSearchVisible) || (users && isAlwaysVisible))}
         container={customSearch.current?.parentNode}
-        sx={{ zIndex: 1338 }}
+        sx={{ zIndex: 1099 }}
         transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
