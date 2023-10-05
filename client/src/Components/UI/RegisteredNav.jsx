@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { handleUserSortingStatus } from "../Redux/Slices/profileSclice";
+import CustomSearchInput from "./CustomSearchInput";
 
 const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
 
@@ -39,6 +40,10 @@ const Registred = () => {
           </Button>
         );
       })}
+
+      <Box sx={{ display: { xs: "block", md: "none" }, width: "100%" }}>
+        <CustomSearchInput placement={"bottom"} isAlwaysVisible={true} />
+      </Box>
     </>
   );
 };
