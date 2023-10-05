@@ -46,7 +46,7 @@ const SideNav = () => {
       </div>
 
       <Box display={{ xs: "none", md: "block" }}>
-        <CustomSearchInput placement={"right"} />
+        <CustomSearchInput placement={"right"} isAlwaysVisible={false}/>
       </Box>
 
       <div>
