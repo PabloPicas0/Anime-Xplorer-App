@@ -8,7 +8,6 @@ const pages = ["All anime", "Currently watching", "Completed", "Plan to watch"];
 const registredStyles = {
   links: {
     display: { xs: "none", md: "inline-flex" },
-    color: "white",
     borderBottom: "1px solid transparent",
     borderRadius: 0,
   },
@@ -24,18 +23,19 @@ const Registred = () => {
   return (
     <>
       {pages.map((page) => {
+        const styles =
+          currentStatus === page
+            ? {
+                ...registredStyles.links,
+                borderBottom: `1px solid ${color.toLowerCase() === "white" ? "black" : "white"}`,
+              }
+            : { ...registredStyles.links };
+
         return (
           <Button
             key={page}
             onClick={() => dispatch(handleUserSortingStatus(page))}
-            sx={
-              currentStatus === page
-                ? {
-                    ...registredStyles.links,
-                    borderBottom: `1px solid ${color.toLowerCase() === "white" ? "black" : "white"}`,
-                  }
-                : { ...registredStyles.links }
-            }>
+            sx={{ ...styles, color: `${color.toLowerCase() === "white" ? "black" : "white"}` }}>
             {page}
           </Button>
         );
