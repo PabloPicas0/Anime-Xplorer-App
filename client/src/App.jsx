@@ -28,9 +28,6 @@ const rootStyles = {
   },
   white: {
     backgroundColor: "#fff",
-    "& button": {
-      color: "black",
-    },
   },
 };
 
