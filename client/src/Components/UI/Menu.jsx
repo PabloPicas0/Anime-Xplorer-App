@@ -83,7 +83,7 @@ const Menu = () => {
 
           <Grow in={isVisible}>
             <div>
-              <CustomSearchInput placement={"bottom"}/>
+              <CustomSearchInput placement={"bottom"} isAlwaysVisible={false}/>
             </div>
           </Grow>
         </Box>
