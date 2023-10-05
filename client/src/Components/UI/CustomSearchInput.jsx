@@ -28,6 +28,8 @@ const customSearchInputStyles = {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
+    height: { xs: "100%", md: "auto" },
+    justifyContent: { xs: "center", md: "normal" },
   },
   colors: {
     white: "#fff",
@@ -63,7 +65,7 @@ const customSearchInputStyles = {
 };
 
 const CustomSearchInput = (props) => {
-  const { placement } = props;
+  const { placement, isAlwaysVisible } = props;
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [userName, setUserName] = useState("");
 
@@ -72,7 +74,6 @@ const CustomSearchInput = (props) => {
 
   const users = useSearch(userName);
   const customSearch = useRef(null);
-  console.log(customSearch)
 
   const dispatch = useDispatch();
 
@@ -81,13 +82,13 @@ const CustomSearchInput = (props) => {
       <Paper
         ref={customSearch}
         component={"form"}
-        elevation={isSearchVisible ? 3 : 0}
+        elevation={isSearchVisible || isAlwaysVisible ? 3 : 0}
         sx={{
           ...customSearchInputStyles.paper,
           backgroundColor: mainColor,
         }}
         square>
-        <Collapse in={isSearchVisible} orientation="horizontal">
+        <Collapse in={isSearchVisible || isAlwaysVisible} orientation="horizontal">
           <InputBase
             type="search"
             placeholder="Find user"
@@ -98,7 +99,7 @@ const CustomSearchInput = (props) => {
           />
         </Collapse>
 
-        <Collapse in={isSearchVisible} orientation="horizontal">
+        <Collapse in={isSearchVisible || isAlwaysVisible} orientation="horizontal">
           <Divider orientation="vertical" sx={customSearchInputStyles.divider} />
         </Collapse>
 
@@ -114,7 +115,12 @@ const CustomSearchInput = (props) => {
         </Tooltip>
       </Paper>
 
-      <Popper anchorEl={customSearch.current} open={Boolean(users && isSearchVisible)} container={customSearch.current?.parentNode}  sx={{zIndex: 1338}} transition>
+      <Popper
+        anchorEl={customSearch.current}
+        open={Boolean((users && isSearchVisible) || (users && isAlwaysVisible))}
+        container={customSearch.current?.parentNode}
+        sx={{ zIndex: 1338 }}
+        transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps}>
             <MenuList
