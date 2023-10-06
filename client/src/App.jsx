@@ -31,9 +31,6 @@ const rootStyles = {
   },
 };
 
-// TODO //
-// Delete dubble search component on home route on mobile devices //  
-
 function App() {
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
   const profileOptions = useSelector((state) => state.profile.profileFields.options[0]);
