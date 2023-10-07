@@ -20,6 +20,7 @@ import Card from "../../UI/Card";
 import UserMenu from "../../UI/Menu";
 import Sort from "../../UI/Sort";
 import Filter from "../../UI/Filter";
+import Statistics from "../../UI/Statistics";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLoaderData, useNavigate, useParams } from "react-router-dom";
@@ -41,9 +42,6 @@ const homeStyles = {
     justifyContent: "end",
     textAlign: "end",
     margin: "20px 0px",
-  },
-  filterButtonSpacing: {
-    marginRight: "15px",
   },
   selectForm: {
     display: { xs: "inline-flex", md: "none" },
@@ -207,23 +205,7 @@ const Home = () => {
           </FormControl>
 
           <Box sx={homeStyles.filters}>
-            <>
-              <Button
-                startIcon={
-                  <BarChartSharp
-                    sx={{
-                      color: darkMode ? "#fff" : "rgba(0, 0, 0, 0.54)",
-                    }}
-                  />
-                }
-                sx={{
-                  ...homeStyles.filterButtonSpacing,
-                  color: darkMode ? "#fff" : homeStyles.colors.washedBlack,
-                }}>
-                Statistics
-              </Button>
-            </>
-
+            <Statistics />
             <Filter />
             <Sort setSortOrder={setSortOrder} />
           </Box>
