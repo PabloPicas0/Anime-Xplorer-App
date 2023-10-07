@@ -7,6 +7,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleReset } from "../Redux/Slices/profileSclice";
 import CustomSearchInput from "./CustomSearchInput";
 
+const sideNavStyles = {
+  container: {
+    position: "fixed",
+    top: { xs: "auto", lg: 0 },
+    bottom: 0,
+    right: { xs: 0, lg: "auto" },
+    left: 0,
+    display: "flex",
+    flexDirection: { xs: "row", lg: "column" },
+    justifyContent: "center",
+    gap: { xs: "30px", lg: "10px" },
+    zIndex: 1099,
+  },
+};
+
 const SideNav = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
 
@@ -23,17 +38,8 @@ const SideNav = () => {
     <Box
       component={"aside"}
       sx={{
-        position: "fixed",
-        top: { xs: "auto", lg: 0 },
-        bottom: 0,
-        right: { xs: 0, lg: "auto" },
-        left: 0,
-        display: "flex",
-        flexDirection: { xs: "row", lg: "column" },
-        justifyContent: "center",
-        gap: { xs: "30px", lg: "10px" },
+        ...sideNavStyles.container,
         backgroundColor: { xs: darkMode ? "#121212" : "#fafafa", lg: "transparent" },
-        zIndex: 1338,
       }}>
       <div>
         <Link to={"/home"}>
@@ -46,7 +52,7 @@ const SideNav = () => {
       </div>
 
       <Box display={{ xs: "none", md: "block" }}>
-        <CustomSearchInput placement={"right"} isAlwaysVisible={false}/>
+        <CustomSearchInput placement={"right"} isAlwaysVisible={false} />
       </Box>
 
       <div>
