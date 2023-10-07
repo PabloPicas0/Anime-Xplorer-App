@@ -1,5 +1,14 @@
 import { BarChartSharp, Close } from "@mui/icons-material";
-import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Slide, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Slide,
+  Typography,
+} from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -23,10 +32,28 @@ const statisticsStyles = {
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
+  const list = useSelector((state) => state.profile.profileFields.list);
 
   const { name } = useParams();
 
   const [openStatistics, setOpenStatistic] = useState(false);
+
+  const statusRatioDatast = Object.values(
+    list.reduce((acc, anime) => {
+      const status = anime.animeStatus.replace(/\s/g, "");
+
+      acc[status] = {
+        value: acc[status]?.value + 1 || 1,
+        label: anime.animeStatus,
+      };
+
+      return acc;
+    }, {})
+  ).map((status, index) => {
+    const { value, label } = status;
+
+    return { id: index, value: value, label: label };
+  });
 
   return (
     <>
@@ -60,7 +87,8 @@ const Statistics = () => {
 
         <DialogTitle textAlign={"center"}> {name || username} Stats</DialogTitle>
 
-        <DialogContent sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", placeItems: "center" }}>
+        <DialogContent
+          sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, placeItems: "center" }}>
           <Box>
             <Typography textAlign={"center"}>Anime rating ratio</Typography>
 
@@ -91,12 +119,7 @@ const Statistics = () => {
             <PieChart
               series={[
                 {
-                  data: [
-                    { id: 0, value: 10, label: "Currently Watching" },
-                    { id: 1, value: 15, label: "Plan to watch" },
-                    { id: 2, value: 20, label: "Completed" },
-                    { id: 3, value: 45, label: "All anime" },
-                  ],
+                  data: statusRatioDatast,
                   innerRadius: 30,
                   outerRadius: 100,
                   paddingAngle: 5,
@@ -113,6 +136,7 @@ const Statistics = () => {
           </Box>
 
           <Box>
+            <Typography textAlign={"center"}>Episodes watched</Typography>
             <LineChart
               xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
               series={[
@@ -121,6 +145,7 @@ const Statistics = () => {
                   data: [2, 5.5, 2, 8.5, 1.5, 5],
                 },
               ]}
+              legend={{ hidden: true }}
               width={500}
               height={300}
             />
