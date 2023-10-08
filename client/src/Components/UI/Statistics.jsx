@@ -62,7 +62,7 @@ const Statistics = () => {
       acc[score] = {
         id: score,
         value: acc[score]?.value + 1 || 1,
-        label: `${score}/10`,
+        label: `${score}/5`,
       };
 
       return acc;
