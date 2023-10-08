@@ -179,4 +179,7 @@ const Statistics = () => {
   );
 };
 
+                // TODO //
+// Make responsive stats on mobile screens //
+
 export default Statistics;
