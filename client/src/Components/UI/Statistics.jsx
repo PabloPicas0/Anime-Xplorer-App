@@ -38,7 +38,7 @@ const Statistics = () => {
 
   const [openStatistics, setOpenStatistic] = useState(false);
 
-  const statusRatioDatast = Object.values(
+  const statusRatioDataset = Object.values(
     list.reduce((acc, anime) => {
       const status = anime.animeStatus.replace(/\s/g, "");
 
@@ -54,6 +54,20 @@ const Statistics = () => {
 
     return { id: index, value: value, label: label };
   });
+
+  const ratingRatioDataset = Object.values(
+    list.reduce((acc, anime) => {
+      const { score } = anime;
+
+      acc[score] = {
+        id: score,
+        value: acc[score]?.value + 1 || 1,
+        label: `${score}/10`,
+      };
+
+      return acc;
+    }, {})
+  );
 
   return (
     <>
@@ -95,9 +109,7 @@ const Statistics = () => {
             <PieChart
               series={[
                 {
-                  data: [...Array(10)].map((_, index) => {
-                    return { id: index, value: index + 1, label: `${index + 1}/10` };
-                  }),
+                  data: ratingRatioDataset,
                   innerRadius: 30,
                   outerRadius: 100,
                   paddingAngle: 5,
@@ -119,7 +131,7 @@ const Statistics = () => {
             <PieChart
               series={[
                 {
-                  data: statusRatioDatast,
+                  data: statusRatioDataset,
                   innerRadius: 30,
                   outerRadius: 100,
                   paddingAngle: 5,
