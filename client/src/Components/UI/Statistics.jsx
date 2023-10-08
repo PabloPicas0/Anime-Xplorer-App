@@ -13,7 +13,7 @@ import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -37,6 +37,19 @@ const Statistics = () => {
   const { name } = useParams();
 
   const [openStatistics, setOpenStatistic] = useState(false);
+
+  const xAxisScale = useMemo(() => {
+    const currentMonth = Number(new Date().toLocaleDateString("en-GB", { month: "numeric" }));
+    const months = [];
+
+    for (let i = 1; i <= currentMonth; i++) {
+      months.push(
+        new Date(`1995-${i < 10 ? "0" + i : i}-17T00:00:00`).toLocaleDateString("en-GB", { month: "short" })
+      );
+    }
+
+    return months;
+  }, []);
 
   const statusRatioDataset = Object.values(
     list.reduce((acc, anime) => {
@@ -148,13 +161,13 @@ const Statistics = () => {
           </Box>
 
           <Box>
-            <Typography textAlign={"center"}>Episodes watched</Typography>
+            <Typography textAlign={"center"}>Monthly watched episodes</Typography>
             <LineChart
-              xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+              xAxis={[{ scaleType: "band", data: xAxisScale }]}
               series={[
                 {
                   label: "Episodes watched",
-                  data: [2, 5.5, 2, 8.5, 1.5, 5],
+                  data: [2, 5.5, 2, 8.5, 1.5, 5, 1, 2, 3, 4],
                 },
               ]}
               legend={{ hidden: true }}
@@ -179,7 +192,8 @@ const Statistics = () => {
   );
 };
 
-                // TODO //
+// TODO //
 // Make responsive stats on mobile screens //
+// Change colors of chats //
 
 export default Statistics;
