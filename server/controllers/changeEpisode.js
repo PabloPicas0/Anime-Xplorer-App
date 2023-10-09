@@ -1,6 +1,10 @@
 const userModel = require("../models/User");
 
 const changeEpisode = async (req, res) => {
+  const currentYear = new Date().toLocaleDateString("en-GB", { year: "numeric" });
+  const currentMonth = new Date().toLocaleDateString("en-GB", {
+    month: "short",
+  });
   try {
     const { title, currentEpisode } = req.body;
     const { userId } = req.user;
@@ -14,10 +18,12 @@ const changeEpisode = async (req, res) => {
 
       if (animeName === title) {
         animeList[i].currentEpisode = currentEpisode;
+        user.metadata.monthWatchedEpisodes[currentYear][currentMonth] += 1;
         break;
       }
     }
 
+    user.markModified("metadata.monthWatchedEpisodes");
     await user.save();
 
     return res.status(200).json({
