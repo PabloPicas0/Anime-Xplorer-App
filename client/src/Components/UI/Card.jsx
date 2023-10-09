@@ -133,17 +133,19 @@ const Card = (props) => {
           <>
             <IconButton
               onClick={() => handleEpisodeChange(currentEpisode - 1)}
-              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }} disabled={isNotUserAccount}>
+              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }}
+              disabled={isNotUserAccount}>
               <Remove />
             </IconButton>
 
-            <Typography fontSize={17} sx={{marginRight: isNotUserAccount ? "50px" : "0px"}}>
+            <Typography fontSize={17} sx={{ marginRight: isNotUserAccount ? "50px" : "0px" }}>
               {currentEpisode}/{allEpisodes}
             </Typography>
 
             <IconButton
               onClick={() => handleEpisodeChange(currentEpisode + 1)}
-              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }} disabled={isNotUserAccount}>
+              sx={{ display: isNotUserAccount ? "none" : "inline-flex" }}
+              disabled={isNotUserAccount}>
               <Add />
             </IconButton>
           </>
@@ -163,5 +165,7 @@ const Card = (props) => {
     </Box>
   );
 };
+
+// TODO: Fix nextEp function it returns a string instead of number
 
 export default Card;
