@@ -70,13 +70,13 @@ const userSchema = new mongoose.Schema({
   metadata: {
     type: {
       monthWatchedEpisodes: { type: Object },
-      monthCompletedEpisodes: {type: Object}
+      monthCompletedTitles: { type: Object },
     },
     default: {
       monthWatchedEpisodes: {
         [new Date().toLocaleDateString("en-GB", { year: "numeric" })]: { ...months },
       },
-      monthCompletedEpisodes: {
+      monthCompletedTitles: {
         [new Date().toLocaleDateString("en-GB", { year: "numeric" })]: { ...months },
       },
     },
