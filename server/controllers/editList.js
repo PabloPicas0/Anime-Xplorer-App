@@ -1,6 +1,10 @@
 const userModel = require("../models/User");
+const getDate = require("../utils/getDate");
 
+// TODO: current version of saving monthly wathed episodes dont support multiple years which may cause bugs in future
 const editList = async (req, res) => {
+  const [currentYear, currentMonth] = getDate();
+
   try {
     const { title, currentEpisode, score, animeType, animeStatus } = req.body;
     const { userId } = req.user;
@@ -12,6 +16,15 @@ const editList = async (req, res) => {
       const { animeName } = animeList[i];
 
       if (animeName === title) {
+        if (animeList[i].currentEpisode < currentEpisode) {
+          const difference = currentEpisode - animeList[i].currentEpisode;
+
+          user.metadata.monthWatchedEpisodes[currentYear][currentMonth] += difference;
+        } else {
+          const difference = animeList[i].currentEpisode - currentEpisode;
+
+          user.metadata.monthWatchedEpisodes[currentYear][currentMonth] -= difference;
+        }
         animeList[i].currentEpisode = currentEpisode;
         animeList[i].score = score;
         animeList[i].animeType = animeType;
@@ -23,6 +36,7 @@ const editList = async (req, res) => {
       }
     }
 
+    user.markModified("metadata.monthWatchedEpisodes");
     await user.save();
 
     return res.status(200).json({
