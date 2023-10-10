@@ -1,10 +1,9 @@
 const userModel = require("../models/User");
+const getDate = require("../utils/getDate");
 
+// TODO: current version of saving monthly wathed episodes dont support multiple years which may cause bugs in future
 const changeEpisode = async (req, res) => {
-  const currentYear = new Date().toLocaleDateString("en-GB", { year: "numeric" });
-  const currentMonth = new Date().toLocaleDateString("en-GB", {
-    month: "short",
-  });
+  const [currentYear, currentMonth] = getDate();
   try {
     const { title, currentEpisode } = req.body;
     const { userId } = req.user;
@@ -17,8 +16,12 @@ const changeEpisode = async (req, res) => {
       const { animeName } = animeList[i];
 
       if (animeName === title) {
+        if (animeList[i].currentEpisode < currentEpisode) {
+          user.metadata.monthWatchedEpisodes[currentYear][currentMonth] += 1;
+        } else {
+          user.metadata.monthWatchedEpisodes[currentYear][currentMonth] -= 1;
+        }
         animeList[i].currentEpisode = currentEpisode;
-        user.metadata.monthWatchedEpisodes[currentYear][currentMonth] += 1;
         break;
       }
     }
