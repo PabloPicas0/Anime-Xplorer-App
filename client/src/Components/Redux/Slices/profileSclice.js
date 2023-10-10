@@ -112,7 +112,7 @@ export const profileSlice = createSlice({
         case "editList":
           state.profileFields.list = list.map((anime) => {
             if (anime.animeName === data.title) {
-              anime.currentEpisode = data.newEp;
+              anime.currentEpisode = data.currentEpisode;
               anime.score = data.score;
               anime.animeType = data.animeType;
               anime.animeStatus = data.animeStatus;
