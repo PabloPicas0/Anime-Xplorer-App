@@ -119,7 +119,6 @@ const Home = () => {
   const showBy = useSelector((state) => state.profile.showBy);
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
-  const darkMode = useSelector((state) => state.profile.profileFields.options[0]?.darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
 
   const isUserAccount = name === username;
