@@ -12,6 +12,7 @@ import {
 import { LineChart } from "@mui/x-charts/LineChart";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { BarChart } from "@mui/x-charts/BarChart";
+import { cheerfulFiestaPalette, mangoFusionPalette } from "@mui/x-charts/colorPalettes";
 
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -29,6 +30,10 @@ const statisticsStyles = {
   },
 };
 // TODO: change colors of each statistic
+
+// TODO //
+// Make responsive stats on mobile screens //
+// Change colors of chats //
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
@@ -120,6 +125,7 @@ const Statistics = () => {
             <Typography textAlign={"center"}>Anime rating ratio</Typography>
 
             <PieChart
+              colors={mangoFusionPalette}
               series={[
                 {
                   data: ratingRatioDataset,
@@ -142,6 +148,7 @@ const Statistics = () => {
             <Typography textAlign={"center"}>Anime status ratio</Typography>
 
             <PieChart
+            colors={cheerfulFiestaPalette}
               series={[
                 {
                   data: statusRatioDataset,
@@ -191,9 +198,5 @@ const Statistics = () => {
     </>
   );
 };
-
-// TODO //
-// Make responsive stats on mobile screens //
-// Change colors of chats //
 
 export default Statistics;
