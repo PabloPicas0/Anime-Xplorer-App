@@ -28,7 +28,7 @@ const statisticsStyles = {
     hoverPurple: "rgb(243, 234, 251)",
   },
 };
-
+// TODO: change colors of each statistic
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
