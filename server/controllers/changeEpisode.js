@@ -4,6 +4,7 @@ const getDate = require("../utils/getDate");
 // TODO: current version of saving monthly wathed episodes dont support multiple years which may cause bugs in future
 const changeEpisode = async (req, res) => {
   const [currentYear, currentMonth] = getDate();
+
   try {
     const { title, currentEpisode } = req.body;
     const { userId } = req.user;
