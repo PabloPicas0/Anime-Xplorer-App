@@ -37,6 +37,8 @@ const statisticsStyles = {
 };
 
 // TODO:  Make responsive stats on mobile screens //
+// TODO:  Style skeleton to match charts //
+// TODO:  Display fetched data on charts //
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
