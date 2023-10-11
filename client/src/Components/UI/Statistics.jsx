@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Skeleton,
   Slide,
   Typography,
 } from "@mui/material";
@@ -40,6 +41,7 @@ const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
   const list = useSelector((state) => state.profile.profileFields.list);
+  const isLoading = useSelector((state) => state.statistics.isStatisticsLoading);
 
   const { name } = useParams();
 
@@ -50,6 +52,7 @@ const Statistics = () => {
 
   const handleStatistics = async () => {
     setOpenStatistic(true);
+    dispatch(handleStatisticsLoading(true));
     try {
       const request = await fetch(`${url}/api/list/statistics`, {
         method: "PUT",
@@ -151,82 +154,108 @@ const Statistics = () => {
 
         <DialogContent
           sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, placeItems: "center" }}>
-          <Box>
-            <Typography textAlign={"center"} marginBottom={"30px"}>
-              Anime rating ratio
-            </Typography>
+          {isLoading ? (
+            <>
+              <Box>
+                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+                <Skeleton variant="circular" width={210} height={210} />
+              </Box>
 
-            <PieChart
-              colors={mangoFusionPalette}
-              series={[
-                {
-                  data: ratingRatioDataset,
-                  innerRadius: 30,
-                  outerRadius: 100,
-                  paddingAngle: 5,
-                  cornerRadius: 5,
-                  startAngle: -90,
-                  endAngle: 270,
-                  cx: 350,
-                },
-              ]}
-              legend={{ hidden: true }}
-              width={700}
-              height={200}
-            />
-          </Box>
+              <Box>
+                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+                <Skeleton variant="circular" width={210} height={210} />
+              </Box>
 
-          <Box>
-            <Typography textAlign={"center"} marginBottom={"30px"}>
-              Anime status ratio
-            </Typography>
+              <Box>
+                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+                <Skeleton variant="rectangular" width={210} height={118} />
+              </Box>
 
-            <PieChart
-              colors={cheerfulFiestaPalette}
-              series={[
-                {
-                  data: statusRatioDataset,
-                  innerRadius: 30,
-                  outerRadius: 100,
-                  paddingAngle: 5,
-                  cornerRadius: 5,
-                  startAngle: -90,
-                  endAngle: 270,
-                  cx: 350,
-                },
-              ]}
-              legend={{ hidden: true }}
-              width={700}
-              height={200}
-            />
-          </Box>
+              <Box>
+                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+                <Skeleton variant="rectangular" width={210} height={118} />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box>
+                <Typography textAlign={"center"} marginBottom={"30px"}>
+                  Anime rating ratio
+                </Typography>
 
-          <Box>
-            <Typography textAlign={"center"}>Monthly watched episodes</Typography>
-            <LineChart
-              xAxis={[{ scaleType: "band", data: xAxisScale }]}
-              series={[
-                {
-                  label: "Episodes watched",
-                  data: [2, 5.5, 2, 8.5, 1.5, 5, 1, 2, 3, 4],
-                },
-              ]}
-              legend={{ hidden: true }}
-              width={500}
-              height={300}
-            />
-          </Box>
+                <PieChart
+                  colors={mangoFusionPalette}
+                  series={[
+                    {
+                      data: ratingRatioDataset,
+                      innerRadius: 30,
+                      outerRadius: 100,
+                      paddingAngle: 5,
+                      cornerRadius: 5,
+                      startAngle: -90,
+                      endAngle: 270,
+                      cx: 350,
+                    },
+                  ]}
+                  legend={{ hidden: true }}
+                  width={700}
+                  height={200}
+                />
+              </Box>
 
-          <Box>
-            <Typography textAlign={"center"}> Monthly completed anime</Typography>
+              <Box>
+                <Typography textAlign={"center"} marginBottom={"30px"}>
+                  Anime status ratio
+                </Typography>
 
-            <BarChart
-              xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
-              series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
-              width={500}
-              height={300}
-            />
-          </Box>
+                <PieChart
+                  colors={cheerfulFiestaPalette}
+                  series={[
+                    {
+                      data: statusRatioDataset,
+                      innerRadius: 30,
+                      outerRadius: 100,
+                      paddingAngle: 5,
+                      cornerRadius: 5,
+                      startAngle: -90,
+                      endAngle: 270,
+                      cx: 350,
+                    },
+                  ]}
+                  legend={{ hidden: true }}
+                  width={700}
+                  height={200}
+                />
+              </Box>
+
+              <Box>
+                <Typography textAlign={"center"}>Monthly watched episodes</Typography>
+                <LineChart
+                  xAxis={[{ scaleType: "band", data: xAxisScale }]}
+                  series={[
+                    {
+                      label: "Episodes watched",
+                      data: [2, 5.5, 2, 8.5, 1.5, 5, 1, 2, 3, 4],
+                    },
+                  ]}
+                  legend={{ hidden: true }}
+                  width={500}
+                  height={300}
+                />
+              </Box>
+
+              <Box>
+                <Typography textAlign={"center"}> Monthly completed anime</Typography>
+
+                <BarChart
+                  xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
+                  series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                  width={500}
+                  height={300}
+                />
+              </Box>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </>
