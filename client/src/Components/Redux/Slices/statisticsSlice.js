@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const statisticsSlice = createSlice({
   name: "statisticsSlice",
   initialState: {
-    isStatisticsLoading: true,
+    isStatisticsLoading: false,
     statistics: [],
   },
   reducers: {
