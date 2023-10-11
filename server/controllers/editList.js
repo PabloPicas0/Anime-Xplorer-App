@@ -12,6 +12,8 @@ const editList = async (req, res) => {
     const user = await userModel.findById(userId);
     const { animeList } = user;
 
+    if (animeStatus === "Completed") user.metadata.monthCompletedTitles[currentYear][currentMonth] += 1;
+
     for (let i = 0; i < animeList.length; i++) {
       const { animeName } = animeList[i];
 
@@ -37,6 +39,7 @@ const editList = async (req, res) => {
     }
 
     user.markModified("metadata.monthWatchedEpisodes");
+    user.markModified("metadata.monthCompletedTitles");
     await user.save();
 
     return res.status(200).json({
