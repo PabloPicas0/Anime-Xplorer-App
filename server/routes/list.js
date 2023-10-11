@@ -9,6 +9,7 @@ const authUser = require("../middleware/authUser");
 const changeEpisode = require("../controllers/changeEpisode");
 const editList = require("../controllers/editList");
 const deleteEntry = require("../controllers/deleteEntry");
+const sendStatistics = require("../controllers/sendStatistics");
 
 const userModel = require("../models/User");
 
@@ -43,5 +44,6 @@ router.put("/", authUser, findScore, findDate, findType, findTitle, sendToUser);
 router.put("/episodes", authUser, changeEpisode);
 router.put("/edit", authUser, editList);
 router.delete("/delete", authUser, deleteEntry);
+router.put("/statistics", authUser, sendStatistics);
 
 module.exports = router;
