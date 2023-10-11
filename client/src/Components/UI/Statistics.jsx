@@ -16,7 +16,12 @@ import { cheerfulFiestaPalette, mangoFusionPalette } from "@mui/x-charts/colorPa
 
 import { useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { handleStatisticsData, handleStatisticsLoading } from "../Redux/Slices/statisticsSlice";
+
+import useErrorHandler from "../Utils/useErrorHandler";
+import url from "../Utils/api";
 
 const statisticsStyles = {
   filterButtonSpacing: {
@@ -29,11 +34,8 @@ const statisticsStyles = {
     hoverPurple: "rgb(243, 234, 251)",
   },
 };
-// TODO: change colors of each statistic
 
-// TODO //
-// Make responsive stats on mobile screens //
-// Change colors of chats //
+// TODO:  Make responsive stats on mobile screens //
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
@@ -42,6 +44,32 @@ const Statistics = () => {
   const { name } = useParams();
 
   const [openStatistics, setOpenStatistic] = useState(false);
+
+  const dispatch = useDispatch();
+  const errorHandler = useErrorHandler();
+
+  const handleStatistics = async () => {
+    setOpenStatistic(true);
+    try {
+      const request = await fetch(`${url}/api/list/statistics`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: `username=${name || username}`,
+      });
+
+      const response = await request.json();
+      console.log(response);
+      errorHandler(response);
+      dispatch(handleStatisticsData([response.monthCompletedTitles, response.monthWatchedEpisodes]));
+      dispatch(handleStatisticsLoading(false));
+    } catch (error) {
+      console.error(error);
+      dispatch(handleStatisticsLoading(true));
+    }
+  };
 
   const xAxisScale = useMemo(() => {
     const currentMonth = Number(new Date().toLocaleDateString("en-GB", { month: "numeric" }));
@@ -101,7 +129,9 @@ const Statistics = () => {
           ...statisticsStyles.filterButtonSpacing,
           color: darkMode ? "#fff" : statisticsStyles.colors.washedBlack,
         }}
-        onClick={() => setOpenStatistic(true)}>
+        onClick={() => {
+          handleStatistics();
+        }}>
         Statistics
       </Button>
 
@@ -122,7 +152,9 @@ const Statistics = () => {
         <DialogContent
           sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, placeItems: "center" }}>
           <Box>
-            <Typography textAlign={"center"}>Anime rating ratio</Typography>
+            <Typography textAlign={"center"} marginBottom={"30px"}>
+              Anime rating ratio
+            </Typography>
 
             <PieChart
               colors={mangoFusionPalette}
@@ -145,10 +177,12 @@ const Statistics = () => {
           </Box>
 
           <Box>
-            <Typography textAlign={"center"}>Anime status ratio</Typography>
+            <Typography textAlign={"center"} marginBottom={"30px"}>
+              Anime status ratio
+            </Typography>
 
             <PieChart
-            colors={cheerfulFiestaPalette}
+              colors={cheerfulFiestaPalette}
               series={[
                 {
                   data: statusRatioDataset,
@@ -184,7 +218,7 @@ const Statistics = () => {
           </Box>
 
           <Box>
-            <Typography textAlign={"center"}>Anime completed</Typography>
+            <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
             <BarChart
               xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
