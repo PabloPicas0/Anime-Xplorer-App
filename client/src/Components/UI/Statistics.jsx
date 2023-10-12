@@ -22,6 +22,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleStatisticsData, handleStatisticsLoading } from "../Redux/Slices/statisticsSlice";
 
 import useErrorHandler from "../Utils/useErrorHandler";
+import { handleError } from "../Redux/Slices/statusSlice";
+
 import url from "../Utils/api";
 
 const statisticsStyles = {
@@ -36,8 +38,6 @@ const statisticsStyles = {
   },
 };
 
-// TODO:  Make responsive stats on mobile screens //
-// TODO:  Style skeleton to match charts //
 // TODO:  Display fetched data on charts //
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
@@ -67,12 +67,17 @@ const Statistics = () => {
 
       const response = await request.json();
       console.log(response);
+
       errorHandler(response);
       dispatch(handleStatisticsData([response.monthCompletedTitles, response.monthWatchedEpisodes]));
       dispatch(handleStatisticsLoading(false));
     } catch (error) {
       console.error(error);
+
       dispatch(handleStatisticsLoading(true));
+      dispatch(
+        handleError({ error: true, errorMessage: [{ msg: "Connection error. Please try again later." }] })
+      );
     }
   };
 
