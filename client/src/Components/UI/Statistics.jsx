@@ -163,23 +163,23 @@ const Statistics = () => {
           }}>
           {isLoading ? (
             <>
-              <Box>
-                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+              <Box sx={{ marginBottom: "30px" }}>
+                <Skeleton variant="text" sx={{ marginBottom: "20px" }} />
                 <Skeleton variant="circular" width={210} height={210} />
               </Box>
 
-              <Box>
-                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+              <Box sx={{ marginBottom: "30px" }}>
+                <Skeleton variant="text" sx={{ marginBottom: "20px" }} />
                 <Skeleton variant="circular" width={210} height={210} />
               </Box>
 
-              <Box>
-                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+              <Box sx={{ marginBottom: "30px" }}>
+                <Skeleton variant="text" sx={{ marginBottom: "20px" }} />
                 <Skeleton variant="rectangular" width={300} height={300} />
               </Box>
 
-              <Box>
-                <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
+              <Box sx={{ marginBottom: "30px" }}>
+                <Skeleton variant="text" sx={{ marginBottom: "20px" }} />
                 <Skeleton variant="rectangular" width={300} height={300} />
               </Box>
             </>
