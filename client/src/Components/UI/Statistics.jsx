@@ -155,7 +155,12 @@ const Statistics = () => {
         <DialogTitle textAlign={"center"}> {name || username} Stats</DialogTitle>
 
         <DialogContent
-          sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, placeItems: "center" }}>
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+            placeItems: "center",
+            padding: { xs: 0, md: "0px 24px 20px 24px" },
+          }}>
           {isLoading ? (
             <>
               <Box>
@@ -170,18 +175,18 @@ const Statistics = () => {
 
               <Box>
                 <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
-                <Skeleton variant="rectangular" width={210} height={118} />
+                <Skeleton variant="rectangular" width={300} height={300} />
               </Box>
 
               <Box>
                 <Skeleton variant="text" sx={{ marginBottom: "30px" }} />
-                <Skeleton variant="rectangular" width={210} height={118} />
+                <Skeleton variant="rectangular" width={300} height={300} />
               </Box>
             </>
           ) : (
             <>
-              <Box>
-                <Typography textAlign={"center"} marginBottom={"30px"}>
+              <Box sx={{ width: "100%" }}>
+                <Typography textAlign={"center"} marginBottom={"20px"}>
                   Anime rating ratio
                 </Typography>
 
@@ -196,17 +201,16 @@ const Statistics = () => {
                       cornerRadius: 5,
                       startAngle: -90,
                       endAngle: 270,
-                      cx: 350,
                     },
                   ]}
                   legend={{ hidden: true }}
-                  width={700}
-                  height={200}
+                  height={300}
+                  margin={{ left: 95 }}
                 />
               </Box>
 
-              <Box>
-                <Typography textAlign={"center"} marginBottom={"30px"}>
+              <Box sx={{ width: "100%" }}>
+                <Typography textAlign={"center"} marginBottom={"20px"}>
                   Anime status ratio
                 </Typography>
 
@@ -221,16 +225,15 @@ const Statistics = () => {
                       cornerRadius: 5,
                       startAngle: -90,
                       endAngle: 270,
-                      cx: 350,
                     },
                   ]}
                   legend={{ hidden: true }}
-                  width={700}
-                  height={200}
+                  height={300}
+                  margin={{ left: 95 }}
                 />
               </Box>
 
-              <Box>
+              <Box sx={{ width: "100%" }}>
                 <Typography textAlign={"center"}>Monthly watched episodes</Typography>
                 <LineChart
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
@@ -241,18 +244,16 @@ const Statistics = () => {
                     },
                   ]}
                   legend={{ hidden: true }}
-                  width={500}
                   height={300}
                 />
               </Box>
 
-              <Box>
+              <Box sx={{ width: "100%" }}>
                 <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
                 <BarChart
                   xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
                   series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
-                  width={500}
                   height={300}
                 />
               </Box>
