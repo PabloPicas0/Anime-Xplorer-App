@@ -38,12 +38,13 @@ const statisticsStyles = {
   },
 };
 
-// TODO:  Display fetched data on charts //
 const Statistics = () => {
   const darkMode = useSelector((state) => state.profile.profileFields.options[0].darkMode);
   const username = useSelector((state) => state.profile.profileFields.username);
   const list = useSelector((state) => state.profile.profileFields.list);
   const isLoading = useSelector((state) => state.statistics.isStatisticsLoading);
+  const statistics = useSelector((state) => state.statistics.statistics);
+  const currentYear = new Date().toLocaleDateString("en-GB", { year: "numeric" });
 
   const { name } = useParams();
 
@@ -82,10 +83,9 @@ const Statistics = () => {
   };
 
   const xAxisScale = useMemo(() => {
-    const currentMonth = Number(new Date().toLocaleDateString("en-GB", { month: "numeric" }));
     const months = [];
 
-    for (let i = 1; i <= currentMonth; i++) {
+    for (let i = 1; i <= 12; i++) {
       months.push(
         new Date(`1995-${i < 10 ? "0" + i : i}-17T00:00:00`).toLocaleDateString("en-GB", { month: "short" })
       );
@@ -240,12 +240,14 @@ const Statistics = () => {
 
               <Box sx={{ width: "70%" }}>
                 <Typography textAlign={"center"}>Monthly watched episodes</Typography>
+
                 <LineChart
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
                   series={[
                     {
                       label: "Episodes watched",
-                      data: [2, 5.5, 2, 8.5, 1.5, 5, 1, 2, 3, 4],
+                      curve: "linear",
+                      data: Object.values(statistics[1] ? statistics[1][currentYear] : {}),
                     },
                   ]}
                   legend={{ hidden: true }}
@@ -257,8 +259,8 @@ const Statistics = () => {
                 <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
                 <BarChart
-                  xAxis={[{ scaleType: "band", data: ["group A", "group B", "group C"] }]}
-                  series={[{ data: [4, 3, 5] }, { data: [1, 6, 3] }, { data: [2, 5, 6] }]}
+                  xAxis={[{ scaleType: "band", data: xAxisScale }]}
+                  series={[{ data: Object.values(statistics[0] ? statistics[0][currentYear] : {}) }]}
                   height={300}
                 />
               </Box>
