@@ -191,7 +191,7 @@ const Statistics = () => {
           ) : (
             <>
               <Box sx={{ width: "100%" }}>
-                <Typography textAlign={"center"} marginBottom={"20px"}>
+                <Typography textAlign={"center"} marginBottom={"10px"}>
                   Anime rating ratio
                 </Typography>
 
@@ -215,7 +215,7 @@ const Statistics = () => {
               </Box>
 
               <Box sx={{ width: "100%" }}>
-                <Typography textAlign={"center"} marginBottom={"20px"}>
+                <Typography textAlign={"center"} marginBottom={"10px"}>
                   Anime status ratio
                 </Typography>
 
@@ -238,7 +238,7 @@ const Statistics = () => {
                 />
               </Box>
 
-              <Box sx={{ width: "100%" }}>
+              <Box sx={{ width: "70%" }}>
                 <Typography textAlign={"center"}>Monthly watched episodes</Typography>
                 <LineChart
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
@@ -253,7 +253,7 @@ const Statistics = () => {
                 />
               </Box>
 
-              <Box sx={{ width: "100%" }}>
+              <Box sx={{ width: "70%" }}>
                 <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
                 <BarChart
