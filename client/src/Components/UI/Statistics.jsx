@@ -243,6 +243,7 @@ const Statistics = () => {
                 <Typography textAlign={"center"}>Monthly watched episodes</Typography>
 
                 <LineChart
+                  yAxis={[{ tickMinStep: 1 }]}
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
                   series={[
                     {
