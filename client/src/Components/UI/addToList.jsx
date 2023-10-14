@@ -91,7 +91,7 @@ const AddToList = () => {
 
       const response = await request.json();
 
-      console.log(response);
+      // console.log(response);
 
       dispatch(
         handleError({
