@@ -1,7 +1,6 @@
 const userModel = require("../models/User");
 const getDate = require("../utils/getDate");
 
-// TODO: current version of saving monthly wathed episodes dont support multiple years which may cause bugs in future
 const changeEpisode = async (req, res) => {
   const [currentYear, currentMonth] = getDate();
 
@@ -9,7 +8,7 @@ const changeEpisode = async (req, res) => {
     const { title, currentEpisode } = req.body;
     const { userId } = req.user;
 
-    const user = await userModel.findById(userId);
+    const user = await userModel.findOne({ _id: userId });
 
     const { animeList } = user;
 
@@ -28,6 +27,7 @@ const changeEpisode = async (req, res) => {
     }
 
     user.markModified("metadata.monthWatchedEpisodes");
+    user.markModified("metadata.monthCompletedTitles"); // user schema has post hook that checks if we have new year and modifies this doc path
     await user.save();
 
     return res.status(200).json({
