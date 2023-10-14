@@ -68,7 +68,7 @@ const Statistics = () => {
       });
 
       const response = await request.json();
-      console.log(response);
+      // console.log(response);
 
       errorHandler(response);
       dispatch(handleStatisticsData([response.monthCompletedTitles, response.monthWatchedEpisodes]));
@@ -239,7 +239,7 @@ const Statistics = () => {
                 />
               </Box>
 
-              <Box sx={{ width: "70%" }}>
+              <Box sx={{ width: { xs: "100%", lg: "70%" } }}>
                 <Typography textAlign={"center"}>Monthly watched episodes</Typography>
 
                 <LineChart
@@ -257,13 +257,18 @@ const Statistics = () => {
                 />
               </Box>
 
-              <Box sx={{ width: "70%" }}>
+              <Box sx={{ width: { xs: "100%", lg: "70%" } }}>
                 <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
                 <BarChart
                   yAxis={[{ tickMinStep: 1 }]}
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
-                  series={[{ data: Object.values(statistics[0] ? statistics[0][currentYear] : {}) }]}
+                  series={[
+                    {
+                      label: "Completed titles",
+                      data: Object.values(statistics[0] ? statistics[0][currentYear] : {}),
+                    },
+                  ]}
                   height={300}
                 />
               </Box>
