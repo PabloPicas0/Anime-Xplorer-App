@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const getDate = require("../utils/getDate");
 
 const months = {};
 
@@ -81,6 +82,20 @@ const userSchema = new mongoose.Schema({
       },
     },
   },
+});
+
+userSchema.post("findOne", (doc) => {
+  if (!doc) return;
+
+  const docYears = Object.keys(doc.metadata.monthWatchedEpisodes);
+  const yearsLength = docYears.length - 1;
+  const lastYear = docYears[yearsLength];
+  const [currentYear] = getDate();
+
+  if (lastYear !== currentYear) {
+    doc.metadata.monthWatchedEpisodes[currentYear] = { ...months };
+    doc.metadata.monthCompletedTitles[currentYear] = { ...months };
+  }
 });
 
 const userModel = mongoose.model("userModel", userSchema);
