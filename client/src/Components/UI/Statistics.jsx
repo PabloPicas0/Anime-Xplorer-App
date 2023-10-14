@@ -269,6 +269,7 @@ const Statistics = () => {
                       data: Object.values(statistics[0] ? statistics[0][currentYear] : {}),
                     },
                   ]}
+                  legend={{ hidden: true }}
                   height={300}
                 />
               </Box>
