@@ -56,6 +56,7 @@ const Statistics = () => {
   const handleStatistics = async () => {
     setOpenStatistic(true);
     dispatch(handleStatisticsLoading(true));
+
     try {
       const request = await fetch(`${url}/api/list/statistics`, {
         method: "PUT",
@@ -259,6 +260,7 @@ const Statistics = () => {
                 <Typography textAlign={"center"}> Monthly completed anime</Typography>
 
                 <BarChart
+                  yAxis={[{ tickMinStep: 1 }]}
                   xAxis={[{ scaleType: "band", data: xAxisScale }]}
                   series={[{ data: Object.values(statistics[0] ? statistics[0][currentYear] : {}) }]}
                   height={300}
