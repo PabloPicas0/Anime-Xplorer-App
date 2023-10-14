@@ -1,7 +1,6 @@
 const userModel = require("../models/User");
 const getDate = require("../utils/getDate");
 
-// TODO: current version of saving monthly wathed episodes dont support multiple years which may cause bugs in future
 const editList = async (req, res) => {
   const [currentYear, currentMonth] = getDate();
 
@@ -9,7 +8,7 @@ const editList = async (req, res) => {
     const { title, currentEpisode, score, animeType, animeStatus } = req.body;
     const { userId } = req.user;
 
-    const user = await userModel.findById(userId);
+    const user = await userModel.findOne({ _id: userId });
     const { animeList } = user;
 
     if (animeStatus === "Completed") user.metadata.monthCompletedTitles[currentYear][currentMonth] += 1;
