@@ -17,7 +17,7 @@ import {
 
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useSearch from "../Utils/useSearch";
 
@@ -76,6 +76,7 @@ const CustomSearchInput = (props) => {
   const customSearch = useRef(null);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   return (
     <>
@@ -94,6 +95,12 @@ const CustomSearchInput = (props) => {
             placeholder="Find user"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (users && isSearchVisible) || (users && isAlwaysVisible)) {
+                e.preventDefault()
+                navigate(`/user/${users}`);
+              }
+            }}
             inputProps={customSearchInputStyles.input.inputProps}
             sx={customSearchInputStyles.input.inputStyles}
           />
