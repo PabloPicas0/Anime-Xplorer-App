@@ -23,6 +23,8 @@ import useSearch from "../Utils/useSearch";
 
 import { handleVisibility } from "../Redux/Slices/menuSlice";
 
+import PropTypes from "prop-types";
+
 const customSearchInputStyles = {
   paper: {
     padding: "2px 4px",
@@ -156,6 +158,11 @@ const CustomSearchInput = (props) => {
       </Popper>
     </>
   );
+};
+
+CustomSearchInput.propTypes = {
+  placement: PropTypes.string,
+  isAlwaysVisible: PropTypes.bool,
 };
 
 export default CustomSearchInput;
