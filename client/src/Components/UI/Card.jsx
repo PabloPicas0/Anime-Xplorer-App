@@ -3,6 +3,7 @@ import { Box, Button, IconButton, Rating, Typography } from "@mui/material";
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import url from "../Utils/api";
 
@@ -11,7 +12,8 @@ import { handleClientList } from "../Redux/Slices/profileSclice";
 
 import EditList from "./EditList";
 import useErrorHandler from "../Utils/useErrorHandler";
-import { useParams } from "react-router-dom";
+
+import PropTypes from "prop-types";
 
 const cardStyles = {
   container: {
@@ -166,6 +168,14 @@ const Card = (props) => {
   );
 };
 
-// TODO: Fix nextEp function it returns a string instead of number
+Card.propTypes = {
+  index: PropTypes.number,
+  animeName: PropTypes.string,
+  animeStatus: PropTypes.string,
+  currentEpisode: PropTypes.number,
+  allEpisodes: PropTypes.number,
+  score: PropTypes.number,
+  animeType: PropTypes.string,
+};
 
 export default Card;
