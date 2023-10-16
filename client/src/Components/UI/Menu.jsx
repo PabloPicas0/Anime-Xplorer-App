@@ -1,4 +1,4 @@
-import { Person, HomeOutlined, LogoutSharp, Settings, Add, Search } from "@mui/icons-material";
+import { Person, HomeOutlined, LogoutSharp, Settings, Add } from "@mui/icons-material";
 import { IconButton, Tooltip, Zoom, Grow, Box } from "@mui/material";
 
 import { Link, useNavigate, useParams } from "react-router-dom";

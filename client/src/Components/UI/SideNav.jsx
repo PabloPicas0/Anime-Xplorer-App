@@ -1,4 +1,4 @@
-import { Home, Logout, Search, Settings } from "@mui/icons-material";
+import { Home, Logout, Settings } from "@mui/icons-material";
 import { Box, IconButton, Tooltip } from "@mui/material";
 
 import { Link, useNavigate } from "react-router-dom";
