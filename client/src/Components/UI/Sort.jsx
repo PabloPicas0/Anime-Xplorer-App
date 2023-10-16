@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { handleSort } from "../Redux/Slices/menuSlice";
+
 import { Button, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import { North, SortSharp, South } from "@mui/icons-material";
+
 import { useRef } from "react";
+
+import PropTypes from "prop-types";
 
 const sortStyles = {
   colors: {
@@ -68,7 +72,7 @@ const Sort = (props) => {
             ? { color: sortStyles.colors.purple }
             : { color: darkMode ? "#fff" : sortStyles.colors.washedBlack }
         }
-        onClick={(e) => {
+        onClick={() => {
           dispatch(handleSort(true));
         }}>
         Sort
@@ -96,6 +100,10 @@ const Sort = (props) => {
       </Menu>
     </>
   );
+};
+
+Sort.propTypes = {
+  setSortOrder: PropTypes.any,
 };
 
 export default Sort;
