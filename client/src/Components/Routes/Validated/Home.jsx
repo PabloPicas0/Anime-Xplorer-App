@@ -14,7 +14,6 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
-import { BarChartSharp } from "@mui/icons-material";
 
 import Card from "../../UI/Card";
 import UserMenu from "../../UI/Menu";
