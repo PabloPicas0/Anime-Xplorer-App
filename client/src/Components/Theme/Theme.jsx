@@ -3,7 +3,9 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
-export const Theme = ({ children }) => {
+import PropTypes from "prop-types";
+
+const Theme = ({ children }) => {
   const options = useSelector((state) => state.profile.profileFields.options[0]);
 
   const theme = useMemo(
@@ -40,3 +42,9 @@ export const Theme = ({ children }) => {
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
+
+Theme.propTypes = {
+  children: PropTypes.node,
+};
+
+export default Theme;
