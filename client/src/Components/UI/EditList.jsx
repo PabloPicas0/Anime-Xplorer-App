@@ -26,6 +26,8 @@ import { handleError } from "../Redux/Slices/statusSlice";
 import { handleClientList } from "../Redux/Slices/profileSclice";
 import useErrorHandler from "../Utils/useErrorHandler";
 
+import PropTypes from "prop-types";
+
 const editListStyles = {
   dialogBody: {
     style: {
@@ -289,6 +291,17 @@ const EditList = (props) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+EditList.propTypes = {
+  isEditVisible: PropTypes.bool,
+  setIsEditVisible: PropTypes.any,
+  animeName: PropTypes.string,
+  animeStatus: PropTypes.string,
+  currentEpisode: PropTypes.number,
+  allEpisodes: PropTypes.number,
+  score: PropTypes.number,
+  animeType: PropTypes.string,
 };
 
 export default EditList;
