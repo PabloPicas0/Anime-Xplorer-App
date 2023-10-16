@@ -14,7 +14,7 @@ import Recover from "./Components/Routes//Unvalidated/Recover.jsx";
 import Home from "./Components/Routes/Validated/Home.jsx";
 import ChangePassowrd from "./Components/Routes/Validated/ChangePassword.jsx";
 
-import { Theme as ThemeProvider } from "./Components/Theme/Theme.jsx";
+import Theme from "./Components/Theme/Theme.jsx";
 import Settings from "./Components/Routes/Validated/Settings.jsx";
 
 import { Provider as StateProvider } from "react-redux";
@@ -82,11 +82,11 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <StateProvider store={store}>
-      <ThemeProvider>
+      <Theme>
         <ScopedCssBaseline enableColorScheme>
           <RouterProvider router={router} />
         </ScopedCssBaseline>
-      </ThemeProvider>
+      </Theme>
     </StateProvider>
   </React.StrictMode>
 );
