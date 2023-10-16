@@ -104,11 +104,12 @@ export const profileSlice = createSlice({
             return anime;
           });
           break;
-        case "addToList":
+        case "addToList": {
           const newList = [...list];
           newList.push(data);
           state.profileFields.list = newList;
           break;
+        }
         case "editList":
           state.profileFields.list = list.map((anime) => {
             if (anime.animeName === data.title) {
@@ -123,11 +124,12 @@ export const profileSlice = createSlice({
             return anime;
           });
           break;
-        case "deleteTitle":
+        case "deleteTitle": {
           const titleIndex = list.findIndex((title) => title.animeName === data);
           const updatedList = list.toSpliced(titleIndex, 1);
           state.profileFields.list = updatedList;
           break;
+        }
         default:
           state.profileFields.list = data;
       }
