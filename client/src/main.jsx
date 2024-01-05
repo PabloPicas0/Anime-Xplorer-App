@@ -24,36 +24,36 @@ import url from "./Components/Utils/api.js";
 
 const router = createHashRouter([
   {
-    path: "/Anime-Xplorer-App",
+    path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/Anime-Xplorer-App",
+        path: "/",
         element: <Landing />,
       },
       {
-        path: "/Anime-Xplorer-App/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/Anime-Xplorer-App/signup",
+        path: "signup",
         element: <SignUp />,
       },
       {
-        path: "/Anime-Xplorer-App/recover",
+        path: "recover",
         element: <Recover />,
       },
       {
-        path: "/Anime-Xplorer-App/recover/:userId",
+        path: "recover/:userId",
         element: <ChangePassowrd />,
       },
       {
-        path: "/Anime-Xplorer-App/home",
+        path: "home",
         element: <Home />,
       },
       {
-        path: "/Anime-Xplorer-App/user/:name",
+        path: "user/:name",
         loader: async ({ params }) => {
           const request = await fetch(`${url}/api/users`, {
             method: "PUT",
@@ -73,7 +73,7 @@ const router = createHashRouter([
     ],
   },
   {
-    path: "/Anime-Xplorer-App/settings",
+    path: "settings",
     element: <Settings />,
     errorElement: <ErrorPage />,
   },
