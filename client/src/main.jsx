@@ -24,36 +24,36 @@ import url from "./Components/Utils/api.js";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/Anime-Xplorer-App",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/",
+        path: "/Anime-Xplorer-App",
         element: <Landing />,
       },
       {
-        path: "/login",
+        path: "/Anime-Xplorer-App/login",
         element: <Login />,
       },
       {
-        path: "/signup",
+        path: "/Anime-Xplorer-App/signup",
         element: <SignUp />,
       },
       {
-        path: "/recover",
+        path: "/Anime-Xplorer-App/recover",
         element: <Recover />,
       },
       {
-        path: "/recover/:userId",
+        path: "/Anime-Xplorer-App/recover/:userId",
         element: <ChangePassowrd />,
       },
       {
-        path: "/home",
+        path: "/Anime-Xplorer-App/home",
         element: <Home />,
       },
       {
-        path: "/user/:name",
+        path: "/Anime-Xplorer-App/user/:name",
         loader: async ({ params }) => {
           const request = await fetch(`${url}/api/users`, {
             method: "PUT",
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/settings",
+    path: "/Anime-Xplorer-App/settings",
     element: <Settings />,
     errorElement: <ErrorPage />,
   },
