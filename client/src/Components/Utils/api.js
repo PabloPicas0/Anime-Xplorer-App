@@ -1,3 +1,3 @@
-const url = "http://localhost:1337";
+const url = "https://anime-explorer-server.glitch.me";
 
 export default url
