@@ -122,6 +122,7 @@ const Login = () => {
     } catch (error) {
       console.error(error);
 
+      setShowLocalMessage(false);
       dispatch(
         handleError({
           error: true,
