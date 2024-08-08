@@ -49,12 +49,17 @@ function App() {
   return (
     <>
       <AppBar component={"nav"} id="navbar" sx={rootStyles[color.toLowerCase()]}>
-        <Toolbar sx={{ ...rootStyles.toolbar, ...rootStyles[color.toLowerCase()] }}>
+        <Toolbar
+        style={{padding: isAuthenticated ? 0 : ""}}
+          sx={{
+            ...rootStyles.toolbar,
+            ...rootStyles[color.toLowerCase()],
+          }}>
           {isAuthenticated ? <Registred /> : <Unregistered />}
         </Toolbar>
       </AppBar>
 
-      {name && isAuthenticated ? <SideNav /> : null}
+      {name && isAuthenticated && <SideNav />}
 
       <div id="detail">
         <Outlet />

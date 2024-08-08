@@ -31,7 +31,7 @@ import HomeSkeleton from "../../UI/HomeSkeleton";
 
 const homeStyles = {
   container: {
-    margin: "64px auto 0px auto", // margin due to 64px height of navbar to prevent stacking - TO FIX mobile navbar have smaller height
+    margin: { xs: "52px auto 0px auto", sm: "64px auto 0px auto" }, // margin due to 64px height of navbar to prevent stacking - TO FIX mobile navbar have smaller height
     maxWidth: "1024px",
     padding: "3rem 10px",
     minHeight: "calc(100vh - 64px)",
