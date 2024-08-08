@@ -36,7 +36,7 @@ const Unregistered = () => {
 
   return (
     <>
-      <Typography variant="h6" component={"div"} alignSelf={"center"}>
+      <Typography component={"div"} alignSelf={"center"} fontSize={"1.1rem"}>
         AnimeExplorer
       </Typography>
 

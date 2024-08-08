@@ -15,10 +15,10 @@ import SideNav from "./Components/UI/SideNav";
 
 const rootStyles = {
   toolbar: {
-    justifyContent: { xs: "end", md: "space-around" },
+    justifyContent: { xs: "space-between", md: "space-around" },
     alignItems: "stretch",
-    minHeight: "64px",
-    paddingX: { xs: 0, md: "16px" },
+    minHeight: "45.5px",
+    paddingX: { xs: "32px", sm: "26px", md: "16px" },
   },
   blue: {
     backgroundColor: "#2b2d42",
