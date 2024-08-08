@@ -1,4 +1,5 @@
 import { Alert, Box, Button, Slide, TextField } from "@mui/material";
+import CachedOutlinedIcon from "@mui/icons-material/CachedOutlined";
 
 import { Form, Link, Navigate, useNavigate } from "react-router-dom";
 
@@ -40,6 +41,15 @@ const loginStyles = {
     position: "fixed",
     top: 70,
   },
+  alertInfo() {
+    return {
+      ...this.alert,
+      alignItems: "center",
+      ".MuiAlert-icon": {
+        animation: "rotate 1s linear infinite forwards",
+      },
+    };
+  },
 };
 
 const Login = () => {
@@ -57,6 +67,7 @@ const Login = () => {
       value: "",
     },
   ]);
+  const [showLocalMessage, setShowLocalMessage] = useState(false);
 
   const status = useSelector((state) => state.status);
   const isAuthenticated = useSelector((state) => state.profile.isAuthenticated);
@@ -74,6 +85,8 @@ const Login = () => {
   };
 
   const handleSubmit = async () => {
+    setShowLocalMessage(true);
+
     try {
       const reqest = await fetch(`${url}/api/login`, {
         method: "POST",
@@ -87,6 +100,7 @@ const Login = () => {
 
       // console.log(response);
 
+      setShowLocalMessage(false);
       dispatch(
         handleError({
           error: response.error,
@@ -125,6 +139,12 @@ const Login = () => {
         <Alert severity={status.error ? "error" : "success"} sx={loginStyles.alert}>
           {" "}
           {status.errorMessage[0].msg}
+        </Alert>
+      </Slide>
+
+      <Slide direction="down" in={showLocalMessage}>
+        <Alert severity={"info"} icon={<CachedOutlinedIcon />} sx={loginStyles.alertInfo()}>
+          Server is booting up. It can take to 10s.
         </Alert>
       </Slide>
 
