@@ -35,7 +35,7 @@ npm install
 cd Anime-Xplorer-App/client
 npm run dev
 
-The app should be running at: [http://localhost:3000](http://localhost:3000/)
+The app should be running at: http://localhost:3000
 ```
 ## Connect to Database
 To make app working locally you want to connect to your MangoDB or other database
